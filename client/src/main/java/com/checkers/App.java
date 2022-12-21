@@ -1,30 +1,34 @@
 package com.checkers;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 
-
-/**
- * JavaFX App
- */
-public class App extends Application {
-
-    @Override
-    public void start(Stage stage) {
-        var javaVersion = SystemInfo.javaVersion();
-        var javafxVersion = SystemInfo.javafxVersion();
-
-        var label = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        var scene = new Scene(new StackPane(label), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-    }
+public class App  {
 
     public static void main(String[] args) {
-        launch();
+
+        try {
+            Socket socket = new Socket("localhost", 58901);    
+            PrintWriter socketOutput = new PrintWriter(socket.getOutputStream());
+            Scanner socketInput = new Scanner(socket.getInputStream());
+            Scanner input = new Scanner(System.in);
+
+            while(input.hasNextLine()) {
+                String command = input.nextLine();
+                socketOutput.println(command);
+                String result = socketInput.nextLine();
+                System.out.println(result);
+            }
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }
