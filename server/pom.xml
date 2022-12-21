@@ -24,11 +24,6 @@
 
   <dependencies>
     <dependency>
-    <groupId>pwr.ina</groupId>
-    <artifactId>shared-lib</artifactId>
-    <version>1.0</version>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>

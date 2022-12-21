@@ -1,13 +1,13 @@
-package $pwr.ina;
+package com.checkers;
 
 /**
  * Hello world!
  *
  */
-public class Hello
+public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello!" );
+        System.out.println( "Hello World!" );
     }
 }
