@@ -21,25 +21,6 @@
   <packaging>pom</packaging>
       
   
-  <repositories>
-            
-    
-    <repository>
-                  
-      
-      <id>checkers-shared-repo</id>
-                  
-      
-      <url>file://${project.basedir}/checkers-shared-repo</url>
-                
-    
-    </repository>
-          
-  
-  </repositories>
-      
-  
-  
   <properties>
             
     
