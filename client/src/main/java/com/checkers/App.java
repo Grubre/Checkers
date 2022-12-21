@@ -12,7 +12,7 @@ public class App  {
 
         try {
             Socket socket = new Socket("localhost", 58901);    
-            PrintWriter socketOutput = new PrintWriter(socket.getOutputStream());
+            PrintWriter socketOutput = new PrintWriter(socket.getOutputStream(), true);
             Scanner socketInput = new Scanner(socket.getInputStream());
             Scanner input = new Scanner(System.in);
 

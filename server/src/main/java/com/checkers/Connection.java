@@ -26,17 +26,13 @@ public class Connection implements Runnable {
     public void run() {   
         System.out.println("Running user thread");
         try {
-            output = new PrintWriter(socket.getOutputStream());
+            output = new PrintWriter(socket.getOutputStream(), true);
             input = new Scanner(socket.getInputStream());
 
             while(input.hasNextLine()) {
-                System.out.println("Reading");
                 String command = input.nextLine();
-                System.out.println("Read");
                 String result = currentLobby.processMessage(command);
-                System.out.println("Sending");
                 output.println(result);
-                System.out.println("Sent");
             }
 
         } catch (IOException e) {
