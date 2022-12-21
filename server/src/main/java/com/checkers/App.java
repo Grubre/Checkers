@@ -10,11 +10,11 @@ public class App
 {
     public static void main( String[] args )
     {
-        Server server = new Server();
+        Server server = new Server(59801);
         try {
             server.start();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        }
+        catch(IOException e) {
             e.printStackTrace();
         }
     }

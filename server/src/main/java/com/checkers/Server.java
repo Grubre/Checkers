@@ -11,13 +11,24 @@ public class Server {
 
     MainLobby mainLobby = new MainLobby();
 
+    int port;
+
+    Server(int port) {
+        this.port = port;
+    }
+
     void start() throws IOException {
-        try (ServerSocket listener = new ServerSocket(58901)) {
+        try (ServerSocket listener = new ServerSocket(port)) {
             System.out.println("Started checkers server.");
             ExecutorService pool = Executors.newFixedThreadPool(200);
             while (true) {
-                pool.execute(new Connection(listener.accept(), mainLobby));
-                System.out.println("Connected user");
+                try {
+                    pool.execute(new Connection(listener.accept(), mainLobby));
+                    System.out.println("Connected user");
+                }
+                catch (IOException e) {
+                    System.out.println("Error while connecting user");
+                }
             }
         }
 
