@@ -35,7 +35,6 @@ public class App extends Application {
         Scene scene = new Scene(group, 500, 500, Color.WHITE);
 
         Grid grid = new Grid(8,8, new BasicVariant(8,8, new VisualCheckerFactory()));
-        grid.get_board().setup_board();
 
         group.getChildren().addAll(grid);
  

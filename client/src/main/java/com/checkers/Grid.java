@@ -1,14 +1,20 @@
 package com.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.checkers_core.AbstractPawn;
 import com.checkers_core.Board;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +33,7 @@ public class Grid extends GridPane {
         this.x_dim = x_dim;
         this.y_dim = y_dim;
         this.board = board;
+        board.setup_board();
 
         addRowsAndColumns();
 
@@ -34,17 +41,32 @@ public class Grid extends GridPane {
         {
             for(int i = 0; i < x_dim; i++)
             {
-                Rectangle rect = new Rectangle();
-                rect.setWidth(100);
-                rect.setHeight(100);
+                Region rect = new Region();
+                rect.setPrefHeight(100);
+                rect.setPrefWidth(100);
+                String css = getClass().getResource("checkerboard.css").toExternalForm();
+                this.getStylesheets().add(css);
+                rect.getStylesheets().add(css);
                 add(rect, i, j);
                 if((i + j) % 2 == 0)
                 {
-                    rect.setFill(Color.BROWN);
+                    rect.setId("white_rect");
                 }
                 else
                 {
-                    rect.setFill(Color.WHITE);
+                    rect.setId("black_rect");
+                }
+            }
+        }
+        AbstractPawn[][] fields = board.get_board();
+
+        for(int j = 0; j < y_dim; j++)
+        {
+            for(int i = 0; i < x_dim; i++)
+            {
+                if(fields[i][j] != null)
+                {
+                    add(((Checker)fields[i][j]).get_shape(), i, j);
                 }
             }
         }
@@ -76,6 +98,24 @@ public class Grid extends GridPane {
             rowConst.setPercentHeight(100.0 / y_dim);
             getRowConstraints().add(rowConst);
         }
+    }
+    
+    public <T extends Node> List<T> getCell(Class<T> conversion, int iIndex, int jIndex) {
+        List<T> children = new ArrayList<T>();
+        for(Node node : getChildren()) {
+            if(conversion.isInstance(node)) {   
+                if(getColumnIndex(node) == iIndex) {
+                    if(getRowIndex(node) == jIndex) {
+                        children.add(conversion.cast(node)); 
+                    }
+                }
+            }
+        }
+        return children;
+    }
+    
+    public <T extends Node> void removeCell(Class<T> clazz, int i, int j) {
+        getChildren().removeAll(getCell(clazz, i, j));
     }
 
     

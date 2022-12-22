@@ -1,0 +1,24 @@
+#white_rect {
+    -fx-background-color: white;
+  }
+#black_rect {
+    -fx-background-color: black;
+  }
+#white_rect:hover {
+  -fx-background-color: blue;
+}
+#black_rect:hover {
+  -fx-background-color: blue;
+}
+.white_pawn {
+  -fx-fill: gray;
+}
+.black_pawn {
+  -fx-fill: brown;
+}
+.white_pawn:hover {
+  -fx-fill: blue ;
+}
+.black_pawn:hover {
+  -fx-fill: blue ;
+}

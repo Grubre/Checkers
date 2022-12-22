@@ -13,11 +13,11 @@ public class Checker extends RegularPawn implements AbstractChecker {
         circle.setRadius(50);
         if(color == Color.BLACK)
         {
-            circle.setFill(javafx.scene.paint.Color.RED);
+            circle.getStyleClass().add("black_pawn");
         }
         else if(color == Color.WHITE)
         {
-            circle.setFill(javafx.scene.paint.Color.GRAY);
+            circle.getStyleClass().add("white_pawn");
         }
         //TODO Auto-generated constructor stub
     }
