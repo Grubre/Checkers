@@ -6,7 +6,7 @@ import com.checkers_core.Board.Color;
 
 public class RegularPawn extends AbstractPawn {
     
-    RegularPawn(Color color) {
+    public RegularPawn(Color color) {
         super(color);
     }
 

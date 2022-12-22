@@ -3,11 +3,12 @@ package com.checkers_core;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class BasicVariant extends Board {
-
-    BasicVariant(int x_dim, int y_dim)
+public class BasicVariant<pawn_fctry extends AbstractPawnFactory> extends Board {
+    AbstractPawnFactory pawnFactory;
+    public BasicVariant(int x_dim, int y_dim, AbstractPawnFactory pawnFactory)
     {
         super(x_dim, y_dim);
+        this.pawnFactory = pawnFactory;
     }
 
     @Override
@@ -15,9 +16,9 @@ public class BasicVariant extends Board {
         for (int j = 0; j < x_dim; j++) {
             for (int i = 0; i < y_dim; i++) {
                 if(j < 3 && (i + j) % 2 == 1)
-                    board[i][j] = new RegularPawn(Color.WHITE);
+                    board[i][j] = pawnFactory.create_regular(Color.WHITE);
                 else if(j > 4 && (i + j) % 2 == 1)
-                    board[i][j] = new RegularPawn(Color.BLACK);
+                    board[i][j] = pawnFactory.create_regular(Color.BLACK);
                 else
                     board[i][j] = null;
             }

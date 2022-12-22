@@ -22,7 +22,7 @@ public class RegularPawnTest {
     {
         int x_dim = 8, y_dim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.WHITE);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim);
+        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
 
         for (int j = 0; j < y_dim; j++) {
             for (int i = 0; i < x_dim; i++) {
@@ -39,7 +39,7 @@ public class RegularPawnTest {
     {
         int x_dim = 8, y_dim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.BLACK);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim);
+        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
 
         for (int j = 0; j < y_dim; j++) {
             for (int i = 0; i < x_dim; i++) {
@@ -56,7 +56,7 @@ public class RegularPawnTest {
     {
         int x_dim = 8, y_dim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.WHITE);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim);
+        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
 
         int white_cnt = 0;
 
@@ -75,7 +75,7 @@ public class RegularPawnTest {
     {
         int x_dim = 8, y_dim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.BLACK);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim);
+        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
 
         int black_cnt = 0;
 

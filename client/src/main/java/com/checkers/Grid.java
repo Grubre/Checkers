@@ -22,10 +22,11 @@ public class Grid extends GridPane {
 
     private Board board;
 
-    Grid(int x_dim, int y_dim)
+    Grid(int x_dim, int y_dim, Board board)
     {
         this.x_dim = x_dim;
         this.y_dim = y_dim;
+        this.board = board;
 
         addRowsAndColumns();
 
@@ -34,13 +35,17 @@ public class Grid extends GridPane {
             for(int i = 0; i < x_dim; i++)
             {
                 Rectangle rect = new Rectangle();
-                if((i + j) % 2 == 0)
-                    rect.setFill(Color.BROWN);
-                else
-                    rect.setFill(Color.WHITE);
                 rect.setWidth(100);
                 rect.setHeight(100);
                 add(rect, i, j);
+                if((i + j) % 2 == 0)
+                {
+                    rect.setFill(Color.BROWN);
+                }
+                else
+                {
+                    rect.setFill(Color.WHITE);
+                }
             }
         }
     }
@@ -82,4 +87,8 @@ public class Grid extends GridPane {
      * @return the height of the grid.
      */
     public int getY_dim(){return y_dim;}
+    /**
+     * @return the game board.
+     */
+    public Board get_board() { return board; }
 }

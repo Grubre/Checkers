@@ -1,5 +1,8 @@
 package com.checkers;
 
+import com.checkers_core.BasicPawnFactory;
+import com.checkers_core.BasicVariant;
+
 import javafx.animation.FillTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -31,7 +34,8 @@ public class App extends Application {
         
         Scene scene = new Scene(group, 500, 500, Color.WHITE);
 
-        Grid grid = new Grid(8,8);
+        Grid grid = new Grid(8,8, new BasicVariant(8,8, new VisualCheckerFactory()));
+        grid.get_board().setup_board();
 
         group.getChildren().addAll(grid);
  

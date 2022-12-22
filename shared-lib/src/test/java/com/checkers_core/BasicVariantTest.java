@@ -12,14 +12,14 @@ public class BasicVariantTest {
     {
         int x_dim = 8;
         int y_dim = 8;
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim);
+        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
         assertTrue(basicVariant.x_dim == x_dim);
         assertTrue(basicVariant.y_dim == y_dim);
     }
     @Test
     public void StartingBoardCntTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8);
+        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
         starting_board.setup_board();
         int pawn_cnt = 0;
         for (int j = 0; j < 8; j++) {
@@ -33,7 +33,7 @@ public class BasicVariantTest {
     @Test
     public void StartingBoardNoPawnsOnWhiteFieldsTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8);
+        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
         starting_board.setup_board();
         int white_field_pawn_cnt = 0;
         for (int j = 0; j < 8; j++) {
@@ -47,7 +47,7 @@ public class BasicVariantTest {
     @Test
     public void StartingBoardWhitePlacementTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8);
+        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
         starting_board.setup_board();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
@@ -60,7 +60,7 @@ public class BasicVariantTest {
     @Test
     public void StartingBoardBlackPlacementTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8);
+        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
         starting_board.setup_board();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
