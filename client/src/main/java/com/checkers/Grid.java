@@ -1,5 +1,7 @@
 package com.checkers;
 
+import com.checkers_core.Board;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;

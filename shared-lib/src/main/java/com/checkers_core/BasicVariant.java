@@ -1,11 +1,9 @@
-package com.checkers;
+package com.checkers_core;
 
 import java.util.HashMap;
 import java.util.Optional;
 
-import javax.lang.model.util.ElementScanner14;
-
-import com.checkers.Board.Color;
+import com.checkers_core.Board.Color;
 
 public class BasicVariant extends Board {
 

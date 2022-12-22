@@ -1,10 +1,10 @@
-package com.checkers;
+package com.checkers_core;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.checkers.Board.Color;
+import com.checkers_core.Board.Color;
 
 public class VariantsTest {
     @Test
