@@ -1,10 +1,19 @@
 package com.checkers.lobby;
 
-public class GameLobby implements AbstractLobby {
+import java.util.ArrayList;
+import java.util.List;
 
-    @Override
-    public String processMessage(String message) {
-        return "GameLobby got: " + message;
+import com.checkers.connection.ConnectionController;
+
+public class GameLobby {
+
+    List<ConnectionController> players = new ArrayList<ConnectionController>();
+
+    public void processMessage(String message) {
+
     }
-    
+
+    public void addPlayer(ConnectionController player) {
+        players.add(player);
+    }
 }
