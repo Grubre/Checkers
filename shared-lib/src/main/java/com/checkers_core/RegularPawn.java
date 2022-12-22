@@ -1,8 +1,8 @@
-package com.checkers;
+package com.checkers_core;
 
 import java.util.ArrayList;
 
-import com.checkers.Board.Color;
+import com.checkers_core.Board.Color;
 
 public class RegularPawn extends AbstractPawn {
     

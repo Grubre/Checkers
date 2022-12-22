@@ -1,4 +1,4 @@
-package com.checkers;
+package com.checkers_core;
 
 import java.util.HashMap;
 import java.util.Optional;
