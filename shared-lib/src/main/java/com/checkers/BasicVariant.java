@@ -3,10 +3,6 @@ package com.checkers;
 import java.util.HashMap;
 import java.util.Optional;
 
-import javax.lang.model.util.ElementScanner14;
-
-import com.checkers.Board.Color;
-
 public class BasicVariant extends Board {
 
     BasicVariant(int x_dim, int y_dim)

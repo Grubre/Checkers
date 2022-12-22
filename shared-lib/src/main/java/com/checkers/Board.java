@@ -9,7 +9,7 @@ public abstract class Board {
     };
 
     public class BoardPos{
-        BoardPos(int x, int y)
+        public BoardPos(int x, int y)
         {
             this.x = x;
             this.y = y;

@@ -6,15 +6,15 @@ import org.junit.Test;
 
 import com.checkers.Board.Color;
 
-public class VariantsTest {
+public class BasicVariantTest {
     @Test
     public void ConstructorTest()
     {
         int x_dim = 8;
         int y_dim = 8;
         BasicVariant basicVariant = new BasicVariant(x_dim, y_dim);
-        assert(basicVariant.x_dim == x_dim);
-        assert(basicVariant.y_dim == y_dim);
+        assertTrue(basicVariant.x_dim == x_dim);
+        assertTrue(basicVariant.y_dim == y_dim);
     }
     @Test
     public void StartingBoardCntTest()
@@ -28,7 +28,7 @@ public class VariantsTest {
                     pawn_cnt++;
             }
         }
-        assert(pawn_cnt == 24);
+        assertTrue(pawn_cnt == 24);
     }
     @Test
     public void StartingBoardNoPawnsOnWhiteFieldsTest()
@@ -42,7 +42,7 @@ public class VariantsTest {
                 white_field_pawn_cnt++;
             }
         }
-        assert(white_field_pawn_cnt == 0);
+        assertTrue(white_field_pawn_cnt == 0);
     }
     @Test
     public void StartingBoardWhitePlacementTest()
@@ -55,7 +55,7 @@ public class VariantsTest {
                     assert(false);
             }
         }
-        assert(true);
+        assertTrue(true);
     }
     @Test
     public void StartingBoardBlackPlacementTest()
@@ -68,6 +68,6 @@ public class VariantsTest {
                     assert(false);
             }
         }
-        assert(true);
+        assertTrue(true);
     }
 }
