@@ -20,7 +20,7 @@ public class Grid extends GridPane {
     private final int x_dim;
     private final int y_dim;
 
-    //private Board board;
+    private Board board;
 
     Grid(int x_dim, int y_dim)
     {
