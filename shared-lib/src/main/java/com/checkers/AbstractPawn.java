@@ -3,7 +3,7 @@ package com.checkers;
 import java.util.ArrayList;
 
 public abstract class AbstractPawn {
-    private Board.Color color;
+    protected Board.Color color;
 
     AbstractPawn(Board.Color color)
     {
@@ -20,6 +20,6 @@ public abstract class AbstractPawn {
         return otherPawn.get_color() != this.color;
     }
 
-    public abstract ArrayList<Integer> possible_moves();
-    public abstract Boolean can_ascend();
+    public abstract ArrayList<ArrayList<Board.BoardPos>> possible_moves(Board board, Board.BoardPos boardPos);
+    public abstract Boolean can_ascend(Board board, Board.BoardPos boardPos);
 }

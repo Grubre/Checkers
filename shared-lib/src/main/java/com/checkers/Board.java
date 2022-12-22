@@ -8,10 +8,20 @@ public abstract class Board {
         WHITE
     };
 
-    private int x_dim;
-    private int y_dim;
+    public class BoardPos{
+        BoardPos(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        int x;
+        int y;
+    }
 
-    private AbstractPawn[][] board;
+    public final int x_dim;
+    public final int y_dim;
+
+    protected AbstractPawn[][] board;
 
     Board(int x_dim, int y_dim)
     {
@@ -21,5 +31,11 @@ public abstract class Board {
         board = new AbstractPawn[x_dim][y_dim];
     }
 
+    public AbstractPawn[][] get_board()
+    {
+        return board;
+    }
+
+    public abstract void setup_board();
     public abstract Optional<Color> game_over();
 }
