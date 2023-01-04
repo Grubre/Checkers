@@ -1,22 +1,13 @@
 package com.checkers;
 
-import com.checkers_core.BasicPawnFactory;
 import com.checkers_core.BasicVariant;
 
-import javafx.animation.FillTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
@@ -30,16 +21,12 @@ public class App extends Application {
     public void start(Stage stage) {
         mStage = stage;
 
-        Group group = new Group();
-        
-        Scene scene = new Scene(group, 500, 500, Color.WHITE);
+        mStage.centerOnScreen();
 
-        Grid grid = new Grid(8,8, new BasicVariant(8,8, new VisualCheckerFactory()));
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.set_current();
 
-        group.getChildren().addAll(grid);
- 
         mStage.setTitle("Checkers");
-        mStage.setScene(scene);
         mStage.show();
     }
 

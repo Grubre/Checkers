@@ -1,0 +1,26 @@
+#menu_button {
+    -fx-background-color: rgb(66, 51, 40);
+    -fx-background-radius: 3,2,1;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+Text {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+#menu_button:hover {
+    -fx-background-color: rgb(131, 102, 86);
+}
+
+#menu_button:pressed {
+    -fx-background-color: rgb(49, 29, 15);
+}
+
+#background {
+    -fx-background-color: rgb(194, 167, 167);
+    -fx-border-width: 2px;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
