@@ -6,20 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class MainMenu extends MenuScene{
+public final class MainMenu extends MenuScene{
     Button multiPlayerButton;
     Button singlePlayerButton;
     Button exitButton;
 
-    MultiPlayerMenu multiPlayerMenu;
-
     VBox vBox;
     
-    public MainMenu()
+    private MainMenu()
     {
         super();
-
-        multiPlayerMenu = new MultiPlayerMenu();
 
         vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
@@ -55,8 +51,23 @@ public class MainMenu extends MenuScene{
             Platform.exit();
         });
 
-        multiPlayerButton.setOnAction(onAction -> {
-            multiPlayerMenu.set_current();
+        singlePlayerButton.setOnAction(onAction -> {
+            GameCreationMenu gameCreationMenu = new GameCreationMenu(new SinglePlayerGame(null));
+            gameCreationMenu.set_current();
         });
+
+        multiPlayerButton.setOnAction(onAction -> {
+            ConnectingToServerMenu.getInstance().set_current();
+        });
+    }
+
+    private static MainMenu instance;
+
+    public static synchronized MainMenu getInstance()
+    {
+        if (instance == null) {
+            instance = new MainMenu();
+        }
+        return instance;
     }
 }

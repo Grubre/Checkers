@@ -54,5 +54,15 @@ public class SinglePlayerMenu extends MenuScene{
             Platform.exit();
         });
     }
+
+    private static SinglePlayerMenu instance;
+
+    public static synchronized SinglePlayerMenu getInstance()
+    {
+        if (instance == null) {
+            instance = new SinglePlayerMenu();
+        }
+        return instance;
+    }
 }
 

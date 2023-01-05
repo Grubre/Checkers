@@ -3,7 +3,7 @@ package com.checkers_core;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class BasicVariant<pawn_fctry extends AbstractPawnFactory> extends Board {
+public class BasicVariant extends Board {
     AbstractPawnFactory pawnFactory;
     public BasicVariant(int x_dim, int y_dim, AbstractPawnFactory pawnFactory)
     {

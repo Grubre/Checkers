@@ -9,14 +9,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class MultiPlayerMenu extends MenuScene{
+public class ConnectingToServerMenu extends MenuScene{
     Text loadingText;
     ProgressBar progressBar;
-    Button exitButton;
+    Button backButton;
 
     VBox vBox;
     
-    public MultiPlayerMenu()
+    private ConnectingToServerMenu()
     {
         super();
 
@@ -40,19 +40,29 @@ public class MultiPlayerMenu extends MenuScene{
 
         style_component(vBox);
 
-        vBox.getChildren().addAll(loadingText, progressBar, exitButton);
+        vBox.getChildren().addAll(loadingText, progressBar, backButton);
     }
 
     private void set_buttons()
     {
-        exitButton = new Button("Exit");
-        exitButton.setId("menu_button");
+        backButton = new Button("Back");
+        backButton.setId("menu_button");
 
-        style_component(exitButton);
+        style_component(backButton);
 
-        exitButton.setOnAction(onAction -> {
-            Platform.exit();
+        backButton.setOnAction(onAction -> {
+            MainMenu.getInstance().set_current();
         });
+    }
+
+    private static ConnectingToServerMenu instance;
+
+    public static synchronized ConnectingToServerMenu getInstance()
+    {
+        if (instance == null) {
+            instance = new ConnectingToServerMenu();
+        }
+        return instance;
     }
 }
 

@@ -1,11 +1,8 @@
 package com.checkers;
 
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 public abstract class MenuScene {
     protected String css;

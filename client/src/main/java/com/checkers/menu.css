@@ -1,17 +1,105 @@
+* {
+    -base1: rgb(66, 51, 40);
+    -secondary1: rgb(131, 102, 86);
+    -bg: rgb(194, 167, 167);
+    -text1: white;
+}
+
+Text {
+    -fx-text-fill: -text1;
+    -fx-font-size: 24px;
+}
+
+Label {
+    -fx-text-fill: -text1;
+    -fx-font-size: 24px;
+}
+
+#gamecreate_mainlabel {
+    -fx-font-size: 72px;
+}
+
+
+
+
+
+
+
+#variant_textarea {
+    -fx-max-width: 500px;
+    -fx-font-alignment: center;
+    -fx-highlight-fill: -text1;
+    -fx-highlight-text-fill: -text1;
+    -fx-text-fill: -text1;
+    -fx-font-size: 24px;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent, -base1, transparent, -base1;
+    -fx-display-caret:false;
+}
+
+#variant_textarea *.text {
+    -fx-text-alignment: center;
+}
+
+#variant_textarea .content {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, -base1, transparent, -base1;
+    -fx-background-color: -secondary1;
+}
+
+
+
+
+
+
+
+
+.combo-box {
+    -fx-background-color: -base1;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: -base1;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: -secondary1;
+    -fx-text-fill: white;
+}
+
+
+
+
+.slider {
+    -fx-max-width: 500px;
+}
+
+.slider .track {
+    -fx-background-color: white;
+}
+
+.slider .thumb {
+    -fx-background-color: -base1;
+}
+
+
+
+
+
+
+
 #menu_button {
-    -fx-background-color: rgb(66, 51, 40);
+    -fx-background-color: -base1;
     -fx-background-radius: 3,2,1;
     -fx-text-fill: white;
     -fx-font-size: 24px;
 }
 
-Text {
-    -fx-text-fill: white;
-    -fx-font-size: 24px;
-}
-
 #menu_button:hover {
-    -fx-background-color: rgb(131, 102, 86);
+    -fx-background-color: -secondary1;
 }
 
 #menu_button:pressed {
@@ -19,7 +107,7 @@ Text {
 }
 
 #background {
-    -fx-background-color: rgb(194, 167, 167);
+    -fx-background-color: -bg;
     -fx-border-width: 2px;
     -fx-padding: 10;
     -fx-spacing: 8;
