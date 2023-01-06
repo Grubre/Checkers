@@ -1,6 +1,9 @@
 package com.checkers.comm;
 
 import com.checkers.comm.command.Command;
+import com.checkers.comm.command.ErrorCommand;
+import com.checkers.comm.parser.CommandParser;
+import com.checkers.comm.parser.ParsingException;
 
 public class PlayerCommandSender extends CommandSender {
     int playerId;
@@ -13,7 +16,13 @@ public class PlayerCommandSender extends CommandSender {
     }
     
     public void onMessage(String message) {
-        Command command = parser.parse(message);
+        Command command;
+        
+        try {
+            command = parser.parse(message);
+        } catch (ParsingException e) {
+            command = new ErrorCommand();    
+        }
         
         command.setPlayerId(playerId);
         command.setSource(this);

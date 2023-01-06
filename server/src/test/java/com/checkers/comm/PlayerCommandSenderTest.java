@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.checkers.comm.command.Command;
+import com.checkers.comm.parser.CommandParser;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerCommandSenderTest {
