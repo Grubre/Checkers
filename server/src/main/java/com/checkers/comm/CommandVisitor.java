@@ -2,6 +2,7 @@ package com.checkers.comm;
 
 import com.checkers.comm.command.Command;
 import com.checkers.comm.command.DisconnectCommand;
+import com.checkers.comm.command.ErrorCommand;
 import com.checkers.comm.command.JoinGameCommand;
 import com.checkers.comm.command.MovePieceCommand;
 import com.checkers.comm.command.NewGameCommand;
@@ -28,6 +29,10 @@ public interface CommandVisitor {
     }
 
     default void visitResign(ResignCommand command) {
+        onUnimplemented(command);
+    }
+
+    default void visitError(ErrorCommand command) {
         onUnimplemented(command);
     }
 }
