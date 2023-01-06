@@ -1,5 +1,7 @@
 package com.checkers.resp.response;
 
+import com.checkers.resp.ResponseVisitor;
+
 public abstract class Response {
-    //TODO
+    public abstract void accept(ResponseVisitor visitor);
 }
