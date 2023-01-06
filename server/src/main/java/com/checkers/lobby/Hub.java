@@ -3,6 +3,7 @@ package com.checkers.lobby;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.checkers.comm.command.DisconnectCommand;
 import com.checkers.comm.command.JoinGameCommand;
 import com.checkers.comm.command.NewGameCommand;
 import com.checkers.resp.response.GameConnectionSuccessfulResponse;
@@ -42,9 +43,9 @@ public class Hub extends Lobby {
 
         Lobby newLobby = getLobby(newGameId);
     
-        transferPlayerTo(playerId, command.getSource(), newLobby);
-
         sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId));
+        
+        transferPlayerTo(playerId, command.getSource(), newLobby);
     }
 
     @Override
@@ -55,12 +56,17 @@ public class Hub extends Lobby {
         Lobby lobby = getLobby(gameId);
 
         if (lobby != null) {
-            transferPlayerTo(playerId, command.getSource(), lobby);
             sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId));
+            transferPlayerTo(playerId, command.getSource(), lobby);
         }
         else {
             sendToPlayer(playerId, new GameConnectionUnsuccessfulResponse());
         }
         
+    }
+
+    @Override
+    public void visitDisconnect(DisconnectCommand command) {
+        removePlayer(command.getPlayerId());
     }
 }

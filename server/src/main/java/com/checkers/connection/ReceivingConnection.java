@@ -24,6 +24,13 @@ public class ReceivingConnection implements Runnable {
             String command = input.nextLine();
             connectedPlayer.onMessage(command);
         }
+        connectedPlayer.disconnect();
+        try {
+            socket.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 

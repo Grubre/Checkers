@@ -1,6 +1,7 @@
 package com.checkers.comm;
 
 import com.checkers.comm.command.Command;
+import com.checkers.comm.command.DisconnectCommand;
 import com.checkers.comm.command.ErrorCommand;
 import com.checkers.comm.parser.CommandParser;
 import com.checkers.comm.parser.ParsingException;
@@ -24,6 +25,15 @@ public class PlayerCommandSender extends CommandSender {
             command = new ErrorCommand();    
         }
         
+        command.setPlayerId(playerId);
+        command.setSource(this);
+
+        sendCommand(command);
+    }
+
+    public void disconnect() {
+        Command command = new DisconnectCommand();
+
         command.setPlayerId(playerId);
         command.setSource(this);
 
