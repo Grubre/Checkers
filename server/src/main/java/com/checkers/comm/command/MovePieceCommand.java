@@ -1,20 +1,22 @@
 package com.checkers.comm.command;
 
+import java.util.Collection;
+
 import com.checkers.comm.CommandVisitor;
 
 public class MovePieceCommand extends Command {
     final int pieceId;
-    final int[] tileIds;
+    final Collection<Integer> tileIds;
 
     public int getPieceId() {
         return pieceId;
     }
 
-    public int[] getTileIds() {
+    public Collection<Integer> getTileIds() {
         return tileIds;
     }
 
-    public MovePieceCommand(int pieceId, int[] tileId) {
+    public MovePieceCommand(int pieceId, Collection<Integer> tileId) {
         this.pieceId = pieceId;
         this.tileIds = tileId;
     }
