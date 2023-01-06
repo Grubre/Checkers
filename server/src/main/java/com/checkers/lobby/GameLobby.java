@@ -42,7 +42,7 @@ public class GameLobby extends Lobby {
     @Override
     public void visitMovePiece(MovePieceCommand command) {
         //TODO Insert game logic
-        broadcastToPlayers(new PieceMovedResponse(command.getPlayerId(), 0, command.getTileIds()));
+        broadcastToPlayers(new PieceMovedResponse(command.getPlayerId(), command.getPieceId(), command.getTileIds()));
     }
 
     private void closeIfEmpty() {
