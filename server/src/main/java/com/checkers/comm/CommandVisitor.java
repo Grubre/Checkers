@@ -9,7 +9,7 @@ import com.checkers.comm.command.ResignCommand;
 
 public abstract class CommandVisitor {
     
-    abstract void onUnimplemented(Command command);
+    protected abstract void onUnimplemented(Command command);
     
     public void visitDisconnect(DisconnectCommand command) {
         onUnimplemented(command);
