@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.checkers.comm.command.Command;
 import com.checkers.comm.parser.CommandParser;
+import com.checkers.comm.parser.ParsingException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerCommandSenderTest {
@@ -35,7 +36,7 @@ public class PlayerCommandSenderTest {
     ArgumentCaptor<Command> commandCaptor;
 
     @Test
-    public void correctInjectingPlayerDataInCommands() {
+    public void correctInjectingPlayerDataInCommands() throws ParsingException {
         PlayerCommandSender p = new PlayerCommandSender(testId, parser, listener);
 
         Mockito.when(parser.parse(testText)).thenReturn(testCommand);
