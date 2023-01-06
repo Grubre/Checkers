@@ -7,7 +7,6 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class App  {
-
     public static void main(String[] args) {
 
         try {
@@ -16,11 +15,20 @@ public class App  {
             Scanner socketInput = new Scanner(socket.getInputStream());
             Scanner input = new Scanner(System.in);
 
+            Thread serverOutput = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while(socketInput.hasNextLine()) {
+                        System.out.println(socketInput.nextLine());
+                    }
+                }
+            });
+
+            serverOutput.start();
+
             while(input.hasNextLine()) {
                 String command = input.nextLine();
                 socketOutput.println(command);
-                String result = socketInput.nextLine();
-                System.out.println(result);
             }
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
