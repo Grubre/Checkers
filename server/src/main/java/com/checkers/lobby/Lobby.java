@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.checkers.comm.CommandListener;
+import com.checkers.comm.CommandSender;
 import com.checkers.comm.CommandVisitor;
 import com.checkers.comm.command.Command;
 import com.checkers.resp.ResponseListener;
@@ -29,9 +30,10 @@ public class Lobby implements CommandListener, CommandVisitor {
         return connectedPlayers.remove(playerId);
     }
 
-    public void transferPlayerTo(int playerId, Lobby otherLobby) {
-        ResponseListener player = removePlayer(playerId);
-        otherLobby.addPlayer(playerId, player);
+    public void transferPlayerTo(int playerId, CommandSender commPlayer, Lobby otherLobby) {
+        ResponseListener respPlayer = removePlayer(playerId);
+        otherLobby.addPlayer(playerId, respPlayer);
+        commPlayer.setListener(otherLobby);
     }
 
     public void sendToPlayer(int playerId, Response response) {
