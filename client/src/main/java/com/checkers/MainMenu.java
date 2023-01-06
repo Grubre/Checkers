@@ -5,10 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import com.checkers_core.Board;
 
 public final class MainMenu extends MenuScene{
-    Button multiPlayerButton;
-    Button singlePlayerButton;
+    Button playButton;
     Button exitButton;
 
     VBox vBox;
@@ -31,32 +31,24 @@ public final class MainMenu extends MenuScene{
 
         style_component(vBox);
 
-        vBox.getChildren().addAll(singlePlayerButton, multiPlayerButton, exitButton);
+        vBox.getChildren().addAll(playButton, exitButton);
     }
 
     private void set_buttons()
     {
-        singlePlayerButton = new Button("Singleplayer");
-        singlePlayerButton.setId("menu_button");
-        multiPlayerButton = new Button("Multiplayer");
-        multiPlayerButton.setId("menu_button");
+        playButton = new Button("Play");
+        playButton.setId("menu_button");
         exitButton = new Button("Exit");
         exitButton.setId("menu_button");
 
-        style_component(singlePlayerButton);
-        style_component(multiPlayerButton);
+        style_component(playButton);
         style_component(exitButton);
 
         exitButton.setOnAction(onAction -> {
             Platform.exit();
         });
 
-        singlePlayerButton.setOnAction(onAction -> {
-            GameCreationMenu gameCreationMenu = new GameCreationMenu(new SinglePlayerGame(null));
-            gameCreationMenu.set_current();
-        });
-
-        multiPlayerButton.setOnAction(onAction -> {
+        playButton.setOnAction(onAction -> {
             ConnectingToServerMenu.getInstance().set_current();
         });
     }
@@ -69,5 +61,11 @@ public final class MainMenu extends MenuScene{
             instance = new MainMenu();
         }
         return instance;
+    }
+
+    @Override
+    protected void onEnter()
+    {
+        
     }
 }

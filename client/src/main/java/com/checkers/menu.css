@@ -110,5 +110,5 @@ Label {
     -fx-background-color: -bg;
     -fx-border-width: 2px;
     -fx-padding: 10;
-    -fx-spacing: 8;
+    -fx-spacing: 16;
 }

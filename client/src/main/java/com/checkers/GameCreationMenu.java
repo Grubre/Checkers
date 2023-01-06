@@ -3,6 +3,7 @@ package com.checkers;
 import com.checkers_core.BasicPawnFactory;
 import com.checkers_core.BasicVariant;
 import com.checkers_core.Board;
+import com.checkers_core.Board.Color;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -88,32 +89,47 @@ public class GameCreationMenu extends MenuScene {
         comboBox.getSelectionModel().selectFirst();
         comboBox.getSelectionModel().getSelectedItem();
         textArea.setText("Opis: \n"+comboBox.getValue());
-        
+
+        ObservableList<String> colors = FXCollections.observableArrayList (
+            "Black", "White");
+        ComboBox<String> colorComboBox = new ComboBox<String>(colors);
+        colorComboBox.getSelectionModel().selectFirst();
+        colorComboBox.getSelectionModel().getSelectedItem();
 
         startGameButton = new Button("Start");
         startGameButton.setOnAction(onAction -> {
-            switch(comboBox.getValue())
+            Board.Color color = Color.WHITE;
+            if(colorComboBox.getValue() == "Black")
+                color = Color.BLACK;
+            switch(colorComboBox.getValue())
             {
                 case "Basic Variant":
                     board = new BasicVariant(
                             (int)widthSlider.getValue(),
                             (int)heightSlider.getValue(),
-                            new BasicPawnFactory());
+                            new VisualCheckerFactory());
                 break;
             }
-            game.set_board(board);
+            game.set_board(board, color);
             game.set_current();
         });
         startGameButton.setId("menu_button");
 
         
         style_component(startGameButton);
-        style_component(comboBox);
+        style_component(colorComboBox);
         style_component(textArea);
         vBox.getChildren().addAll( mainLabel,
-                                comboBox, textArea,
+                                textArea,
                                 widthLabel, widthSlider,
                                 heightLabel, heightSlider,
+                                comboBox, colorComboBox,
                                 startGameButton);
+    }
+
+    @Override
+    protected void onEnter()
+    {
+        
     }
 }

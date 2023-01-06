@@ -1,5 +1,8 @@
 package com.checkers;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -12,7 +15,7 @@ import javafx.scene.text.Text;
 public class ConnectingToServerMenu extends MenuScene{
     Text loadingText;
     ProgressBar progressBar;
-    Button backButton;
+    Button abortButton;
 
     VBox vBox;
     
@@ -40,17 +43,17 @@ public class ConnectingToServerMenu extends MenuScene{
 
         style_component(vBox);
 
-        vBox.getChildren().addAll(loadingText, progressBar, backButton);
+        vBox.getChildren().addAll(loadingText, progressBar, abortButton);
     }
 
     private void set_buttons()
     {
-        backButton = new Button("Back");
-        backButton.setId("menu_button");
+        abortButton = new Button("Abort");
+        abortButton.setId("menu_button");
 
-        style_component(backButton);
+        style_component(abortButton);
 
-        backButton.setOnAction(onAction -> {
+        abortButton.setOnAction(onAction -> {
             MainMenu.getInstance().set_current();
         });
     }
@@ -63,6 +66,26 @@ public class ConnectingToServerMenu extends MenuScene{
             instance = new ConnectingToServerMenu();
         }
         return instance;
+    }
+
+    @Override
+    protected void onEnter()
+    {
+        System.out.println("Entered");
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+
+            @Override
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        PlayMenu.getInstance().set_current();
+                    }
+                });
+            }
+            
+        };
+        timer.schedule(timerTask, 2000);
     }
 }
 
