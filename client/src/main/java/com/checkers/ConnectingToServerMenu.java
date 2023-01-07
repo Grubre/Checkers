@@ -13,11 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class ConnectingToServerMenu extends MenuScene{
-    Text loadingText;
-    ProgressBar progressBar;
-    Button abortButton;
+    private Text loadingText;
+    private ProgressBar progressBar;
+    private Button abortButton;
 
-    VBox vBox;
+    private Timer timer = new Timer();
+
+    private VBox vBox;
     
     private ConnectingToServerMenu()
     {
@@ -54,6 +56,7 @@ public class ConnectingToServerMenu extends MenuScene{
         style_component(abortButton);
 
         abortButton.setOnAction(onAction -> {
+            timer.cancel();
             MainMenu.getInstance().set_current();
         });
     }
@@ -71,10 +74,8 @@ public class ConnectingToServerMenu extends MenuScene{
     @Override
     protected void onEnter()
     {
-        System.out.println("Entered");
-        Timer timer = new Timer();
+        timer = new Timer();
         TimerTask timerTask = new TimerTask() {
-
             @Override
             public void run() {
                 Platform.runLater(new Runnable() {
@@ -82,10 +83,9 @@ public class ConnectingToServerMenu extends MenuScene{
                         PlayMenu.getInstance().set_current();
                     }
                 });
-            }
-            
+            }  
         };
-        timer.schedule(timerTask, 2000);
+        timer.schedule(timerTask, 500);
     }
 }
 

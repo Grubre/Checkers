@@ -1,14 +1,20 @@
-#white_rect {
-    -fx-background-color: white;
+.white_field {
+    -fx-background-color: rgb(206, 228, 225);
   }
-#black_rect {
-    -fx-background-color: black;
+.black_field {
+    -fx-background-color: rgb(29, 67, 114);
   }
-#white_rect:hover {
-  -fx-background-color: blue;
+.white_field:hover {
+  -fx-background-color: gray;
 }
-#black_rect:hover {
-  -fx-background-color: blue;
+.black_field:hover {
+  -fx-background-color: gray;
+}
+.field_selected {
+  -fx-background-color: rgb(31, 4, 4);
+}
+.field_selected:hover {
+  -fx-background-color: rgb(43, 7, 7);
 }
 .white_pawn {
   -fx-fill: gray;

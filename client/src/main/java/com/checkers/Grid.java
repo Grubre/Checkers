@@ -3,6 +3,7 @@ package com.checkers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.checkers.Tile.Color;
 import com.checkers_core.AbstractPawn;
 import com.checkers_core.Board;
 
@@ -22,45 +23,80 @@ public class Grid extends GridPane {
 
     private Board board;
 
-    Grid(int x_dim, int y_dim, Board board)
+    Tile[][] tiles;
+    private Tile selected = null;
+
+    Grid(Board board)
     {
-        this.x_dim = x_dim;
-        this.y_dim = y_dim;
+        this.x_dim = board.x_dim;
+        this.y_dim = board.y_dim;
         this.board = board;
         board.setup_board();
 
+        String css = getClass().getResource("checkerboard.css").toExternalForm();
+        this.getStylesheets().add(css);
+
         addRowsAndColumns();
+
+        tiles = new Tile[x_dim][y_dim];
 
         for(int j = 0; j < y_dim; j++)
         {
             for(int i = 0; i < x_dim; i++)
             {
-                Region rect = new Region();
-                rect.setPrefHeight(100);
-                rect.setPrefWidth(100);
-                String css = getClass().getResource("checkerboard.css").toExternalForm();
-                this.getStylesheets().add(css);
-                rect.getStylesheets().add(css);
-                add(rect, i, j);
+                Tile tile;
                 if((i + j) % 2 == 0)
                 {
-                    rect.setId("white_rect");
+                    tile = new Tile(Color.WHITE, i, j);
+                    //tile.set_piece(new VisualBasicChecker(Board.Color.WHITE));
+                }
+                else {
+                    tile = new Tile(Color.BLACK, i, j);
+                    //tile.set_piece(new VisualBasicChecker(Board.Color.BLACK));
+                }
+                tile.getStylesheets().add(css);
+                tile.setOnMouseClicked(eventAction -> {
+                    System.out.println("Clicked tile " + tile.getX() + " " + tile.getY());
+                    toggle_selection(tile);
+                });
+                tiles[i][j] = tile;
+                add(tiles[i][j], i, j);
+            }
+        }
+        set_board();
+    }
+
+    public void toggle_selection(Tile tile)
+    {
+        if(selected != null)
+        {
+            selected.toggle_selection();
+        }
+        tile.toggle_selection();
+        selected = tile;
+    }
+
+    public void set_board()
+    {
+        for(int j = 0; j < y_dim; j++)
+        {
+            for(int i = 0; i < x_dim; i++)
+            {
+                AbstractPawn pawn = board.get_piece(i, j);
+                if(pawn == null)
+                {
+                    tiles[i][j].set_piece(null);
+                    System.out.println("Setting null");
+                }
+                else if(pawn.is_ascended())
+                {
+                    tiles[i][j].set_piece(new VisualAscendedChecker(pawn.get_color()));
+                    System.out.println("Setting ascended");
                 }
                 else
                 {
-                    rect.setId("black_rect");
-                }
-            }
-        }
-        AbstractPawn[][] fields = board.get_board();
-
-        for(int j = 0; j < y_dim; j++)
-        {
-            for(int i = 0; i < x_dim; i++)
-            {
-                if(fields[i][j] != null)
-                {
-                    add(((Checker)fields[i][j]).get_shape(), i, j);
+                    tiles[i][j].set_piece(new VisualBasicChecker(pawn.get_color()));
+                    System.out.println("Setting non ascended");
                 }
             }
         }
@@ -83,12 +119,14 @@ public class Grid extends GridPane {
         for (int i = 0; i < x_dim; i++) {
             ColumnConstraints colConst = new ColumnConstraints();
             colConst.setFillWidth(true);
+            colConst.setPrefWidth(100);
             colConst.setPercentWidth(100.0 / x_dim);
             getColumnConstraints().add(colConst);
         }
         for (int i = 0; i < y_dim; i++) {
             RowConstraints rowConst = new RowConstraints();
             rowConst.setFillHeight(true);
+            rowConst.setPrefHeight(100);
             rowConst.setPercentHeight(100.0 / y_dim);
             getRowConstraints().add(rowConst);
         }
@@ -100,7 +138,7 @@ public class Grid extends GridPane {
             if(conversion.isInstance(node)) {   
                 if(getColumnIndex(node) == iIndex) {
                     if(getRowIndex(node) == jIndex) {
-                        children.add(conversion.cast(node)); 
+                        children.add(conversion.cast(node));
                     }
                 }
             }

@@ -26,11 +26,9 @@ public class GameCreationMenu extends MenuScene {
 
     private Game game;
 
-    public GameCreationMenu(Game game)
+    public GameCreationMenu()
     {
         super();
-
-        this.game = game;
 
         vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
@@ -82,13 +80,13 @@ public class GameCreationMenu extends MenuScene {
 
         ObservableList<String> variants = FXCollections.observableArrayList (
             "Basic Variant", "Another Variant");
-        ComboBox<String> comboBox = new ComboBox<String>(variants);
-        comboBox.setOnAction(actionEvent -> {
-            textArea.setText("Opis: \n"+comboBox.getValue());
+        ComboBox<String> variantComboBox = new ComboBox<String>(variants);
+        variantComboBox.setOnAction(actionEvent -> {
+            textArea.setText("Opis: \n"+variantComboBox.getValue());
         });
-        comboBox.getSelectionModel().selectFirst();
-        comboBox.getSelectionModel().getSelectedItem();
-        textArea.setText("Opis: \n"+comboBox.getValue());
+        variantComboBox.getSelectionModel().selectFirst();
+        variantComboBox.getSelectionModel().getSelectedItem();
+        textArea.setText("Opis: \n"+variantComboBox.getValue());
 
         ObservableList<String> colors = FXCollections.observableArrayList (
             "Black", "White");
@@ -98,19 +96,21 @@ public class GameCreationMenu extends MenuScene {
 
         startGameButton = new Button("Start");
         startGameButton.setOnAction(onAction -> {
+            System.out.println("Variant: " + variantComboBox.getValue());
+            System.out.println("Height: " + heightSlider.getValue() + "Width: " + widthSlider.getValue());
             Board.Color color = Color.WHITE;
             if(colorComboBox.getValue() == "Black")
                 color = Color.BLACK;
-            switch(colorComboBox.getValue())
+            switch(variantComboBox.getValue())
             {
                 case "Basic Variant":
                     board = new BasicVariant(
                             (int)widthSlider.getValue(),
                             (int)heightSlider.getValue(),
-                            new VisualCheckerFactory());
+                            new BasicPawnFactory());
                 break;
             }
-            game.set_board(board, color);
+            Game game = new Game(board, color);
             game.set_current();
         });
         startGameButton.setId("menu_button");
@@ -123,7 +123,7 @@ public class GameCreationMenu extends MenuScene {
                                 textArea,
                                 widthLabel, widthSlider,
                                 heightLabel, heightSlider,
-                                comboBox, colorComboBox,
+                                variantComboBox, colorComboBox,
                                 startGameButton);
     }
 

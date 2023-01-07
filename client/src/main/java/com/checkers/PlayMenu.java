@@ -1,11 +1,9 @@
 package com.checkers;
 
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import com.checkers_core.Board;
 
 public class PlayMenu extends MenuScene{
     Button multiPlayerButton;
@@ -53,12 +51,12 @@ public class PlayMenu extends MenuScene{
         });
 
         singlePlayerButton.setOnAction(onAction -> {
-            GameCreationMenu gameCreationMenu = new GameCreationMenu(new Game(null));
+            GameCreationMenu gameCreationMenu = new GameCreationMenu();
             gameCreationMenu.set_current();
         });
 
         multiPlayerButton.setOnAction(onAction -> {
-            GameCreationMenu gameCreationMenu = new GameCreationMenu(new Game(null));
+            GameCreationMenu gameCreationMenu = new GameCreationMenu();
             gameCreationMenu.set_current();
         });
     }

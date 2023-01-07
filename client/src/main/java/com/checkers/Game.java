@@ -2,25 +2,24 @@ package com.checkers;
 
 import com.checkers_core.Board;
 
+import javafx.scene.control.Button;
+
 public class Game extends MenuScene {
     protected Board board;
     protected Board.Color playerColor;
 
-    public Game(Board board)
+    public Game(Board board, Board.Color color)
     {
         super();
-        this.board = board;
-    }
-
-    public void set_board(Board board, Board.Color color)
-    {
-        this.board = board;
         this.playerColor = color;
+        this.board = board;
     }
 
     @Override
     protected void onEnter()
     {
-        
+        Grid grid = new Grid(board);
+
+        root.getChildren().addAll(grid);
     }
 }
