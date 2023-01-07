@@ -21,5 +21,6 @@ public abstract class AbstractPawn {
     }
 
     public abstract ArrayList<ArrayList<Board.BoardPos>> possible_moves(Board board, Board.BoardPos boardPos);
+    public abstract Boolean is_ascended();
     public abstract Boolean can_ascend(Board board, Board.BoardPos boardPos);
 }

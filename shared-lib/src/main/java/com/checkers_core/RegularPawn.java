@@ -31,4 +31,8 @@ public class RegularPawn extends AbstractPawn {
         return false;
     }
     
+    public Boolean is_ascended()
+    {
+        return false;
+    }
 }

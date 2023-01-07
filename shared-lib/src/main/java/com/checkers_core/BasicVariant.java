@@ -13,8 +13,8 @@ public class BasicVariant extends Board {
 
     @Override
     public void setup_board() {
-        for (int j = 0; j < x_dim; j++) {
-            for (int i = 0; i < y_dim; i++) {
+        for (int j = 0; j < y_dim; j++) {
+            for (int i = 0; i < x_dim; i++) {
                 if(j < 3 && (i + j) % 2 == 1)
                     board[i][j] = pawnFactory.create_regular(Color.WHITE);
                 else if(j > 4 && (i + j) % 2 == 1)

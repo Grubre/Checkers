@@ -31,6 +31,11 @@ public abstract class Board {
         board = new AbstractPawn[x_dim][y_dim];
     }
 
+    public AbstractPawn get_piece(int i, int j)
+    {
+        return board[i][j];
+    }
+
     public AbstractPawn[][] get_board()
     {
         return board;
