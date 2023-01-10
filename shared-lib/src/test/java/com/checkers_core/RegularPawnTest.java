@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.checkers_core.Board.BoardPos;
 import com.checkers_core.Board.Color;
 
 public class RegularPawnTest {

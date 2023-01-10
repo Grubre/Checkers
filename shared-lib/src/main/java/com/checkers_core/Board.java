@@ -14,8 +14,8 @@ public abstract class Board {
             this.x = x;
             this.y = y;
         }
-        int x;
-        int y;
+        public int x;
+        public int y;
     }
 
     public final int x_dim;
@@ -39,6 +39,12 @@ public abstract class Board {
     public AbstractPawn[][] get_board()
     {
         return board;
+    }
+
+    public void move_piece(Board.BoardPos piecePos, Board.BoardPos targetPos)
+    {
+        board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
+        board[piecePos.x][piecePos.y] = null;
     }
 
     public abstract void setup_board();

@@ -2,10 +2,11 @@ package com.checkers_core;
 
 import java.util.ArrayList;
 
+import com.checkers_core.Board.BoardPos;
 import com.checkers_core.Board.Color;
 
-public class RegularPawn extends AbstractPawn {    
-    public RegularPawn(Color color) {
+public class AscendedPawn extends AbstractPawn {
+    public AscendedPawn(Color color) {
         super(color);
     }
 
@@ -15,13 +16,12 @@ public class RegularPawn extends AbstractPawn {
         int x = boardPos.x;
         int y = boardPos.y;
         Move move = new Move();
-        if(x > 0 && y > 0)
+        for(int i = x; i >= 0; i--)
         {
-            move.visitedFields.add(board.new BoardPos(x - 1, y - 1));
-        }
-        if(x < board.x_dim - 1 && y > 0)
-        {
-            move.visitedFields.add(board.new BoardPos(x + 1, y - 1));
+            for(int j = y; j >= 0; j--)
+            {
+                move.visitedFields.add(board.new BoardPos(i, j));
+            }
         }
         moves.add(move);
         return moves;
@@ -29,21 +29,11 @@ public class RegularPawn extends AbstractPawn {
 
     @Override
     public Boolean can_ascend(Board board, Board.BoardPos boardPos) {
-        if(color == Color.BLACK)
-        {
-            if(boardPos.y == 0)
-                return true;
-        }
-        else if(color == Color.WHITE)
-        {
-            if(boardPos.y == board.x_dim - 1)
-                return true;
-        }
         return false;
     }
     
     public Boolean is_ascended()
     {
-        return false;
+        return true;
     }
 }
