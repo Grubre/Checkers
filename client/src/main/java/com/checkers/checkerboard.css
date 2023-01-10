@@ -1,0 +1,30 @@
+.white_field {
+    -fx-background-color: rgb(206, 228, 225);
+  }
+.black_field {
+    -fx-background-color: rgb(29, 67, 114);
+  }
+.white_field:hover {
+  -fx-background-color: gray;
+}
+.black_field:hover {
+  -fx-background-color: gray;
+}
+.field_selected {
+  -fx-background-color: rgb(31, 4, 4);
+}
+.field_selected:hover {
+  -fx-background-color: rgb(43, 7, 7);
+}
+.white_pawn {
+  -fx-fill: gray;
+}
+.black_pawn {
+  -fx-fill: brown;
+}
+.white_pawn:hover {
+  -fx-fill: blue ;
+}
+.black_pawn:hover {
+  -fx-fill: blue ;
+}

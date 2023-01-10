@@ -1,42 +1,42 @@
 package com.checkers;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
+import com.checkers_core.BasicVariant;
 
-public class App  {
-    public static void main(String[] args) {
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+/**
+ * JavaFX App
+ */
+public class App extends Application {
+    private static Stage mStage;
 
-        try {
-            Socket socket = new Socket("localhost", 58901);    
-            PrintWriter socketOutput = new PrintWriter(socket.getOutputStream(), true);
-            Scanner socketInput = new Scanner(socket.getInputStream());
-            Scanner input = new Scanner(System.in);
+    @Override
+    public void start(Stage stage) {
+        mStage = stage;
 
-            Thread serverOutput = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while(socketInput.hasNextLine()) {
-                        System.out.println(socketInput.nextLine());
-                    }
-                }
-            });
+        mStage.centerOnScreen();
 
-            serverOutput.start();
+        MainMenu mainMenu = MainMenu.getInstance();
+        mainMenu.set_current();
 
-            while(input.hasNextLine()) {
-                String command = input.nextLine();
-                socketOutput.println(command);
-            }
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        mStage.setTitle("Checkers");
+        mStage.show();
     }
 
+    /**
+     * @return the main stage, needed for calculating size of gui components
+     */
+    public static Stage getStage()
+    {
+        return mStage;
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
 }
