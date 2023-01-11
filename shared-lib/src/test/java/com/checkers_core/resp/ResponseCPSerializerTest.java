@@ -15,8 +15,8 @@ import com.checkers_core.resp.response.PieceMovedResponse;
 import com.checkers_core.resp.response.PlayerDisconnectedResponse;
 import com.checkers_core.resp.response.WrongCommandResponse;
 
-public class ResponseSerializerTest {
-    ResponseSerializer serializer = new ResponseSerializer();
+public class ResponseCPSerializerTest {
+    ResponseSerializer serializer = new ResponseCPSerializer();
 
     int testGameId = 42;
     int testPlayerId = 17;
