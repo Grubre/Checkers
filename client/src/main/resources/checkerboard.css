@@ -11,10 +11,10 @@
   -fx-background-color: gray;
 }
 .field_selected {
-  -fx-background-color: rgb(31, 4, 4);
+  -fx-background-color: rgb(156, 156, 156);
 }
 .field_selected:hover {
-  -fx-background-color: rgb(43, 7, 7);
+  -fx-background-color: rgb(150, 150, 150);
 }
 .field_legalmove {
   -fx-background-color: rgb(164, 150, 27);
@@ -29,8 +29,8 @@
   -fx-fill: rgb(57, 52, 202);
 }
 .white_pawn:hover {
-  -fx-fill: BLACK ;
+  -fx-fill: rgb(183, 167, 63) ;
 }
 .black_pawn:hover {
-  -fx-fill: BLACK ;
+  -fx-fill: rgb(182, 164, 76) ;
 }

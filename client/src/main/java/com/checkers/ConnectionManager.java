@@ -6,7 +6,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import javafx.application.Platform;
+
 public final class ConnectionManager {
+    private Socket socket;
+    private PrintWriter socketOutput;
+    private Scanner socketInput;
+    private Scanner input;
+
     private ConnectionManager()
     {
 
@@ -24,10 +31,10 @@ public final class ConnectionManager {
     public boolean connect()
     {
         try {
-            Socket socket = new Socket("localhost", 58901);    
-            PrintWriter socketOutput = new PrintWriter(socket.getOutputStream(), true);
-            Scanner socketInput = new Scanner(socket.getInputStream());
-            Scanner input = new Scanner(System.in);
+            socket = new Socket("localhost", 58901);    
+            socketOutput = new PrintWriter(socket.getOutputStream(), true);
+            socketInput = new Scanner(socket.getInputStream());
+            input = new Scanner(System.in);
 
             Thread serverOutput = new Thread(new Runnable() {
                 @Override
@@ -35,12 +42,14 @@ public final class ConnectionManager {
                     while(socketInput.hasNextLine()) {
                         System.out.println(socketInput.nextLine());
                     }
+                    Platform.runLater(() -> {
+                        MainMenu.getInstance().setCurrent();
+                    });
                 }
             });
 
             serverOutput.start();
-        } catch (Exception e )
-        {
+        } catch (Exception e ) {
             return false;
         }
         return true;
