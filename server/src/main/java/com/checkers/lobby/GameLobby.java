@@ -1,8 +1,8 @@
 package com.checkers.lobby;
 
-import com.checkers.comm.command.DisconnectCommand;
-import com.checkers.comm.command.MovePieceCommand;
-import com.checkers.comm.command.ResignCommand;
+import com.checkers_core.comm.command.DisconnectCommand;
+import com.checkers_core.comm.command.MovePieceCommand;
+import com.checkers_core.comm.command.ResignCommand;
 import com.checkers.resp.response.PieceMovedResponse;
 import com.checkers.resp.response.PlayerDisconnectedResponse;
 

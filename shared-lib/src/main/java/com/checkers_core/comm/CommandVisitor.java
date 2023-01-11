@@ -1,12 +1,12 @@
-package com.checkers.comm;
+package com.checkers_core.comm;
 
-import com.checkers.comm.command.Command;
-import com.checkers.comm.command.DisconnectCommand;
-import com.checkers.comm.command.ErrorCommand;
-import com.checkers.comm.command.JoinGameCommand;
-import com.checkers.comm.command.MovePieceCommand;
-import com.checkers.comm.command.NewGameCommand;
-import com.checkers.comm.command.ResignCommand;
+import com.checkers_core.comm.command.Command;
+import com.checkers_core.comm.command.DisconnectCommand;
+import com.checkers_core.comm.command.ErrorCommand;
+import com.checkers_core.comm.command.JoinGameCommand;
+import com.checkers_core.comm.command.MovePieceCommand;
+import com.checkers_core.comm.command.NewGameCommand;
+import com.checkers_core.comm.command.ResignCommand;
 
 public interface CommandVisitor<T> {
     

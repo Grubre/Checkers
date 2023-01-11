@@ -3,13 +3,13 @@ package com.checkers.lobby;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.checkers.comm.CommandListener;
-import com.checkers.comm.CommandSender;
-import com.checkers.comm.CommandVisitor;
-import com.checkers.comm.command.Command;
+import com.checkers_core.comm.command.Command;
 import com.checkers.resp.ResponseListener;
 import com.checkers.resp.response.Response;
 import com.checkers.resp.response.WrongCommandResponse;
+import com.checkers_core.comm.CommandListener;
+import com.checkers_core.comm.CommandSender;
+import com.checkers_core.comm.CommandVisitor;
 
 public class Lobby implements CommandListener, CommandVisitor<Void> {
     Map<Integer, ResponseListener> connectedPlayers = new TreeMap<>();
