@@ -1,8 +1,8 @@
 .white_field {
-    -fx-background-color: rgb(206, 228, 225);
+    -fx-background-color: rgb(228, 213, 206);
   }
 .black_field {
-    -fx-background-color: rgb(29, 67, 114);
+    -fx-background-color: rgba(108, 69, 53, 0.796);
   }
 .white_field:hover {
   -fx-background-color: gray;
@@ -16,11 +16,17 @@
 .field_selected:hover {
   -fx-background-color: rgb(43, 7, 7);
 }
+.field_legalmove {
+  -fx-background-color: rgb(164, 150, 27);
+}
+.field_legalmove:hover {
+  -fx-background-color: rgb(197, 200, 35);
+}
 .white_pawn {
-  -fx-fill: gray;
+  -fx-fill: rgb(185, 222, 220);
 }
 .black_pawn {
-  -fx-fill: brown;
+  -fx-fill: rgb(57, 52, 202);
 }
 .white_pawn:hover {
   -fx-fill: blue ;

@@ -1,13 +1,20 @@
 package com.checkers;
 
+import com.checkers_core.Board;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public class Tile extends StackPane {
+    public enum State {
+        BASE,
+        SELECTED,
+        LEGALMOVE
+    }
     private final int x,y;
-    private boolean selected = false;
+    private State state;
 
     public enum Color {
         BLACK,
@@ -34,23 +41,35 @@ public class Tile extends StackPane {
         }
     }
 
-    void toggle_selection()
+    void set_state(State state)
     {
-        selected = !selected;
-        if(selected)
+        this.state = state;
+        if(this.state == State.SELECTED)
         {
+            getStyleClass().remove("field_legalmove");
             getStyleClass().add("field_selected");
+        }
+        else if(this.state == State.LEGALMOVE)
+        {
+            getStyleClass().remove("field_selected");
+            getStyleClass().add("field_legalmove");
         }
         else
         {
             getStyleClass().remove("field_selected");
+            getStyleClass().remove("field_legalmove");
         }
+    }
+
+    State get_state()
+    {
+        return state;
     }
 
     void set_piece(VisualChecker piece)
     {
-        //if(this.piece != null)
-        //    getChildren().remove(this.piece);
+        if(this.piece != null)
+            getChildren().remove(this.piece);
         
         this.piece = piece;
 
