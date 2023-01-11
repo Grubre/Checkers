@@ -1,4 +1,4 @@
-package com.checkers;
+package com.checkers.scenes;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

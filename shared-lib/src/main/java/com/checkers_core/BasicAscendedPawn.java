@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.checkers_core.Board.Color;
 
-public class AscendedPawn extends AbstractPawn {
-    public AscendedPawn(Color color) {
+public class BasicAscendedPawn extends AbstractPawn {
+    public BasicAscendedPawn(Color color) {
         super(color);
     }
 

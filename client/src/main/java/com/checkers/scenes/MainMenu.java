@@ -1,10 +1,11 @@
-package com.checkers;
+package com.checkers.scenes;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import com.checkers_core.Board;
 
 public final class MainMenu extends MenuScene{

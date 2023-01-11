@@ -9,6 +9,11 @@ public abstract class AbstractPawn {
             visitedFields = new ArrayList<>();
             removedPawns = new ArrayList<>();
         }
+        public Move(Move move)
+        {
+            visitedFields = new ArrayList<>(move.visitedFields);
+            removedPawns = new ArrayList<>(move.removedPawns);
+        }
         public ArrayList<Board.BoardPos> visitedFields;
         public ArrayList<AbstractPawn> removedPawns;
     }

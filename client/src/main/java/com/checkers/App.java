@@ -1,5 +1,6 @@
 package com.checkers;
 
+import com.checkers.scenes.MainMenu;
 import com.checkers_core.BasicVariant;
 
 import javafx.application.Application;

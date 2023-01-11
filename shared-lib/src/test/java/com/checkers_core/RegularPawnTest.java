@@ -11,7 +11,7 @@ public class RegularPawnTest {
     public void constructorTest()
     {
         Color color = Color.BLACK;
-        RegularPawn regularPawn = new RegularPawn(color);
+        BasicPawn regularPawn = new BasicPawn(color);
 
         assertTrue(color == regularPawn.getColor());
     }
@@ -21,7 +21,7 @@ public class RegularPawnTest {
     {
         int xDim = 8;
         int yDim = 8;
-        RegularPawn regularPawn = new RegularPawn(Color.WHITE);
+        BasicPawn regularPawn = new BasicPawn(Color.WHITE);
         BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
         for (int j = 0; j < yDim; j++) {
@@ -39,7 +39,7 @@ public class RegularPawnTest {
     {
         int xDim = 8;
         int yDim = 8;
-        RegularPawn regularPawn = new RegularPawn(Color.BLACK);
+        BasicPawn regularPawn = new BasicPawn(Color.BLACK);
         BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
         for (int j = 0; j < yDim; j++) {
@@ -57,7 +57,7 @@ public class RegularPawnTest {
     {
         int xDim = 8;
         int yDim = 8;
-        RegularPawn regularPawn = new RegularPawn(Color.WHITE);
+        BasicPawn regularPawn = new BasicPawn(Color.WHITE);
         BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
         int whiteCnt = 0;
@@ -77,7 +77,7 @@ public class RegularPawnTest {
     {
         int xDim = 8;
         int yDim = 8;
-        RegularPawn regularPawn = new RegularPawn(Color.BLACK);
+        BasicPawn regularPawn = new BasicPawn(Color.BLACK);
         BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
         int blackCnt = 0;

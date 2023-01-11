@@ -61,6 +61,11 @@ public abstract class Board {
         }
     }
 
+    public boolean isInBounds(int x, int y)
+    {
+        return (0 <= x && x < xDim) && (0 <= y && y < yDim);
+    }
+
     public abstract void setupBoard();
     public abstract Optional<Color> gameOver();
 }

@@ -1,9 +1,9 @@
-package com.checkers;
+package com.checkers.scenes;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
-import javafx.application.Platform;
+import com.checkers.conn.ConnectionManager;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -28,7 +28,6 @@ public final class ConnectingToServerMenu extends MenuScene{
 
         loadingText = new Text("Connecting...");
         loadingText.setId("loading_text");
-        //style_component(loadingText);
 
         vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);

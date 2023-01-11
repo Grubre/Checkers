@@ -1,4 +1,6 @@
-package com.checkers;
+package com.checkers.scenes;
+
+import com.checkers.App;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +19,7 @@ public abstract class MenuScene {
         scene = new Scene(root);
     }
 
-    void styleComponent(Parent obj)
+    public void styleComponent(Parent obj)
     {
         if(css != null)
             obj.getStylesheets().add(css);
@@ -25,7 +27,7 @@ public abstract class MenuScene {
             System.out.println("Error loading CSS!");
     }
 
-    void setCurrent()
+    public void setCurrent()
     {
         App.getStage().setScene(scene);
         onEnter();

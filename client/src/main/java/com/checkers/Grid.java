@@ -29,13 +29,15 @@ public class Grid extends GridPane {
     private Tile selected = null;
 
     private Board.Color playerColor;
+    private Board.Color currentPlayerMove;
 
-    Grid(Board board, Board.Color color)
+    public Grid(Board board, Board.Color color)
     {
         this.xDim = board.xDim;
         this.yDim = board.yDim;
         this.board = board;
         this.playerColor = color;
+        currentPlayerMove = Board.Color.WHITE;
         board.setupBoard();
 
         String css = "checkerboard.css";
@@ -79,7 +81,10 @@ public class Grid extends GridPane {
             return;
         }
 
-        if(tile.getPiece() == null || tile.getPiece().get_color() != playerColor) {
+        // if(tile.getPiece() == null || tile.getPiece().get_color() != currentPlayerMove) {
+        //     return;
+        // }
+        if(tile.getPiece() == null) {
             return;
         }
         
@@ -107,6 +112,16 @@ public class Grid extends GridPane {
             {
                 tiles[i][j].setState(State.BASE);
             }
+        }
+    }
+
+    public void newTurn()
+    {
+        if(currentPlayerMove == Board.Color.WHITE) {
+            currentPlayerMove = Board.Color.BLACK;
+        }
+        else {
+            currentPlayerMove = Board.Color.WHITE;
         }
     }
 

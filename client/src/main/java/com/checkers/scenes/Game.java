@@ -1,8 +1,7 @@
-package com.checkers;
+package com.checkers.scenes;
 
+import com.checkers.Grid;
 import com.checkers_core.Board;
-
-import javafx.scene.control.Button;
 
 public class Game extends MenuScene {
     protected Board board;

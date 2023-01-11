@@ -1,4 +1,4 @@
-package com.checkers;
+package com.checkers.scenes;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

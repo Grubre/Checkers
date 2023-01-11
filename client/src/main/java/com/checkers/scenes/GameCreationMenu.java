@@ -1,4 +1,4 @@
-package com.checkers;
+package com.checkers.scenes;
 
 import com.checkers_core.BasicPawnFactory;
 import com.checkers_core.BasicVariant;

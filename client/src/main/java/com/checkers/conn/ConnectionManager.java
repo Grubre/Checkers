@@ -1,10 +1,10 @@
-package com.checkers;
+package com.checkers.conn;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
+
+import com.checkers.scenes.MainMenu;
 
 import javafx.application.Platform;
 
@@ -12,7 +12,6 @@ public final class ConnectionManager {
     private Socket socket;
     private PrintWriter socketOutput;
     private Scanner socketInput;
-    private Scanner input;
 
     private ConnectionManager()
     {
@@ -34,7 +33,6 @@ public final class ConnectionManager {
             socket = new Socket("localhost", 58901);    
             socketOutput = new PrintWriter(socket.getOutputStream(), true);
             socketInput = new Scanner(socket.getInputStream());
-            input = new Scanner(System.in);
 
             Thread serverOutput = new Thread(new Runnable() {
                 @Override
@@ -53,5 +51,10 @@ public final class ConnectionManager {
             return false;
         }
         return true;
+    }
+
+    public void getLobbyList()
+    {
+
     }
 }
