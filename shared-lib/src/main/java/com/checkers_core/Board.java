@@ -8,7 +8,7 @@ public abstract class Board {
         WHITE
     };
 
-    public class BoardPos{
+    public static class BoardPos{
         public BoardPos(int x, int y)
         {
             this.x = x;
@@ -23,10 +23,13 @@ public abstract class Board {
 
     protected AbstractPawn[][] board;
 
-    Board(int x_dim, int y_dim)
+    protected AbstractPawnFactory pawnFactory;
+
+    Board(int x_dim, int y_dim, AbstractPawnFactory pawnFactory)
     {
         this.x_dim = x_dim;
         this.y_dim = y_dim;
+        this.pawnFactory = pawnFactory;
 
         board = new AbstractPawn[x_dim][y_dim];
     }
@@ -45,6 +48,17 @@ public abstract class Board {
     {
         board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         board[piecePos.x][piecePos.y] = null;
+        update();
+    }
+
+    private void update()
+    {
+        for (int j = 0; j < y_dim; j++) {
+            for (int i = 0; i < x_dim; i++) {
+                if(board[i][j] != null && board[i][j].can_ascend(this, new BoardPos(i, j)))
+                    board[i][j] = pawnFactory.create_ascended(board[i][j].get_color());
+            }
+        }
     }
 
     public abstract void setup_board();

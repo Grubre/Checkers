@@ -7,7 +7,7 @@ public class BasicVariant extends Board {
     AbstractPawnFactory pawnFactory;
     public BasicVariant(int x_dim, int y_dim, AbstractPawnFactory pawnFactory)
     {
-        super(x_dim, y_dim);
+        super(x_dim, y_dim, pawnFactory);
         this.pawnFactory = pawnFactory;
     }
 
@@ -17,7 +17,7 @@ public class BasicVariant extends Board {
             for (int i = 0; i < x_dim; i++) {
                 if(j < 3 && (i + j) % 2 == 1)
                     board[i][j] = pawnFactory.create_regular(Color.WHITE);
-                else if(j > 4 && (i + j) % 2 == 1)
+                else if(j >= y_dim - 3 && (i + j) % 2 == 1)
                     board[i][j] = pawnFactory.create_regular(Color.BLACK);
                 else
                     board[i][j] = null;

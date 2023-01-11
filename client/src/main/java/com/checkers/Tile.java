@@ -13,6 +13,7 @@ public class Tile extends StackPane {
         SELECTED,
         LEGALMOVE
     }
+    
     private final int x,y;
     private State state;
 
