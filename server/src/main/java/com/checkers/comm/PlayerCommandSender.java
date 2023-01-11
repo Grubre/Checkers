@@ -1,10 +1,12 @@
 package com.checkers.comm;
 
-import com.checkers.comm.command.Command;
-import com.checkers.comm.command.DisconnectCommand;
-import com.checkers.comm.command.ErrorCommand;
-import com.checkers.comm.parser.CommandParser;
-import com.checkers.comm.parser.ParsingException;
+import com.checkers_core.comm.command.Command;
+import com.checkers_core.comm.command.DisconnectCommand;
+import com.checkers_core.comm.command.ErrorCommand;
+import com.checkers_core.comm.parser.CommandParser;
+import com.checkers_core.comm.parser.ParsingException;
+import com.checkers_core.comm.CommandListener;
+import com.checkers_core.comm.CommandSender;
 
 public class PlayerCommandSender extends CommandSender {
     int playerId;

@@ -1,10 +1,10 @@
-package com.checkers.comm;
+package com.checkers_core.comm;
 
-import com.checkers.comm.command.Command;
+import com.checkers_core.comm.command.Command;
 
 public abstract class CommandSender {
     
-    CommandListener listener;
+    protected CommandListener listener;
 
     public void sendCommand(Command command) {
         listener.onCommand(command);

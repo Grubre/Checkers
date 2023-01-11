@@ -10,9 +10,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.checkers.comm.command.Command;
-import com.checkers.comm.parser.CommandParser;
-import com.checkers.comm.parser.ParsingException;
+import com.checkers_core.comm.command.Command;
+import com.checkers_core.comm.CommandListener;
+import com.checkers_core.comm.CommandVisitor;
+import com.checkers_core.comm.parser.CommandParser;
+import com.checkers_core.comm.parser.ParsingException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlayerCommandSenderTest {
