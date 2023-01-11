@@ -13,8 +13,8 @@ import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
 
-public class CommandParserTest {
-    CommandParser parser = new CommandParser();
+public class CommandCPParserTest {
+    CommandParser parser = new CommandCPParser();
 
     int testGameId = 42;
     int testPieceId = 10;
