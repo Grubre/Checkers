@@ -59,4 +59,9 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
         return "WRONGCOMM";
         
     }
+
+    @Override
+    public String onUnimplemented(Response response) {
+        return "NULL";
+    }
 }
