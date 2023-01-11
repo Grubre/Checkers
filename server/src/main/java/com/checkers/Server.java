@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
 
 import com.checkers.comm.PlayerCommandSender;
 import com.checkers_core.comm.parser.CommandParser;
+import com.checkers_core.resp.ResponseSerializer;
 import com.checkers.connection.ReceivingConnection;
 import com.checkers.connection.SendingConnection;
 import com.checkers.lobby.Hub;
 import com.checkers.resp.PlayerResponseListener;
-import com.checkers.resp.ResponseSerializer;
 
 public class Server {
 

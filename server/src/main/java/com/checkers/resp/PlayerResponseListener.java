@@ -1,7 +1,9 @@
 package com.checkers.resp;
 
 import com.checkers.connection.SendingConnection;
-import com.checkers.resp.response.Response;
+import com.checkers_core.resp.ResponseListener;
+import com.checkers_core.resp.ResponseSerializer;
+import com.checkers_core.resp.response.Response;
 
 public class PlayerResponseListener implements ResponseListener {
     SendingConnection connection;

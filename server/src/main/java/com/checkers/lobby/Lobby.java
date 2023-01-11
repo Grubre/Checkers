@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.checkers_core.comm.command.Command;
-import com.checkers.resp.ResponseListener;
-import com.checkers.resp.response.Response;
-import com.checkers.resp.response.WrongCommandResponse;
+import com.checkers_core.resp.ResponseListener;
+import com.checkers_core.resp.response.Response;
+import com.checkers_core.resp.response.WrongCommandResponse;
 import com.checkers_core.comm.CommandListener;
 import com.checkers_core.comm.CommandSender;
 import com.checkers_core.comm.CommandVisitor;

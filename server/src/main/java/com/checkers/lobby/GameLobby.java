@@ -3,8 +3,8 @@ package com.checkers.lobby;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.ResignCommand;
-import com.checkers.resp.response.PieceMovedResponse;
-import com.checkers.resp.response.PlayerDisconnectedResponse;
+import com.checkers_core.resp.response.PieceMovedResponse;
+import com.checkers_core.resp.response.PlayerDisconnectedResponse;
 
 public class GameLobby extends Lobby {
     Hub mainHub;
