@@ -36,7 +36,7 @@ public class Grid extends GridPane {
         this.board = board;
         board.setup_board();
 
-        String css = getClass().getResource("checkerboard.css").toExternalForm();
+        String css = "checkerboard.css";
         this.getStylesheets().add(css);
 
         addRowsAndColumns();
