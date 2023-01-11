@@ -22,6 +22,18 @@ Label {
 
 
 
+#lobby_list {
+    -fx-max-width: 500px;
+    -fx-font-alignment: center;
+    -fx-highlight-fill: -text1;
+    -fx-highlight-text-fill: -text1;
+    -fx-text-fill: -text1;
+    -fx-font-size: 24px;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent, -base1, transparent, -base1;
+    -fx-display-caret:false;
+}
+
 
 
 

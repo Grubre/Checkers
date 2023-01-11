@@ -55,7 +55,7 @@ public final class ConnectingToServerMenu extends MenuScene{
         styleComponent(abortButton);
 
         abortButton.setOnAction(onAction -> {
-            timer.cancel();
+            //timer.cancel();
             MainMenu.getInstance().setCurrent();
         });
     }
@@ -73,18 +73,29 @@ public final class ConnectingToServerMenu extends MenuScene{
     @Override
     protected void onEnter()
     {
-        timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(new Runnable() {
-                    public void run() {
-                        PlayMenu.getInstance().setCurrent();
-                    }
-                });
-            }  
-        };
-        timer.schedule(timerTask, 500);
+        ConnectionManager connectionManager = ConnectionManager.getInstance();
+        if(connectionManager.connect())
+        {
+            PlayMenu.getInstance().setCurrent();
+        }
+        else
+        {
+            MainMenu.getInstance().setCurrent();
+        }
+        // timer = new Timer();
+        // TimerTask timerTask = new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         Platform.runLater(new Runnable() {
+        //             public void run() {
+        //                 PlayMenu.getInstance().setCurrent();
+        //             }
+        //         });
+        //     }  
+        // };
+        // timer.schedule(timerTask, 500);
+
+
     }
 }
 

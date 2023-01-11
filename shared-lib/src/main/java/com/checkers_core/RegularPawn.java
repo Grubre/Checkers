@@ -10,16 +10,16 @@ public class RegularPawn extends AbstractPawn {
     }
 
     @Override
-    public ArrayList<Move> possible_moves(Board board, Board.BoardPos boardPos) {
+    public ArrayList<Move> possibleMoves(Board board, Board.BoardPos boardPos) {
         ArrayList<Move> moves = new ArrayList<Move>();
         int x = boardPos.x;
         int y = boardPos.y;
         Move move = new Move();
-        if(x > 0 && y > 0 && board.get_piece(x - 1 ,y - 1) == null)
+        if(x > 0 && y > 0 && board.getPiece(x - 1 ,y - 1) == null)
         {
             move.visitedFields.add(new Board.BoardPos(x - 1, y - 1));
         }
-        if(x < board.x_dim - 1 && y > 0 && board.get_piece(x + 1 ,y - 1) == null)
+        if(x < board.xDim - 1 && y > 0 && board.getPiece(x + 1 ,y - 1) == null)
         {
             move.visitedFields.add(new Board.BoardPos(x + 1, y - 1));
         }
@@ -28,7 +28,7 @@ public class RegularPawn extends AbstractPawn {
     }
 
     @Override
-    public Boolean can_ascend(Board board, Board.BoardPos boardPos) {
+    public Boolean canAscend(Board board, Board.BoardPos boardPos) {
         if(color == Color.BLACK)
         {
             if(boardPos.y == 0)
@@ -36,13 +36,13 @@ public class RegularPawn extends AbstractPawn {
         }
         else if(color == Color.WHITE)
         {
-            if(boardPos.y == board.x_dim - 1)
+            if(boardPos.y == board.xDim - 1)
                 return true;
         }
         return false;
     }
     
-    public Boolean is_ascended()
+    public Boolean isAscended()
     {
         return false;
     }

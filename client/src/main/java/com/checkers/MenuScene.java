@@ -27,8 +27,8 @@ public abstract class MenuScene {
 
     void setCurrent()
     {
-        onEnter();
         App.getStage().setScene(scene);
+        onEnter();
     }
 
     protected abstract void onEnter();

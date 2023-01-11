@@ -20,17 +20,17 @@ public abstract class AbstractPawn {
         this.color = color;
     }
 
-    public Board.Color get_color()
+    public Board.Color getColor()
     {
         return color;
     }
 
-    public boolean is_enemy(AbstractPawn otherPawn)
+    public boolean isEnemy(AbstractPawn otherPawn)
     {
-        return otherPawn.get_color() != this.color;
+        return otherPawn.getColor() != this.color;
     }
 
-    public abstract ArrayList<Move> possible_moves(Board board, Board.BoardPos boardPos);
-    public abstract Boolean is_ascended();
-    public abstract Boolean can_ascend(Board board, Board.BoardPos boardPos);
+    public abstract ArrayList<Move> possibleMoves(Board board, Board.BoardPos boardPos);
+    public abstract Boolean isAscended();
+    public abstract Boolean canAscend(Board board, Board.BoardPos boardPos);
 }

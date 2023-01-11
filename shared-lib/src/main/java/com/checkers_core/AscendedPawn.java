@@ -10,7 +10,7 @@ public class AscendedPawn extends AbstractPawn {
     }
 
     @Override
-    public ArrayList<Move> possible_moves(Board board, Board.BoardPos boardPos) {
+    public ArrayList<Move> possibleMoves(Board board, Board.BoardPos boardPos) {
         ArrayList<Move> moves = new ArrayList<Move>();
         int x = boardPos.x;
         int y = boardPos.y;
@@ -27,11 +27,11 @@ public class AscendedPawn extends AbstractPawn {
     }
 
     @Override
-    public Boolean can_ascend(Board board, Board.BoardPos boardPos) {
+    public Boolean canAscend(Board board, Board.BoardPos boardPos) {
         return false;
     }
     
-    public Boolean is_ascended()
+    public Boolean isAscended()
     {
         return true;
     }

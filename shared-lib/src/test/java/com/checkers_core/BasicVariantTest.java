@@ -8,63 +8,63 @@ import com.checkers_core.Board.Color;
 
 public class BasicVariantTest {
     @Test
-    public void ConstructorTest()
+    public void constructorTest()
     {
-        int x_dim = 8;
-        int y_dim = 8;
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
-        assertTrue(basicVariant.x_dim == x_dim);
-        assertTrue(basicVariant.y_dim == y_dim);
+        int xDim = 8;
+        int yDim = 8;
+        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
+        assertTrue(basicVariant.xDim == xDim);
+        assertTrue(basicVariant.yDim == yDim);
     }
     @Test
-    public void StartingBoardCntTest()
+    public void startingBoardCntTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
-        starting_board.setup_board();
-        int pawn_cnt = 0;
+        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        startingBoard.setupBoard();
+        int pawnCnt = 0;
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                if(starting_board.get_board()[i][j] != null)
-                    pawn_cnt++;
+                if(startingBoard.getBoard()[i][j] != null)
+                    pawnCnt++;
             }
         }
-        assertTrue(pawn_cnt == 24);
+        assertTrue(pawnCnt == 24);
     }
     @Test
-    public void StartingBoardNoPawnsOnWhiteFieldsTest()
+    public void startingBoardNoPawnsOnWhiteFieldsTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
-        starting_board.setup_board();
-        int white_field_pawn_cnt = 0;
+        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        startingBoard.setupBoard();
+        int whiteFieldPawnCnt = 0;
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                if((i + j) % 2 == 0 && starting_board.get_board()[i][j] != null)
-                white_field_pawn_cnt++;
+                if((i + j) % 2 == 0 && startingBoard.getBoard()[i][j] != null)
+                whiteFieldPawnCnt++;
             }
         }
-        assertTrue(white_field_pawn_cnt == 0);
+        assertTrue(whiteFieldPawnCnt == 0);
     }
     @Test
-    public void StartingBoardWhitePlacementTest()
+    public void startingBoardWhitePlacementTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
-        starting_board.setup_board();
+        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        startingBoard.setupBoard();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                if(j < 3 && (i + j) % 2 == 1 && starting_board.get_board()[i][j].get_color() != Color.WHITE)
+                if(j < 3 && (i + j) % 2 == 1 && startingBoard.getBoard()[i][j].getColor() != Color.WHITE)
                     assert(false);
             }
         }
         assertTrue(true);
     }
     @Test
-    public void StartingBoardBlackPlacementTest()
+    public void startingBoardBlackPlacementTest()
     {
-        BasicVariant starting_board = new BasicVariant(8, 8, new BasicPawnFactory());
-        starting_board.setup_board();
+        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        startingBoard.setupBoard();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
-                if(j > 4 && (i + j) % 2 == 1 && starting_board.get_board()[i][j].get_color() != Color.BLACK)
+                if(j > 4 && (i + j) % 2 == 1 && startingBoard.getBoard()[i][j].getColor() != Color.BLACK)
                     assert(false);
             }
         }

@@ -8,83 +8,87 @@ import com.checkers_core.Board.Color;
 
 public class RegularPawnTest {
     @Test
-    public void ConstructorTest()
+    public void constructorTest()
     {
         Color color = Color.BLACK;
         RegularPawn regularPawn = new RegularPawn(color);
 
-        assertTrue(color == regularPawn.get_color());
+        assertTrue(color == regularPawn.getColor());
     }
 
     @Test
-    public void WhiteAscensionRowTest()
+    public void whiteAscensionRowTest()
     {
-        int x_dim = 8, y_dim = 8;
+        int xDim = 8;
+        int yDim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.WHITE);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
+        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
-        for (int j = 0; j < y_dim; j++) {
-            for (int i = 0; i < x_dim; i++) {
-                if(j == y_dim - 1)
-                    assertTrue(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
+        for (int j = 0; j < yDim; j++) {
+            for (int i = 0; i < xDim; i++) {
+                if(j == yDim - 1)
+                    assertTrue(regularPawn.canAscend(basicVariant, new Board.BoardPos(i,j)));
                 else
-                    assertTrue(!regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
+                    assertTrue(!regularPawn.canAscend(basicVariant, new Board.BoardPos(i,j)));
             }
         }
     }
 
     @Test
-    public void BlackAscensionRowTest()
+    public void blackAscensionRowTest()
     {
-        int x_dim = 8, y_dim = 8;
+        int xDim = 8;
+        int yDim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.BLACK);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
+        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
-        for (int j = 0; j < y_dim; j++) {
-            for (int i = 0; i < x_dim; i++) {
+        for (int j = 0; j < yDim; j++) {
+            for (int i = 0; i < xDim; i++) {
                 if(j == 0)
-                    assertTrue(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
+                    assertTrue(regularPawn.canAscend(basicVariant, new Board.BoardPos(i,j)));
                 else
-                    assertTrue(!regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
+                    assertTrue(!regularPawn.canAscend(basicVariant, new Board.BoardPos(i,j)));
             }
         }
     }
 
     @Test
-    public void WhiteAscensionCntTest()
+    public void whiteAscensionCntTest()
     {
-        int x_dim = 8, y_dim = 8;
+        int xDim = 8;
+        int yDim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.WHITE);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
+        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
-        int white_cnt = 0;
+        int whiteCnt = 0;
 
-        for (int j = 0; j < y_dim; j++) {
-            for (int i = 0; i < x_dim; i++) {
-                if(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)))
-                    white_cnt++;
+        for (int j = 0; j < yDim; j++) {
+            for (int i = 0; i < xDim; i++) {
+                if(regularPawn.canAscend(basicVariant, new Board.BoardPos(i,j)))
+                    whiteCnt++;
             }
         }
 
-        assertTrue(white_cnt == x_dim);
+        assertTrue(whiteCnt == xDim);
     }
 
     @Test
-    public void BlackAscensionCntTest()
+    public void blackAscensionCntTest()
     {
-        int x_dim = 8, y_dim = 8;
+        int xDim = 8;
+        int yDim = 8;
         RegularPawn regularPawn = new RegularPawn(Color.BLACK);
-        BasicVariant basicVariant = new BasicVariant(x_dim, y_dim, new BasicPawnFactory());
+        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
 
-        int black_cnt = 0;
+        int blackCnt = 0;
 
-        for (int j = 0; j < y_dim; j++) {
-            for (int i = 0; i < x_dim; i++) {
-                if(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)))
-                    black_cnt++;
+        for (int j = 0; j < yDim; j++) {
+            for (int i = 0; i < xDim; i++) {
+                if(regularPawn.canAscend(basicVariant, new Board.BoardPos(i,j)))
+                    blackCnt++;
             }
         }
 
-        assertTrue(black_cnt == x_dim);
+        assertTrue(blackCnt == xDim);
     }
 }

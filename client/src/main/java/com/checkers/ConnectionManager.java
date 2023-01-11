@@ -6,8 +6,23 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class App  {
-    public static void main(String[] args) {
+public final class ConnectionManager {
+    private ConnectionManager()
+    {
+
+    }
+
+    private static ConnectionManager instance;
+    synchronized public static ConnectionManager getInstance()
+    {
+        if(instance == null) {
+            instance = new ConnectionManager();
+        }
+        return instance;
+    }
+
+    public boolean connect()
+    {
         try {
             Socket socket = new Socket("localhost", 58901);    
             PrintWriter socketOutput = new PrintWriter(socket.getOutputStream(), true);
@@ -24,18 +39,10 @@ public class App  {
             });
 
             serverOutput.start();
-
-            while(input.hasNextLine()) {
-                String command = input.nextLine();
-                socketOutput.println(command);
-            }
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e )
+        {
+            return false;
         }
+        return true;
     }
-
 }

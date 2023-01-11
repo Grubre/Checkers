@@ -14,15 +14,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.RowConstraints;
 
 /**
  * A container which extends GridPane with added support for multithreaded Cells.
  */
 public class Grid extends GridPane {
-    private final int x_dim;
-    private final int y_dim;
+    private final int xDim;
+    private final int yDim;
 
     private Board board;
 
@@ -33,22 +32,22 @@ public class Grid extends GridPane {
 
     Grid(Board board, Board.Color color)
     {
-        this.x_dim = board.x_dim;
-        this.y_dim = board.y_dim;
+        this.xDim = board.xDim;
+        this.yDim = board.yDim;
         this.board = board;
         this.playerColor = color;
-        board.setup_board();
+        board.setupBoard();
 
         String css = "checkerboard.css";
         this.getStylesheets().add(css);
 
         addRowsAndColumns();
 
-        tiles = new Tile[x_dim][y_dim];
+        tiles = new Tile[xDim][yDim];
 
-        for(int j = 0; j < y_dim; j++)
+        for(int j = 0; j < yDim; j++)
         {
-            for(int i = 0; i < x_dim; i++)
+            for(int i = 0; i < xDim; i++)
             {
                 Tile tile;
                 if((i + j) % 2 == 0)
@@ -74,21 +73,23 @@ public class Grid extends GridPane {
     {
         if(tile.getState() == State.LEGALMOVE)
         {
-            board.move_piece(new BoardPos(selected.getX(), selected.getY()),
+            board.movePiece(new BoardPos(selected.getX(), selected.getY()),
                              new BoardPos(tile.getX(), tile.getY()));
             drawBoard();
             return;
         }
 
-        if(tile.getPiece() == null || tile.getPiece().get_color() != playerColor)
-            return;  
+        if(tile.getPiece() == null || tile.getPiece().get_color() != playerColor) {
+            return;
+        }
         
         resetTilesState();
 
         tile.setState(State.SELECTED);
 
-        int x = tile.getX(), y = tile.getY();
-        ArrayList<Move> moves = board.get_piece(x, y).possible_moves(board, new Board.BoardPos(x, y));
+        int x = tile.getX();
+        int y = tile.getY();
+        ArrayList<Move> moves = board.getPiece(x, y).possibleMoves(board, new Board.BoardPos(x, y));
         for (Move move : moves) {
             for (Board.BoardPos pos : move.visitedFields) {
                 tiles[pos.x][pos.y].setState(State.LEGALMOVE);
@@ -100,9 +101,9 @@ public class Grid extends GridPane {
 
     public void resetTilesState()
     {
-        for(int j = 0; j < y_dim; j++)
+        for(int j = 0; j < yDim; j++)
         {
-            for(int i = 0; i < x_dim; i++)
+            for(int i = 0; i < xDim; i++)
             {
                 tiles[i][j].setState(State.BASE);
             }
@@ -111,25 +112,29 @@ public class Grid extends GridPane {
 
     public void drawBoard()
     {
-        resetTilesState();
-        for(int j = 0; j < y_dim; j++)
+        if(board.gameOver().isPresent())
         {
-            for(int i = 0; i < x_dim; i++)
+        }
+
+        resetTilesState();
+        for(int j = 0; j < yDim; j++)
+        {
+            for(int i = 0; i < xDim; i++)
             {
-                AbstractPawn pawn = board.get_piece(i, j);
+                AbstractPawn pawn = board.getPiece(i, j);
                 if(pawn == null)
                 {
                     tiles[i][j].setPiece(null);
                     System.out.println("Setting null");
                 }
-                else if(pawn.is_ascended())
+                else if(pawn.isAscended())
                 {
-                    tiles[i][j].setPiece(new VisualAscendedChecker(pawn.get_color()));
+                    tiles[i][j].setPiece(new VisualAscendedChecker(pawn.getColor()));
                     System.out.println("Setting ascended");
                 }
                 else
                 {
-                    tiles[i][j].setPiece(new VisualBasicChecker(pawn.get_color()));
+                    tiles[i][j].setPiece(new VisualBasicChecker(pawn.getColor()));
                     System.out.println("Setting non ascended");
                 }
             }
@@ -150,18 +155,18 @@ public class Grid extends GridPane {
      */
     private void addRowsAndColumns()
     {
-        for (int i = 0; i < x_dim; i++) {
+        for (int i = 0; i < xDim; i++) {
             ColumnConstraints colConst = new ColumnConstraints();
             colConst.setFillWidth(true);
             colConst.setPrefWidth(100);
-            colConst.setPercentWidth(100.0 / x_dim);
+            colConst.setPercentWidth(100.0 / xDim);
             getColumnConstraints().add(colConst);
         }
-        for (int i = 0; i < y_dim; i++) {
+        for (int i = 0; i < yDim; i++) {
             RowConstraints rowConst = new RowConstraints();
             rowConst.setFillHeight(true);
             rowConst.setPrefHeight(100);
-            rowConst.setPercentHeight(100.0 / y_dim);
+            rowConst.setPercentHeight(100.0 / yDim);
             getRowConstraints().add(rowConst);
         }
     }
@@ -188,11 +193,11 @@ public class Grid extends GridPane {
     /**
      * @return the width of the grid.
      */
-    public int getXDim(){return x_dim;}
+    public int getXDim(){return xDim;}
     /**
      * @return the height of the grid.
      */
-    public int getYDim(){return y_dim;}
+    public int getYDim(){return yDim;}
     /**
      * @return the game board.
      */

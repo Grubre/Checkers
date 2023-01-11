@@ -56,8 +56,7 @@ public final class PlayMenu extends MenuScene{
         });
 
         multiPlayerButton.setOnAction(onAction -> {
-            GameCreationMenu gameCreationMenu = new GameCreationMenu();
-            gameCreationMenu.setCurrent();
+            MultiPlayerMenu.getInstance().setCurrent();
         });
     }
 

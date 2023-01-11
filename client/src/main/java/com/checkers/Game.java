@@ -22,4 +22,9 @@ public class Game extends MenuScene {
 
         root.getChildren().addAll(grid);
     }
+
+    public void gameOver()
+    {
+        
+    }
 }

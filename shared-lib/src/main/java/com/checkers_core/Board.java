@@ -18,33 +18,33 @@ public abstract class Board {
         public int y;
     }
 
-    public final int x_dim;
-    public final int y_dim;
+    public final int xDim;
+    public final int yDim;
 
     protected AbstractPawn[][] board;
 
     protected AbstractPawnFactory pawnFactory;
 
-    Board(int x_dim, int y_dim, AbstractPawnFactory pawnFactory)
+    Board(int xDim, int yDim, AbstractPawnFactory pawnFactory)
     {
-        this.x_dim = x_dim;
-        this.y_dim = y_dim;
+        this.xDim = xDim;
+        this.yDim = yDim;
         this.pawnFactory = pawnFactory;
 
-        board = new AbstractPawn[x_dim][y_dim];
+        board = new AbstractPawn[xDim][yDim];
     }
 
-    public AbstractPawn get_piece(int i, int j)
+    public AbstractPawn getPiece(int i, int j)
     {
         return board[i][j];
     }
 
-    public AbstractPawn[][] get_board()
+    public AbstractPawn[][] getBoard()
     {
         return board;
     }
 
-    public void move_piece(Board.BoardPos piecePos, Board.BoardPos targetPos)
+    public void movePiece(Board.BoardPos piecePos, Board.BoardPos targetPos)
     {
         board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         board[piecePos.x][piecePos.y] = null;
@@ -53,14 +53,14 @@ public abstract class Board {
 
     private void update()
     {
-        for (int j = 0; j < y_dim; j++) {
-            for (int i = 0; i < x_dim; i++) {
-                if(board[i][j] != null && board[i][j].can_ascend(this, new BoardPos(i, j)))
-                    board[i][j] = pawnFactory.create_ascended(board[i][j].get_color());
+        for (int j = 0; j < yDim; j++) {
+            for (int i = 0; i < xDim; i++) {
+                if(board[i][j] != null && board[i][j].canAscend(this, new BoardPos(i, j)))
+                    board[i][j] = pawnFactory.create_ascended(board[i][j].getColor());
             }
         }
     }
 
-    public abstract void setup_board();
-    public abstract Optional<Color> game_over();
+    public abstract void setupBoard();
+    public abstract Optional<Color> gameOver();
 }
