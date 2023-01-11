@@ -37,7 +37,7 @@ public class Hub extends Lobby {
     }
 
     @Override
-    public void visitNewGame(NewGameCommand command) {
+    public Void visitNewGame(NewGameCommand command) {
         int newGameId = createLobby();
         int playerId = command.getPlayerId();
 
@@ -46,10 +46,12 @@ public class Hub extends Lobby {
         sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId));
         
         transferPlayerTo(playerId, command.getSource(), newLobby);
+
+        return null;
     }
 
     @Override
-    public void visitJoinGame(JoinGameCommand command) {
+    public Void visitJoinGame(JoinGameCommand command) {
         int gameId = command.getGameId();
         int playerId = command.getPlayerId();
         
@@ -62,11 +64,14 @@ public class Hub extends Lobby {
         else {
             sendToPlayer(playerId, new GameConnectionUnsuccessfulResponse());
         }
-        
+
+        return null;
     }
 
     @Override
-    public void visitDisconnect(DisconnectCommand command) {
+    public Void visitDisconnect(DisconnectCommand command) {
         removePlayer(command.getPlayerId());
+
+        return null;
     }
 }

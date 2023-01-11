@@ -24,8 +24,8 @@ public class PieceMovedResponse extends Response {
         return tileIds;
     }
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitPieceMoved(this);    
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitPieceMoved(this);    
     }
     
 }

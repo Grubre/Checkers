@@ -5,8 +5,8 @@ import com.checkers.comm.CommandVisitor;
 public class ResignCommand extends Command {
 
     @Override
-    public void accept(CommandVisitor visitor) {
-        visitor.visitResign(this);       
+    public <T> T accept(CommandVisitor<T> visitor) {
+        return visitor.visitResign(this);       
     }
     
 }

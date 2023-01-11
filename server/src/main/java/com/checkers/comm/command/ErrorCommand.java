@@ -5,8 +5,8 @@ import com.checkers.comm.CommandVisitor;
 public class ErrorCommand extends Command {
 
     @Override
-    public void accept(CommandVisitor visitor) {
-        visitor.visitError(this);
+    public <T> T accept(CommandVisitor<T> visitor) {
+        return visitor.visitError(this);
     }
     
 }

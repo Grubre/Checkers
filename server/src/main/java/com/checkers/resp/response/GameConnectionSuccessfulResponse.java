@@ -14,7 +14,7 @@ public class GameConnectionSuccessfulResponse extends Response {
     }
 
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitGameConnectionSuccessful(this);    
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitGameConnectionSuccessful(this);    
     }
 }

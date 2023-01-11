@@ -5,8 +5,8 @@ import com.checkers.resp.ResponseVisitor;
 public class WrongCommandResponse extends Response {
 
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitWrongCommand(this);    
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitWrongCommand(this);    
     }
     
 }

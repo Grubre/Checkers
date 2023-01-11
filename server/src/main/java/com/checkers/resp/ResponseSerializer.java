@@ -9,56 +9,53 @@ import com.checkers.resp.response.PlayerDisconnectedResponse;
 import com.checkers.resp.response.Response;
 import com.checkers.resp.response.WrongCommandResponse;
 
-public class ResponseSerializer implements ResponseVisitor {
-    String result;
-    
+public class ResponseSerializer implements ResponseVisitor<String> {
     public String serialize(Response response) {
-        response.accept(this);
-        return result;
+        return response.accept(this);
     }
 
     @Override
-    public void visitEndOfGame(EndOfGameResponse response) {
-        result = "EOG " + response.getWinnerId();
+    public String visitEndOfGame(EndOfGameResponse response) {
+        return "EOG " + response.getWinnerId();
         
     }
 
     @Override
-    public void visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
-        result = "GCS " + response.getGameId();
+    public String visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
+        return "GCS " + response.getGameId();
         
     }
 
     @Override
-    public void visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response) {
-        result = "GCU";
+    public String visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response) {
+        return "GCU";
         
     }
 
     @Override
-    public void visitIncorrectMove(IncorrectMoveResponse response) {
-        result = "INCORRMOVE";
+    public String visitIncorrectMove(IncorrectMoveResponse response) {
+        return "INCORRMOVE";
     }
 
     @Override
-    public void visitPieceMoved(PieceMovedResponse response) {
+    public String visitPieceMoved(PieceMovedResponse response) {
         String stringTileIds = "";
         for(int tileId : response.getTileIds()) {
             stringTileIds += tileId + " ";
         }
 
-        result = "MOVED " + response.getPlayerId() + " " + response.getPieceId() + " " + stringTileIds;
+        return "MOVED " + response.getPlayerId() + " " + response.getPieceId() + " " + stringTileIds;
     }
 
     @Override
-    public void visitPlayerDisconnected(PlayerDisconnectedResponse response) {
-        result = "DISCONNECT " + response.getPlayerId();
+    public String visitPlayerDisconnected(PlayerDisconnectedResponse response) {
+        return "DISCONNECT " + response.getPlayerId();
         
     }
 
     @Override
-    public void visitWrongCommand(WrongCommandResponse response) {
-        result = "WRONGCOMM";
+    public String visitWrongCommand(WrongCommandResponse response) {
+        return "WRONGCOMM";
         
     }
 }

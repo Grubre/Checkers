@@ -10,8 +10,8 @@ public class JoinGameCommand extends Command {
     }
 
     @Override
-    public void accept(CommandVisitor visitor) {
-        visitor.visitJoinGame(this);       
+    public <T> T accept(CommandVisitor<T> visitor) {
+        return visitor.visitJoinGame(this);       
     }
 
     public int getGameId() {

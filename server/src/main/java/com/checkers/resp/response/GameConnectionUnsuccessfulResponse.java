@@ -5,8 +5,8 @@ import com.checkers.resp.ResponseVisitor;
 public class GameConnectionUnsuccessfulResponse extends Response {
 
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitGameConnectionUnsuccessful(this);    
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitGameConnectionUnsuccessful(this);    
     }
        
 }

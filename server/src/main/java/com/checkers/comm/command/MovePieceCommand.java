@@ -1,6 +1,5 @@
 package com.checkers.comm.command;
 
-import java.util.Collection;
 import java.util.List;
 
 import com.checkers.comm.CommandVisitor;
@@ -23,7 +22,7 @@ public class MovePieceCommand extends Command {
     }
 
     @Override
-    public void accept(CommandVisitor visitor) {
-        visitor.visitMovePiece(this);    
+    public <T> T accept(CommandVisitor<T> visitor) {
+        return visitor.visitMovePiece(this);    
     }
 }

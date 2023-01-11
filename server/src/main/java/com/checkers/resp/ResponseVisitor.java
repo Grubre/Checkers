@@ -8,12 +8,12 @@ import com.checkers.resp.response.PieceMovedResponse;
 import com.checkers.resp.response.PlayerDisconnectedResponse;
 import com.checkers.resp.response.WrongCommandResponse;
 
-public interface ResponseVisitor {
-    void visitEndOfGame(EndOfGameResponse response);
-    void visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response);
-    void visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response);
-    void visitIncorrectMove(IncorrectMoveResponse response);
-    void visitPieceMoved(PieceMovedResponse response);
-    void visitPlayerDisconnected(PlayerDisconnectedResponse response);
-    void visitWrongCommand(WrongCommandResponse response);
+public interface ResponseVisitor<T> {
+    T visitEndOfGame(EndOfGameResponse response);
+    T visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response);
+    T visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response);
+    T visitIncorrectMove(IncorrectMoveResponse response);
+    T visitPieceMoved(PieceMovedResponse response);
+    T visitPlayerDisconnected(PlayerDisconnectedResponse response);
+    T visitWrongCommand(WrongCommandResponse response);
 }

@@ -14,7 +14,7 @@ public class GameLobby extends Lobby {
     }
 
     @Override
-    public void visitDisconnect(DisconnectCommand command) {
+    public Void visitDisconnect(DisconnectCommand command) {
         int playerId = command.getPlayerId();
         
         removePlayer(playerId);
@@ -24,10 +24,12 @@ public class GameLobby extends Lobby {
         broadcastToPlayers(new PlayerDisconnectedResponse(playerId));
 
         closeIfEmpty();
+
+        return null;
     }
 
     @Override
-    public void visitResign(ResignCommand command) {
+    public Void visitResign(ResignCommand command) {
         int playerId = command.getPlayerId();
 
         transferPlayerTo(playerId, command.getSource(), mainHub);
@@ -37,12 +39,16 @@ public class GameLobby extends Lobby {
         broadcastToPlayers(new PlayerDisconnectedResponse(playerId));
 
         closeIfEmpty();
+
+        return null;
     }
 
     @Override
-    public void visitMovePiece(MovePieceCommand command) {
+    public Void visitMovePiece(MovePieceCommand command) {
         //TODO Insert game logic
         broadcastToPlayers(new PieceMovedResponse(command.getPlayerId(), command.getPieceId(), command.getTileIds()));
+
+        return null;
     }
 
     private void closeIfEmpty() {

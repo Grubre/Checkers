@@ -5,8 +5,8 @@ import com.checkers.resp.ResponseVisitor;
 public class IncorrectMoveResponse extends Response {
 
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitIncorrectMove(this);    
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitIncorrectMove(this);    
     }
     
 }

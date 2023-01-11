@@ -14,8 +14,8 @@ public class EndOfGameResponse extends Response {
     }
 
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitEndOfGame(this);
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitEndOfGame(this);
     }
 
 }

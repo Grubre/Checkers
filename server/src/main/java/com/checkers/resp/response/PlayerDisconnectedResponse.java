@@ -13,8 +13,8 @@ public class PlayerDisconnectedResponse extends Response {
         return playerId;
     }
     @Override
-    public void accept(ResponseVisitor visitor) {
-        visitor.visitPlayerDisconnected(this);    
+    public <T> T accept(ResponseVisitor<T> visitor) {
+        return visitor.visitPlayerDisconnected(this);    
     }
 
     

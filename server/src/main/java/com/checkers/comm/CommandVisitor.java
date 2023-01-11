@@ -8,31 +8,31 @@ import com.checkers.comm.command.MovePieceCommand;
 import com.checkers.comm.command.NewGameCommand;
 import com.checkers.comm.command.ResignCommand;
 
-public interface CommandVisitor {
+public interface CommandVisitor<T> {
     
-    void onUnimplemented(Command command);
+    T onUnimplemented(Command command);
     
-    default void visitDisconnect(DisconnectCommand command) {
-        onUnimplemented(command);
+    default T visitDisconnect(DisconnectCommand command) {
+        return onUnimplemented(command);
     }
 
-    default void visitJoinGame(JoinGameCommand command) {
-        onUnimplemented(command);
+    default T visitJoinGame(JoinGameCommand command) {
+        return onUnimplemented(command);
     }
 
-    default void visitMovePiece(MovePieceCommand command) {
-        onUnimplemented(command);
+    default T visitMovePiece(MovePieceCommand command) {
+        return onUnimplemented(command);
     }
 
-    default void visitNewGame(NewGameCommand command) {
-        onUnimplemented(command);
+    default T visitNewGame(NewGameCommand command) {
+        return onUnimplemented(command);
     }
 
-    default void visitResign(ResignCommand command) {
-        onUnimplemented(command);
+    default T visitResign(ResignCommand command) {
+        return onUnimplemented(command);
     }
 
-    default void visitError(ErrorCommand command) {
-        onUnimplemented(command);
+    default T visitError(ErrorCommand command) {
+        return onUnimplemented(command);
     }
 }

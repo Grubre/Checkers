@@ -7,7 +7,7 @@ public abstract class Command {
     int playerId;
     CommandSender source;
 
-    public abstract void accept(CommandVisitor visitor);
+    public abstract <T> T accept(CommandVisitor<T> visitor);
 
     public CommandSender getSource() {
         return source;

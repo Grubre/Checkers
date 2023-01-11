@@ -11,7 +11,7 @@ import com.checkers.resp.ResponseListener;
 import com.checkers.resp.response.Response;
 import com.checkers.resp.response.WrongCommandResponse;
 
-public class Lobby implements CommandListener, CommandVisitor {
+public class Lobby implements CommandListener, CommandVisitor<Void> {
     Map<Integer, ResponseListener> connectedPlayers = new TreeMap<>();
 
     public void addPlayer(int playerId, ResponseListener listener) {
@@ -52,7 +52,8 @@ public class Lobby implements CommandListener, CommandVisitor {
     }
 
     @Override
-    public void onUnimplemented(Command command) {
+    public Void onUnimplemented(Command command) {
         sendToPlayer(command.getPlayerId(), new WrongCommandResponse());
+        return null;
     }
 }

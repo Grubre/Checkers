@@ -22,7 +22,8 @@ public class PlayerCommandSenderTest {
 
     Command testCommand = new Command() {
         @Override
-        public void accept(CommandVisitor visitor) {
+        public <T> T accept(CommandVisitor<T> visitor) {
+            return null;
         }
     };
 
