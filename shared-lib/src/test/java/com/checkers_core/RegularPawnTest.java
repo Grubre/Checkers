@@ -26,9 +26,9 @@ public class RegularPawnTest {
         for (int j = 0; j < y_dim; j++) {
             for (int i = 0; i < x_dim; i++) {
                 if(j == y_dim - 1)
-                    assertTrue(regularPawn.can_ascend(basicVariant, basicVariant.new BoardPos(i,j)));
+                    assertTrue(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
                 else
-                    assertTrue(!regularPawn.can_ascend(basicVariant, basicVariant.new BoardPos(i,j)));
+                    assertTrue(!regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
             }
         }
     }
@@ -43,9 +43,9 @@ public class RegularPawnTest {
         for (int j = 0; j < y_dim; j++) {
             for (int i = 0; i < x_dim; i++) {
                 if(j == 0)
-                    assertTrue(regularPawn.can_ascend(basicVariant, basicVariant.new BoardPos(i,j)));
+                    assertTrue(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
                 else
-                    assertTrue(!regularPawn.can_ascend(basicVariant, basicVariant.new BoardPos(i,j)));
+                    assertTrue(!regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)));
             }
         }
     }
@@ -61,7 +61,7 @@ public class RegularPawnTest {
 
         for (int j = 0; j < y_dim; j++) {
             for (int i = 0; i < x_dim; i++) {
-                if(regularPawn.can_ascend(basicVariant, basicVariant.new BoardPos(i,j)))
+                if(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)))
                     white_cnt++;
             }
         }
@@ -80,7 +80,7 @@ public class RegularPawnTest {
 
         for (int j = 0; j < y_dim; j++) {
             for (int i = 0; i < x_dim; i++) {
-                if(regularPawn.can_ascend(basicVariant, basicVariant.new BoardPos(i,j)))
+                if(regularPawn.can_ascend(basicVariant, new Board.BoardPos(i,j)))
                     black_cnt++;
             }
         }

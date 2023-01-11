@@ -20,7 +20,7 @@ public class AscendedPawn extends AbstractPawn {
         {
             for(int j = y; j >= 0; j--)
             {
-                move.visitedFields.add(board.new BoardPos(i, j));
+                move.visitedFields.add(new Board.BoardPos(i, j));
             }
         }
         moves.add(move);

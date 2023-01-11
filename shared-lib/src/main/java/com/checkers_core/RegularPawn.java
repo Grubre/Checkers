@@ -15,13 +15,13 @@ public class RegularPawn extends AbstractPawn {
         int x = boardPos.x;
         int y = boardPos.y;
         Move move = new Move();
-        if(x > 0 && y > 0)
+        if(x > 0 && y > 0 && board.get_piece(x - 1 ,y - 1) == null)
         {
-            move.visitedFields.add(board.new BoardPos(x - 1, y - 1));
+            move.visitedFields.add(new Board.BoardPos(x - 1, y - 1));
         }
-        if(x < board.x_dim - 1 && y > 0)
+        if(x < board.x_dim - 1 && y > 0 && board.get_piece(x + 1 ,y - 1) == null)
         {
-            move.visitedFields.add(board.new BoardPos(x + 1, y - 1));
+            move.visitedFields.add(new Board.BoardPos(x + 1, y - 1));
         }
         moves.add(move);
         return moves;

@@ -11,7 +11,7 @@ public class VisualAscendedChecker extends VisualChecker {
     {
         super(color);
         Ellipse fgEllipse = new Ellipse(25, 20);
-        fgEllipse.setStroke(Color.BLACK);
+        fgEllipse.setStroke(Color.WHITE);
         fgEllipse.setStrokeWidth(1.5);
         
         if(color == Board.Color.BLACK)
@@ -20,8 +20,8 @@ public class VisualAscendedChecker extends VisualChecker {
             fgEllipse.getStyleClass().add("white_pawn");
 
         Ellipse bgEllipse = new Ellipse(27,22);
-        bgEllipse.setFill(Color.BLACK);
-        bgEllipse.setStroke(Color.BLACK);
+        bgEllipse.setFill(Color.WHITE);
+        bgEllipse.setStroke(Color.WHITE);
         bgEllipse.setStrokeWidth(2.5);
         bgEllipse.setTranslateY(2.5);
         //bgEllipse.setTranslateX(0.5);

@@ -18,7 +18,7 @@ public class Game extends MenuScene {
     @Override
     protected void onEnter()
     {
-        Grid grid = new Grid(board);
+        Grid grid = new Grid(board, playerColor);
 
         root.getChildren().addAll(grid);
     }

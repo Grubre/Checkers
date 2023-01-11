@@ -29,11 +29,14 @@ public class Grid extends GridPane {
     Tile[][] tiles;
     private Tile selected = null;
 
-    Grid(Board board)
+    private Board.Color playerColor;
+
+    Grid(Board board, Board.Color color)
     {
         this.x_dim = board.x_dim;
         this.y_dim = board.y_dim;
         this.board = board;
+        this.playerColor = color;
         board.setup_board();
 
         String css = getClass().getResource("checkerboard.css").toExternalForm();
@@ -64,20 +67,38 @@ public class Grid extends GridPane {
                 add(tiles[i][j], i, j);
             }
         }
-        redraw_board();
+        draw_board();
     }
 
     public void handle_click(Tile tile)
     {
         if(tile.get_state() == State.LEGALMOVE)
         {
-            board.move_piece(board.new BoardPos(selected.getX(), selected.getY()),
-                             board.new BoardPos(tile.getX(), tile.getY()));
-            redraw_board();
+            board.move_piece(new BoardPos(selected.getX(), selected.getY()),
+                             new BoardPos(tile.getX(), tile.getY()));
+            draw_board();
             return;
         }
-        if(tile.get_piece() == null)
+        if(tile.get_piece() == null || tile.get_piece().get_color() != playerColor)
             return;  
+        
+        reset_tiles_state();
+
+        tile.set_state(State.SELECTED);
+
+        int x = tile.getX(), y = tile.getY();
+        ArrayList<Move> moves = board.get_piece(x, y).possible_moves(board, new Board.BoardPos(x, y));
+        for (Move move : moves) {
+            for (Board.BoardPos pos : move.visitedFields) {
+                tiles[pos.x][pos.y].set_state(State.LEGALMOVE);
+            }
+        }
+
+        selected = tile;
+    }
+
+    public void reset_tiles_state()
+    {
         for(int j = 0; j < y_dim; j++)
         {
             for(int i = 0; i < x_dim; i++)
@@ -85,19 +106,11 @@ public class Grid extends GridPane {
                 tiles[i][j].set_state(State.BASE);
             }
         }
-        tile.set_state(State.SELECTED);
-        int x = tile.getX(), y = tile.getY();
-        ArrayList<Move> moves = board.get_piece(x, y).possible_moves(board, board.new BoardPos(x, y));
-        for (Move move : moves) {
-            for (Board.BoardPos pos : move.visitedFields) {
-                tiles[pos.x][pos.y].set_state(State.LEGALMOVE);
-            }
-        }
-        selected = tile;
     }
 
-    public void redraw_board()
+    public void draw_board()
     {
+        reset_tiles_state();
         for(int j = 0; j < y_dim; j++)
         {
             for(int i = 0; i < x_dim; i++)

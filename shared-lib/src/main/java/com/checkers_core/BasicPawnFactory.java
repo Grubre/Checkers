@@ -11,7 +11,7 @@ public class BasicPawnFactory implements AbstractPawnFactory {
     @Override
     public AbstractPawn create_ascended(Board.Color color) {
         // TODO Auto-generated method stub
-        return null;
+        return new AscendedPawn(color);
     }
 
     
