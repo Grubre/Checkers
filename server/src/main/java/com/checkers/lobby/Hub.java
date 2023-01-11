@@ -6,8 +6,8 @@ import java.util.TreeMap;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.NewGameCommand;
-import com.checkers.resp.response.GameConnectionSuccessfulResponse;
-import com.checkers.resp.response.GameConnectionUnsuccessfulResponse;
+import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
+import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 
 public class Hub extends Lobby {
     Map<Integer, GameLobby> openLobbies = new TreeMap<>();
