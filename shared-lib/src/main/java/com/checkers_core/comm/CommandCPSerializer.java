@@ -14,53 +14,40 @@ public class CommandCPSerializer implements CommandSerializer, CommandVisitor<St
     public String serialize(Command command) {
         return command.accept(this);
     }
-
-
     
     @Override
     public String visitDisconnect(DisconnectCommand command) {
-        // TODO Auto-generated method stub
-        return CommandVisitor.super.visitDisconnect(command);
+        return "DISCONNECT";
     }
-
-
 
     @Override
     public String visitError(ErrorCommand command) {
-        // TODO Auto-generated method stub
-        return CommandVisitor.super.visitError(command);
+        return "ERROR";
     }
-
-
 
     @Override
     public String visitJoinGame(JoinGameCommand command) {
-        // TODO Auto-generated method stub
-        return CommandVisitor.super.visitJoinGame(command);
+        return "JOINGAME " + command.getGameId(); 
     }
-
-
 
     @Override
     public String visitMovePiece(MovePieceCommand command) {
-        // TODO Auto-generated method stub
-        return CommandVisitor.super.visitMovePiece(command);
+        String stringTileIds = "";
+        for(int tileId : command.getTileIds()) {
+            stringTileIds += tileId + " ";
+        }
+
+        return "MOVE " + command.getPieceId() + " " + stringTileIds;
     }
-
-
 
     @Override
     public String visitNewGame(NewGameCommand command) {
-        // TODO Auto-generated method stub
-        return CommandVisitor.super.visitNewGame(command);
+        return "NEWGAME";
     }
-
-
 
     @Override
     public String visitResign(ResignCommand command) {
-        // TODO Auto-generated method stub
-        return CommandVisitor.super.visitResign(command);
+        return "RESIGN";
     }
 
     @Override
