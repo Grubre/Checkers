@@ -1,13 +1,17 @@
 package com.checkers.lobby;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
+import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
+import com.checkers_core.resp.response.LobbyListResponse;
+import com.checkers_core.resp.response.Response;
 
 public class Hub extends Lobby {
     Map<Integer, GameLobby> openLobbies = new TreeMap<>();
@@ -64,6 +68,17 @@ public class Hub extends Lobby {
         else {
             sendToPlayer(playerId, new GameConnectionUnsuccessfulResponse());
         }
+
+        return null;
+    }
+
+    public Void visitListLobby(ListLobbyCommand command) {
+
+        Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
+
+        int playerId = command.getPlayerId();
+
+        sendToPlayer(playerId, resp);
 
         return null;
     }

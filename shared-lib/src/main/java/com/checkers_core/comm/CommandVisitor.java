@@ -4,6 +4,7 @@ import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.ErrorCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
+import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
@@ -33,6 +34,10 @@ public interface CommandVisitor<T> {
     }
 
     default T visitError(ErrorCommand command) {
+        return onUnimplemented(command);
+    }
+
+    default T visitListLobby(ListLobbyCommand command) {
         return onUnimplemented(command);
     }
 }
