@@ -7,13 +7,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.checkers.comm.PlayerCommandSender;
-import com.checkers_core.comm.parser.CommandCPParser;
-import com.checkers_core.comm.parser.CommandParser;
-import com.checkers_core.resp.ResponseSerializer;
 import com.checkers.connection.ReceivingConnection;
 import com.checkers.connection.SendingConnection;
 import com.checkers.lobby.Hub;
 import com.checkers.resp.PlayerResponseListener;
+import com.checkers_core.comm.parser.CommandCPParser;
+import com.checkers_core.resp.ResponseCPSerializer;
 
 public class Server {
 
@@ -47,7 +46,7 @@ public class Server {
                     ReceivingConnection recConn = new ReceivingConnection(newConnection, sender);
 
                     SendingConnection sendConn = new SendingConnection(newConnection);
-                    PlayerResponseListener listener = new PlayerResponseListener(sendConn, new ResponseSerializer());
+                    PlayerResponseListener listener = new PlayerResponseListener(sendConn, new ResponseCPSerializer());
                     
                     hub.addPlayer(id, listener);
 
