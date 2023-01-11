@@ -27,29 +27,29 @@ public final class MainMenu extends MenuScene{
         
         root.getChildren().add(vBox);
 
-        set_buttons();
+        setButtons();
 
-        style_component(vBox);
+        styleComponent(vBox);
 
         vBox.getChildren().addAll(playButton, exitButton);
     }
 
-    private void set_buttons()
+    private void setButtons()
     {
         playButton = new Button("Play");
         playButton.setId("menu_button");
         exitButton = new Button("Exit");
         exitButton.setId("menu_button");
 
-        style_component(playButton);
-        style_component(exitButton);
+        styleComponent(playButton);
+        styleComponent(exitButton);
 
         exitButton.setOnAction(onAction -> {
             Platform.exit();
         });
 
         playButton.setOnAction(onAction -> {
-            ConnectingToServerMenu.getInstance().set_current();
+            ConnectingToServerMenu.getInstance().setCurrent();
         });
     }
 

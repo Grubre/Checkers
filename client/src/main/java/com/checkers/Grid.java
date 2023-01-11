@@ -61,56 +61,57 @@ public class Grid extends GridPane {
                 tile.getStylesheets().add(css);
                 tile.setOnMouseClicked(eventAction -> {
                     System.out.println("Clicked tile " + tile.getX() + " " + tile.getY());
-                    handle_click(tile);
+                    handleClick(tile);
                 });
                 tiles[i][j] = tile;
                 add(tiles[i][j], i, j);
             }
         }
-        draw_board();
+        drawBoard();
     }
 
-    public void handle_click(Tile tile)
+    public void handleClick(Tile tile)
     {
-        if(tile.get_state() == State.LEGALMOVE)
+        if(tile.getState() == State.LEGALMOVE)
         {
             board.move_piece(new BoardPos(selected.getX(), selected.getY()),
                              new BoardPos(tile.getX(), tile.getY()));
-            draw_board();
+            drawBoard();
             return;
         }
-        if(tile.get_piece() == null || tile.get_piece().get_color() != playerColor)
+
+        if(tile.getPiece() == null || tile.getPiece().get_color() != playerColor)
             return;  
         
-        reset_tiles_state();
+        resetTilesState();
 
-        tile.set_state(State.SELECTED);
+        tile.setState(State.SELECTED);
 
         int x = tile.getX(), y = tile.getY();
         ArrayList<Move> moves = board.get_piece(x, y).possible_moves(board, new Board.BoardPos(x, y));
         for (Move move : moves) {
             for (Board.BoardPos pos : move.visitedFields) {
-                tiles[pos.x][pos.y].set_state(State.LEGALMOVE);
+                tiles[pos.x][pos.y].setState(State.LEGALMOVE);
             }
         }
 
         selected = tile;
     }
 
-    public void reset_tiles_state()
+    public void resetTilesState()
     {
         for(int j = 0; j < y_dim; j++)
         {
             for(int i = 0; i < x_dim; i++)
             {
-                tiles[i][j].set_state(State.BASE);
+                tiles[i][j].setState(State.BASE);
             }
         }
     }
 
-    public void draw_board()
+    public void drawBoard()
     {
-        reset_tiles_state();
+        resetTilesState();
         for(int j = 0; j < y_dim; j++)
         {
             for(int i = 0; i < x_dim; i++)
@@ -118,29 +119,29 @@ public class Grid extends GridPane {
                 AbstractPawn pawn = board.get_piece(i, j);
                 if(pawn == null)
                 {
-                    tiles[i][j].set_piece(null);
+                    tiles[i][j].setPiece(null);
                     System.out.println("Setting null");
                 }
                 else if(pawn.is_ascended())
                 {
-                    tiles[i][j].set_piece(new VisualAscendedChecker(pawn.get_color()));
+                    tiles[i][j].setPiece(new VisualAscendedChecker(pawn.get_color()));
                     System.out.println("Setting ascended");
                 }
                 else
                 {
-                    tiles[i][j].set_piece(new VisualBasicChecker(pawn.get_color()));
+                    tiles[i][j].setPiece(new VisualBasicChecker(pawn.get_color()));
                     System.out.println("Setting non ascended");
                 }
             }
         }
     }
 
-    public void SetAnchorPaneLayout(Boolean Top, Boolean Left, Boolean Bottom, Boolean Right)
+    public void setAnchorPaneLayout(Boolean top, Boolean left, Boolean bottom, Boolean right)
     {
-        if(Top)    AnchorPane.setTopAnchor(this, 0.0);
-        if(Left)   AnchorPane.setLeftAnchor(this, 0.0);
-        if(Bottom) AnchorPane.setBottomAnchor(this, 0.0);
-        if(Right)  AnchorPane.setRightAnchor(this, 0.0);
+        if(top)    AnchorPane.setTopAnchor(this, 0.0);
+        if(left)   AnchorPane.setLeftAnchor(this, 0.0);
+        if(bottom) AnchorPane.setBottomAnchor(this, 0.0);
+        if(right)  AnchorPane.setRightAnchor(this, 0.0);
     }
 
     /**
@@ -187,13 +188,13 @@ public class Grid extends GridPane {
     /**
      * @return the width of the grid.
      */
-    public int getX_dim(){return x_dim;}
+    public int getXDim(){return x_dim;}
     /**
      * @return the height of the grid.
      */
-    public int getY_dim(){return y_dim;}
+    public int getYDim(){return y_dim;}
     /**
      * @return the game board.
      */
-    public Board get_board() { return board; }
+    public Board getBoard() { return board; }
 }

@@ -29,8 +29,8 @@
   -fx-fill: rgb(57, 52, 202);
 }
 .white_pawn:hover {
-  -fx-fill: blue ;
+  -fx-fill: BLACK ;
 }
 .black_pawn:hover {
-  -fx-fill: blue ;
+  -fx-fill: BLACK ;
 }

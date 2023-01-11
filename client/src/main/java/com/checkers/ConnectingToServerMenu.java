@@ -7,12 +7,11 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class ConnectingToServerMenu extends MenuScene{
+public final class ConnectingToServerMenu extends MenuScene{
     private Text loadingText;
     private ProgressBar progressBar;
     private Button abortButton;
@@ -41,23 +40,23 @@ public class ConnectingToServerMenu extends MenuScene{
         
         root.getChildren().add(vBox);
 
-        set_buttons();
+        setButtons();
 
-        style_component(vBox);
+        styleComponent(vBox);
 
         vBox.getChildren().addAll(loadingText, progressBar, abortButton);
     }
 
-    private void set_buttons()
+    private void setButtons()
     {
         abortButton = new Button("Abort");
         abortButton.setId("menu_button");
 
-        style_component(abortButton);
+        styleComponent(abortButton);
 
         abortButton.setOnAction(onAction -> {
             timer.cancel();
-            MainMenu.getInstance().set_current();
+            MainMenu.getInstance().setCurrent();
         });
     }
 
@@ -80,7 +79,7 @@ public class ConnectingToServerMenu extends MenuScene{
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        PlayMenu.getInstance().set_current();
+                        PlayMenu.getInstance().setCurrent();
                     }
                 });
             }  

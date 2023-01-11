@@ -22,7 +22,7 @@ public class App extends Application {
         mStage.centerOnScreen();
 
         MainMenu mainMenu = MainMenu.getInstance();
-        mainMenu.set_current();
+        mainMenu.setCurrent();
 
         mStage.setTitle("Checkers");
         mStage.show();

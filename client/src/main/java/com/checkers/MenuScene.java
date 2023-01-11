@@ -17,7 +17,7 @@ public abstract class MenuScene {
         scene = new Scene(root);
     }
 
-    void style_component(Parent obj)
+    void styleComponent(Parent obj)
     {
         if(css != null)
             obj.getStylesheets().add(css);
@@ -25,7 +25,7 @@ public abstract class MenuScene {
             System.out.println("Error loading CSS!");
     }
 
-    void set_current()
+    void setCurrent()
     {
         onEnter();
         App.getStage().setScene(scene);

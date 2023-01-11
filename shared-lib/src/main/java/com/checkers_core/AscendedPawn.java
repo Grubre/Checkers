@@ -2,7 +2,6 @@ package com.checkers_core;
 
 import java.util.ArrayList;
 
-import com.checkers_core.Board.BoardPos;
 import com.checkers_core.Board.Color;
 
 public class AscendedPawn extends AbstractPawn {

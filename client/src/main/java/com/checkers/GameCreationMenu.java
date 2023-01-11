@@ -11,10 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -23,8 +21,6 @@ public class GameCreationMenu extends MenuScene {
     private VBox vBox;
 
     private Board board;
-
-    private Game game;
 
     public GameCreationMenu()
     {
@@ -38,14 +34,14 @@ public class GameCreationMenu extends MenuScene {
         AnchorPane.setBottomAnchor(vBox, 0.0);
         AnchorPane.setRightAnchor(vBox, 0.0);
 
-        set_components();
+        setComponents();
 
-        style_component(vBox);
+        styleComponent(vBox);
 
         root.getChildren().add(vBox);
     }
 
-    private void set_components()
+    private void setComponents()
     {
         Label mainLabel = new Label("Choose your game settings:");
         mainLabel.setId("gamecreate_mainlabel");
@@ -99,26 +95,29 @@ public class GameCreationMenu extends MenuScene {
             System.out.println("Variant: " + variantComboBox.getValue());
             System.out.println("Height: " + heightSlider.getValue() + "Width: " + widthSlider.getValue());
             Board.Color color = Color.WHITE;
-            if(colorComboBox.getValue() == "Black")
+            if(colorComboBox.getValue() == "Black") {
                 color = Color.BLACK;
+            }
             switch(variantComboBox.getValue())
             {
-                case "Basic Variant":
+                case "Basic Variant" -> {
                     board = new BasicVariant(
                             (int)widthSlider.getValue(),
                             (int)heightSlider.getValue(),
                             new BasicPawnFactory());
-                break;
+                }
+                default -> {}
             }
             Game game = new Game(board, color);
-            game.set_current();
+            game.setCurrent();
         });
+
         startGameButton.setId("menu_button");
 
         
-        style_component(startGameButton);
-        style_component(colorComboBox);
-        style_component(textArea);
+        styleComponent(startGameButton);
+        styleComponent(colorComboBox);
+        styleComponent(textArea);
         vBox.getChildren().addAll( mainLabel,
                                 textArea,
                                 widthLabel, widthSlider,

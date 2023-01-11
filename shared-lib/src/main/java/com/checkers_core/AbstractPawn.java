@@ -3,7 +3,7 @@ package com.checkers_core;
 import java.util.ArrayList;
 
 public abstract class AbstractPawn {
-    public class Move {
+    public static class Move {
         public Move()
         {
             visitedFields = new ArrayList<>();

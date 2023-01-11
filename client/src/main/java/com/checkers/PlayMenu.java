@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class PlayMenu extends MenuScene{
+public final class PlayMenu extends MenuScene{
     Button multiPlayerButton;
     Button singlePlayerButton;
     Button backButton;
@@ -26,14 +26,14 @@ public class PlayMenu extends MenuScene{
         
         root.getChildren().add(vBox);
 
-        set_buttons();
+        setButtons();
 
-        style_component(vBox);
+        styleComponent(vBox);
 
         vBox.getChildren().addAll(singlePlayerButton, multiPlayerButton, backButton);
     }
 
-    private void set_buttons()
+    private void setButtons()
     {
         singlePlayerButton = new Button("Play vs AI");
         singlePlayerButton.setId("menu_button");
@@ -42,22 +42,22 @@ public class PlayMenu extends MenuScene{
         backButton = new Button("Back");
         backButton.setId("menu_button");
 
-        style_component(singlePlayerButton);
-        style_component(multiPlayerButton);
-        style_component(backButton);
+        styleComponent(singlePlayerButton);
+        styleComponent(multiPlayerButton);
+        styleComponent(backButton);
 
         backButton.setOnAction(onAction -> {
-            MainMenu.getInstance().set_current();
+            MainMenu.getInstance().setCurrent();
         });
 
         singlePlayerButton.setOnAction(onAction -> {
             GameCreationMenu gameCreationMenu = new GameCreationMenu();
-            gameCreationMenu.set_current();
+            gameCreationMenu.setCurrent();
         });
 
         multiPlayerButton.setOnAction(onAction -> {
             GameCreationMenu gameCreationMenu = new GameCreationMenu();
-            gameCreationMenu.set_current();
+            gameCreationMenu.setCurrent();
         });
     }
 
