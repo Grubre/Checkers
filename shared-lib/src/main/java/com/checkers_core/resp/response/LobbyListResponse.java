@@ -5,10 +5,14 @@ import java.util.List;
 import com.checkers_core.resp.ResponseVisitor;
 
 public class LobbyListResponse extends Response {
-    List<Integer> lobby_ids;
+    final List<Integer> lobbyIds;
+
+    public List<Integer> getLobbyIds() {
+        return lobbyIds;
+    }
 
     public LobbyListResponse(List<Integer> lobbyIds) {
-        this.lobby_ids = lobbyIds;
+        this.lobbyIds = lobbyIds;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.IncorrectMoveResponse;
+import com.checkers_core.resp.response.LobbyListResponse;
 import com.checkers_core.resp.response.PieceMovedResponse;
 import com.checkers_core.resp.response.PlayerDisconnectedResponse;
 import com.checkers_core.resp.response.Response;
@@ -13,6 +14,11 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
     @Override
     public String serialize(Response response) {
         return response.accept(this);
+    }
+
+    @Override
+    public String onUnimplemented(Response response) {
+        return "NULL";
     }
 
     @Override
@@ -61,7 +67,14 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
     }
 
     @Override
-    public String onUnimplemented(Response response) {
-        return "NULL";
+    public String visitLobbyList(LobbyListResponse response) {
+        String stringLobbyIds = "";
+        for(int lobbyId : response.getLobbyIds()) {
+            stringLobbyIds += lobbyId + " ";
+        }
+
+        return "LOBBIES " + stringLobbyIds;
     }
+
+    
 }
