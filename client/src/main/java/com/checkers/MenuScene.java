@@ -11,7 +11,7 @@ public abstract class MenuScene {
     
     MenuScene()
     {
-        css = getClass().getResource("menu.css").toExternalForm();
+        css = "menu.css";
         root = new AnchorPane();
         root.setId("background");
         scene = new Scene(root);
