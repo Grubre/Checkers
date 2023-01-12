@@ -97,7 +97,9 @@ public class Grid extends GridPane {
         List<Move> moves = board.getPiece(x, y).possibleMoves(board, new Board.BoardPos(x, y));
         for (Move move : moves) {
             Board.BoardPos pos = move.visitedFields.get(move.visitedFields.size() - 1);
-            tiles[pos.x][pos.y].setState(State.LEGALMOVE);
+            if(!(move.visitedFields.size() == 1 && pos.x == x && pos.y == y)) { 
+                tiles[pos.x][pos.y].setState(State.LEGALMOVE);
+            }
         }
 
         selected = tile;
