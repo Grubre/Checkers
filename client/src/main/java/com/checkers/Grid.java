@@ -88,6 +88,7 @@ public class Grid extends GridPane {
         //     return;
         // }
         if(tile.getPiece() == null) {
+            System.out.println("Clicked on null");
             selected = null;
             resetTilesState();
             drawBoard();
@@ -102,10 +103,12 @@ public class Grid extends GridPane {
     {
         resetTilesState();
 
-        if(currentMoves.getPossibleMoves().size() <= 1)
+        // The move has ended
+        if(currentMoves.getPossibleMoves().size() < 1)
         {
             selected = null;
             currentMoves = null;
+            board.updateAndAscend();
             return;
         }
 
@@ -119,6 +122,8 @@ public class Grid extends GridPane {
         currentMoves = nextNode;
 
         select(tile);
+
+        currentMoves.print("");
 
         setPossibleMovesForSelected();
     }
@@ -151,6 +156,8 @@ public class Grid extends GridPane {
             return;
         }
         for (MoveNode move : currentMoves) {
+            if(!move.isMarkedMax())
+                continue;
             Board.BoardPos pos = move.getPos();
             tiles[pos.x][pos.y].setState(State.LEGALMOVE);
         }

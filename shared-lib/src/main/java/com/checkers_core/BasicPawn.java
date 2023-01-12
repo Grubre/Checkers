@@ -77,7 +77,10 @@ public class BasicPawn extends AbstractPawn {
         MoveNode moveGraph = findMoveRecursive(board, new Board.BoardPos(x, y));
 
         if(moveGraph.possibleMoves.size() > 0)
+        {
+            moveGraph.pruneNonMaxPaths();
             return moveGraph;
+        }
 
         if (board.isInBounds(x - 1, y + direction) && board.getPiece(x - 1, y + direction) == null) {
             moveGraph.possibleMoves.add(new MoveNode(x - 1, y + direction, new ArrayList<>()));
@@ -86,7 +89,7 @@ public class BasicPawn extends AbstractPawn {
             moveGraph.possibleMoves.add(new MoveNode(x + 1, y + direction, new ArrayList<>()));
         }
 
-        int maxSizeMove = moveGraph.getLongestPathLength();
+        moveGraph.pruneNonMaxPaths();
         
         return moveGraph;
     }

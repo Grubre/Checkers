@@ -79,8 +79,6 @@ public abstract class Board {
         {
             setPiece(enemyX, enemyY, null);
         }
-
-        update();
     }
 
     public void movePiece(Board.BoardPos piecePos, Move move)
@@ -100,7 +98,7 @@ public abstract class Board {
         });
     }
 
-    private void update()
+    public void updateAndAscend()
     {
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {

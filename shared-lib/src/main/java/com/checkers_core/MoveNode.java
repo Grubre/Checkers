@@ -1,7 +1,6 @@
 package com.checkers_core;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +12,10 @@ public class MoveNode implements Iterable<MoveNode>{
     List<BoardPos> removedPawns;
     List<MoveNode> possibleMoves = new ArrayList<>();
 
+    private boolean markedMax = false;
+
+    private int maxPathLen = 0;
+
     public MoveNode(int x, int y, List<BoardPos> parentRemovedPos) {
         this.x = x;
         this.y = y;
@@ -21,7 +24,7 @@ public class MoveNode implements Iterable<MoveNode>{
 
     public void print(String parentString)
     {
-        String myString = new String("("+x + ", " + y + "), ");
+        String myString = new String("("+x + ", " + y + ", len: " + maxPathLen + "), ");
         if(possibleMoves.size() == 0)
             System.out.println(parentString + myString);
         for(MoveNode move : possibleMoves)
@@ -58,25 +61,35 @@ public class MoveNode implements Iterable<MoveNode>{
     public int getLongestPathLength()
     {
         int max = 0;
+        System.out.println("Max: "+max);
         for(MoveNode path : possibleMoves)
         {
             max = Math.max(max, path.getLongestPathLength());
         }
+        maxPathLen = max;
         return max + 1;
     }
 
-    public MoveNode pruneNonMaxPaths() {
-        return null;
+    public void pruneNonMaxPaths() {
+        getLongestPathLength();
+        countAndPrune();
     }
 
-    private int countAndPrune()
+    private void countAndPrune()
     {
-        int max = 0;
-        for(MoveNode path : possibleMoves)
+        for(MoveNode child : possibleMoves)
         {
-            max = Math.max(max, path.getLongestPathLength());
+            if(child.maxPathLen + 1 >= maxPathLen)
+            {
+                child.markedMax = true;
+                child.countAndPrune();
+            }
         }
-        return max + 1;
+    }
+
+    public boolean isMarkedMax()
+    {
+        return markedMax;
     }
 
     @Override
