@@ -140,17 +140,17 @@ public class Grid extends GridPane {
                 if(pawn == null)
                 {
                     tiles[i][j].setPiece(null);
-                    System.out.println("Setting null");
+                    //System.out.println("Setting null");
                 }
                 else if(pawn.isAscended())
                 {
                     tiles[i][j].setPiece(new VisualAscendedChecker(pawn.getColor()));
-                    System.out.println("Setting ascended");
+                    //System.out.println("Setting ascended");
                 }
                 else
                 {
                     tiles[i][j].setPiece(new VisualBasicChecker(pawn.getColor()));
-                    System.out.println("Setting non ascended");
+                    //System.out.println("Setting non ascended");
                 }
             }
         }
