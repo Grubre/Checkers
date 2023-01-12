@@ -69,10 +69,21 @@ public abstract class Board {
     {
         board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         board[piecePos.x][piecePos.y] = null;
+
+        int enemyX = (targetPos.x + piecePos.x) / 2;
+        int enemyY = (targetPos.y + piecePos.y) / 2;
+
+        if(getPiece(enemyX, enemyY) != null &&
+        getPiece(targetPos.x, targetPos.y) != null &&
+        getPiece(enemyX, enemyY).getColor() != getPiece(targetPos.x, targetPos.y).getColor())
+        {
+            setPiece(enemyX, enemyY, null);
+        }
+
         update();
     }
 
-    public void movePiece(Board.BoardPos piecePos, AbstractPawn.Move move)
+    public void movePiece(Board.BoardPos piecePos, Move move)
     {
         int s = move.visitedFields.size();
         int targetX = move.visitedFields.get(s).x;

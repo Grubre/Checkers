@@ -10,20 +10,8 @@ public class BasicAscendedPawn extends AbstractPawn {
     }
 
     @Override
-    public ArrayList<Move> possibleMoves(Board board, Board.BoardPos boardPos) {
-        ArrayList<Move> moves = new ArrayList<Move>();
-        int x = boardPos.x;
-        int y = boardPos.y;
-        Move move = new Move();
-        for(int i = x; i >= 0; i--)
-        {
-            for(int j = y; j >= 0; j--)
-            {
-                move.visitedFields.add(new Board.BoardPos(i, j));
-            }
-        }
-        moves.add(move);
-        return moves;
+    public MoveNode possibleMoves(Board board, Board.BoardPos boardPos) {
+        return null;
     }
 
     @Override

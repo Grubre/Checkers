@@ -1,5 +1,7 @@
 package com.checkers;
 
+import com.checkers_core.Board;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -78,4 +80,5 @@ public class Tile extends StackPane {
 
     public int getX() { return x; }
     public int getY() { return y; }
+    public Board.BoardPos getPos() { return new Board.BoardPos(x,y); }
 }

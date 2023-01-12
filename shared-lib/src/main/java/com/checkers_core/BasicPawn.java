@@ -20,47 +20,19 @@ public class BasicPawn extends AbstractPawn {
             direction = -1;
     }
 
-    class MoveGraph {
-        int x;
-        int y;
-        List<Board.BoardPos> removedPawns;
-        List<MoveGraph> possibleMoves = new ArrayList<>();
-
-        public MoveGraph(int x, int y, List<BoardPos> parentRemovedPos) {
-            this.x = x;
-            this.y = y;
-            this.removedPawns = parentRemovedPos;
-        }
-
-        public void toMoveList(List<Move> list, List<BoardPos> visitedFields) {
-            visitedFields.add(new BoardPos(x, y));
-
-            Move move = new Move(new ArrayList<>(visitedFields), removedPawns);
-
-            list.add(move);
-
-            for (MoveGraph newMove : possibleMoves) {
-                newMove.toMoveList(list, visitedFields);
-            }
-
-            visitedFields.remove(visitedFields.size() - 1);
-
-        }
-    }
-
-    private MoveGraph findMoveRecursive(Board board, MoveGraph parentMove, BoardPos newPos, BoardPos removedPiece) {
+    private MoveNode findMoveRecursive(Board board, MoveNode parentMove, BoardPos newPos, BoardPos removedPiece) {
         int x = newPos.x;
         int y = newPos.y;
 
         if (board.isInBounds(x, y) && (board.getPiece(x, y) == null || board.getPiece(x, y) == this)) {
-            MoveGraph move = new MoveGraph(x, y, new ArrayList<>(parentMove.removedPawns));
+            MoveNode move = new MoveNode(x, y, new ArrayList<>(parentMove.removedPawns));
             move.removedPawns.add(removedPiece);
 
             for (int i = -1; i <= 1; i += 2) {
                 for (int j = -1; j <= 1; j += 2) {
                     AbstractPawn triedPiece = board.getPiece(x + i, y + j);
                     if (triedPiece != null && triedPiece.getColor() != color && !move.removedPawns.contains(new Board.BoardPos(x + i, y + j))) {
-                        MoveGraph newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
+                        MoveNode newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
                         if (newMove != null) {
                             move.possibleMoves.add(newMove);
                         }
@@ -74,17 +46,17 @@ public class BasicPawn extends AbstractPawn {
         return null;
     }
 
-    private MoveGraph findMoveRecursive(Board board, Board.BoardPos newPos) {
+    private MoveNode findMoveRecursive(Board board, Board.BoardPos newPos) {
         int x = newPos.x;
         int y = newPos.y;
 
         if (board.isInBounds(x, y) && (board.getPiece(x, y) == null || board.getPiece(x, y) == this)) {
-            MoveGraph move = new MoveGraph(x, y, new ArrayList<>());
+            MoveNode move = new MoveNode(x, y, new ArrayList<>());
 
             for (int i = -1; i <= 1; i += 2) {
                 for (int j = -1; j <= 1; j += 2) {
                     if (board.getPiece(x + i, y + j) != null && board.getPiece(x + i, y + j).getColor() != color) {
-                        MoveGraph newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
+                        MoveNode newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
                         if (newMove != null) {
                             move.possibleMoves.add(newMove);
                         }
@@ -99,40 +71,33 @@ public class BasicPawn extends AbstractPawn {
     }
 
     @Override
-    public List<Move> possibleMoves(Board board, Board.BoardPos boardPos) {
-        List<Move> moves = new ArrayList<Move>();
+    public MoveNode possibleMoves(Board board, Board.BoardPos boardPos) {
         int x = boardPos.x;
         int y = boardPos.y;
+        MoveNode moveGraph = findMoveRecursive(board, new Board.BoardPos(x, y));
 
-        System.out.println("Possible Moves:");
+        if(moveGraph.possibleMoves.size() > 0)
+            return moveGraph;
 
-        Move move = new Move();
         if (board.isInBounds(x - 1, y + direction) && board.getPiece(x - 1, y + direction) == null) {
-            move.visitedFields.add(new Board.BoardPos(x - 1, y + direction));
-            moves.add(move);
+            moveGraph.possibleMoves.add(new MoveNode(x - 1, y + direction, new ArrayList<>()));
         }
-        move = new Move();
         if (board.isInBounds(x + 1, y + direction) && board.getPiece(x + 1, y + direction) == null) {
-            move.visitedFields.add(new Board.BoardPos(x + 1, y + direction));
-            moves.add(move);
+            moveGraph.possibleMoves.add(new MoveNode(x + 1, y + direction, new ArrayList<>()));
         }
 
-        MoveGraph moveGraph = findMoveRecursive(board, new Board.BoardPos(x, y));
+        // Optional<Move> maxSizeMove = moves.stream().max(Comparator.comparingInt(cmove -> cmove.visitedFields.size()));
 
-        moveGraph.toMoveList(moves, new ArrayList<>());
-
-        Optional<Move> maxSizeMove = moves.stream().max(Comparator.comparingInt(cmove -> cmove.visitedFields.size()));
-
-        if (maxSizeMove.isPresent()) {
-            int maxLen = maxSizeMove.get().visitedFields.size();
-            System.out.println("MaxSize = " + maxLen);
-            moves = moves
-                    .stream()
-                    .filter(compMove -> compMove.visitedFields.size() >= maxLen)
-                    .collect(Collectors.toList());
-        }
+        // if (maxSizeMove.isPresent()) {
+        //     int maxLen = maxSizeMove.get().visitedFields.size();
+        //     System.out.println("MaxSize = " + maxLen);
+        //     moves = moves
+        //             .stream()
+        //             .filter(compMove -> compMove.visitedFields.size() >= maxLen)
+        //             .collect(Collectors.toList());
+        // }
         
-        return moves;
+        return moveGraph;
     }
 
     // @Override

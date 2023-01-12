@@ -7,7 +7,7 @@ import com.checkers.Tile.Color;
 import com.checkers.Tile.State;
 import com.checkers_core.AbstractPawn;
 import com.checkers_core.Board;
-import com.checkers_core.AbstractPawn.Move;
+import com.checkers_core.MoveNode;
 import com.checkers_core.Board.BoardPos;
 
 import javafx.scene.Node;
@@ -30,6 +30,8 @@ public class Grid extends GridPane {
 
     private Board.Color playerColor;
     private Board.Color currentPlayerMove;
+
+    private MoveNode currentMoves = null;
 
     public Grid(Board board, Board.Color color)
     {
@@ -76,7 +78,8 @@ public class Grid extends GridPane {
         if(tile.getState() == State.LEGALMOVE)
         {
             board.movePiece(new BoardPos(selected.getX(), selected.getY()),
-                             new BoardPos(tile.getX(), tile.getY()));
+                            new BoardPos(tile.getX(), tile.getY()));
+            selectNextTile(tile);
             drawBoard();
             return;
         }
@@ -85,24 +88,72 @@ public class Grid extends GridPane {
         //     return;
         // }
         if(tile.getPiece() == null) {
+            selected = null;
+            resetTilesState();
+            drawBoard();
             return;
         }
         
+        selectNewTile(tile);
+        drawBoard();
+    }
+
+    private void selectNextTile(Tile tile)
+    {
         resetTilesState();
 
-        tile.setState(State.SELECTED);
-
-        int x = tile.getX();
-        int y = tile.getY();
-        List<Move> moves = board.getPiece(x, y).possibleMoves(board, new Board.BoardPos(x, y));
-        for (Move move : moves) {
-            Board.BoardPos pos = move.visitedFields.get(move.visitedFields.size() - 1);
-            if(!(move.visitedFields.size() == 1 && pos.x == x && pos.y == y)) { 
-                tiles[pos.x][pos.y].setState(State.LEGALMOVE);
-            }
+        if(currentMoves.getPossibleMoves().size() <= 1)
+        {
+            selected = null;
+            currentMoves = null;
+            return;
         }
 
+        MoveNode nextNode = null;
+        for (MoveNode moveNode : currentMoves) {
+            if(moveNode.getPos().equals(tile.getPos()))
+            {
+                nextNode = moveNode;
+            }
+        }
+        currentMoves = nextNode;
+
+        select(tile);
+
+        setPossibleMovesForSelected();
+    }
+
+    private void select(Tile tile)
+    {
         selected = tile;
+        selected.setState(State.SELECTED);
+    }
+
+    public void selectNewTile(Tile tile)
+    {
+        resetTilesState();
+
+        select(tile);
+
+        int x = selected.getX();
+        int y = selected.getY();
+        currentMoves = board.getPiece(x, y).possibleMoves(board, new Board.BoardPos(x, y));
+        currentMoves.print("");
+
+        setPossibleMovesForSelected();
+    }
+
+    private void setPossibleMovesForSelected()
+    {
+        if(currentMoves == null)
+        {
+            System.out.println("possibleMoves is null");
+            return;
+        }
+        for (MoveNode move : currentMoves) {
+            Board.BoardPos pos = move.getPos();
+            tiles[pos.x][pos.y].setState(State.LEGALMOVE);
+        }
     }
 
     public void resetTilesState()
@@ -131,8 +182,6 @@ public class Grid extends GridPane {
         if(board.gameOver().isPresent())
         {
         }
-
-        resetTilesState();
         for(int j = 0; j < yDim; j++)
         {
             for(int i = 0; i < xDim; i++)
