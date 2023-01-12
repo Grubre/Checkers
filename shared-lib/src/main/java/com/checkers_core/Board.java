@@ -53,6 +53,13 @@ public abstract class Board {
         return board[i][j];
     }
 
+    public void setPiece(int i, int j, AbstractPawn piece)
+    {
+        if(isInBounds(i, j)) {
+            board[i][j] = piece;
+        }
+    }
+
     public AbstractPawn[][] getBoard()
     {
         return board;
@@ -60,9 +67,26 @@ public abstract class Board {
 
     public void movePiece(Board.BoardPos piecePos, Board.BoardPos targetPos)
     {
-        board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         board[piecePos.x][piecePos.y] = null;
+        board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         update();
+    }
+
+    public void movePiece(Board.BoardPos piecePos, AbstractPawn.Move move)
+    {
+        int s = move.visitedFields.size();
+        int targetX = move.visitedFields.get(s).x;
+        int targetY = move.visitedFields.get(s).y;
+
+        if(targetX != piecePos.x && targetY != piecePos.y)
+        {
+            board[targetX][targetY] = board[piecePos.x][piecePos.y];
+            board[piecePos.x][piecePos.y] = null;
+        }
+
+        move.removedPawns.stream().peek(pawnPos -> {
+            setPiece(pawnPos.x, pawnPos.y, null);
+        });
     }
 
     private void update()
