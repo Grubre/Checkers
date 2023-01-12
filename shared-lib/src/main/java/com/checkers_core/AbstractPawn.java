@@ -1,6 +1,9 @@
 package com.checkers_core;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.checkers_core.Board.BoardPos;
 
 public abstract class AbstractPawn {
     public static class Move {
@@ -14,8 +17,12 @@ public abstract class AbstractPawn {
             visitedFields = new ArrayList<>(move.visitedFields);
             removedPawns = new ArrayList<>(move.removedPawns);
         }
-        public ArrayList<Board.BoardPos> visitedFields;
-        public ArrayList<Board.BoardPos> removedPawns;
+        public Move(List<BoardPos> visitedFields, List<BoardPos> removedPawns) {
+            this.visitedFields = visitedFields;
+            this.removedPawns = removedPawns;
+        }
+        public List<Board.BoardPos> visitedFields;
+        public List<Board.BoardPos> removedPawns;
     }
 
     protected Board.Color color;
@@ -35,7 +42,7 @@ public abstract class AbstractPawn {
         return otherPawn.getColor() != this.color;
     }
 
-    public abstract ArrayList<Move> possibleMoves(Board board, Board.BoardPos boardPos);
+    public abstract List<Move> possibleMoves(Board board, Board.BoardPos boardPos);
     public abstract Boolean isAscended();
     public abstract Boolean canAscend(Board board, Board.BoardPos boardPos);
 }

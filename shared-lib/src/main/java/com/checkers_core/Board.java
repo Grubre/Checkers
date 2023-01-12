@@ -26,7 +26,7 @@ public abstract class Board {
 
         @Override
         public final boolean equals(Object other) {
-            return other instanceof BoardPos && ((BoardPos)other).x == y && ((BoardPos)other).x == y; 
+            return other instanceof BoardPos && ((BoardPos)other).x == x && ((BoardPos)other).y == y; 
         }
     }
 
