@@ -15,7 +15,7 @@ public abstract class AbstractPawn {
             removedPawns = new ArrayList<>(move.removedPawns);
         }
         public ArrayList<Board.BoardPos> visitedFields;
-        public ArrayList<AbstractPawn> removedPawns;
+        public ArrayList<Board.BoardPos> removedPawns;
     }
 
     protected Board.Color color;

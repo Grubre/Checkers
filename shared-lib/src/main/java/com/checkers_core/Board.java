@@ -36,6 +36,8 @@ public abstract class Board {
 
     public AbstractPawn getPiece(int i, int j)
     {
+        if(!isInBounds(i, j))
+            return null;
         return board[i][j];
     }
 
