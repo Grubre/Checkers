@@ -1,33 +1,33 @@
-package com.checkers.scenes;
+package com.checkers.main_menu;
 
-import javafx.application.Platform;
+import com.checkers.view.StageView;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import com.checkers_core.Board;
+public final class MainMenuView extends StageView {
+    MainMenuController controller;
 
-public final class MainMenu extends MenuScene{
     Button playButton;
     Button exitButton;
-
     VBox vBox;
-    
-    private MainMenu()
+
+    public MainMenuView(MainMenuController controller)
     {
-        super();
+        this.controller = controller;
 
         vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setId("background");
+        
         AnchorPane.setTopAnchor(vBox, 0.0);
         AnchorPane.setLeftAnchor(vBox, 0.0);
         AnchorPane.setBottomAnchor(vBox, 0.0);
         AnchorPane.setRightAnchor(vBox, 0.0);
         
         root.getChildren().add(vBox);
-        root.setId("background");
 
         setButtons();
 
@@ -47,27 +47,11 @@ public final class MainMenu extends MenuScene{
         styleComponent(exitButton);
 
         exitButton.setOnAction(onAction -> {
-            Platform.exit();
+            controller.exitGame();
         });
 
         playButton.setOnAction(onAction -> {
-            ConnectingToServerMenu.getInstance().setCurrent();
+            controller.playGame();    
         });
-    }
-
-    private static MainMenu instance;
-
-    public static synchronized MainMenu getInstance()
-    {
-        if (instance == null) {
-            instance = new MainMenu();
-        }
-        return instance;
-    }
-
-    @Override
-    protected void onEnter()
-    {
-        
     }
 }

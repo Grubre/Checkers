@@ -1,14 +1,7 @@
 package com.checkers;
 
-import com.checkers.scenes.MainMenu;
-import com.checkers_core.BasicVariant;
-
+import com.checkers.stage_manager.StageManager;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 /**
  * JavaFX App
@@ -22,8 +15,8 @@ public class App extends Application {
 
         mStage.centerOnScreen();
 
-        MainMenu mainMenu = MainMenu.getInstance();
-        mainMenu.setCurrent();
+        StageManager manager = new StageManager();
+        manager.switchToMainMenu();
 
         mStage.setTitle("Checkers");
         mStage.show();
