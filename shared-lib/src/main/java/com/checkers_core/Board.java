@@ -67,8 +67,8 @@ public abstract class Board {
 
     public void movePiece(Board.BoardPos piecePos, Board.BoardPos targetPos)
     {
-        board[piecePos.x][piecePos.y] = null;
         board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
+        board[piecePos.x][piecePos.y] = null;
         update();
     }
 

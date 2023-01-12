@@ -35,7 +35,7 @@ public class BasicPawn extends AbstractPawn {
         public void toMoveList(List<Move> list, List<BoardPos> visitedFields) {
             visitedFields.add(new BoardPos(x, y));
 
-            Move move = new Move(new ArrayList<>(visitedFields), null);
+            Move move = new Move(new ArrayList<>(visitedFields), removedPawns);
 
             list.add(move);
 
@@ -132,17 +132,6 @@ public class BasicPawn extends AbstractPawn {
                     .collect(Collectors.toList());
         }
         
-        moves.stream().forEach(m -> {
-            for(int i = 1; i < m.visitedFields.size(); i++)
-            {
-                Board.BoardPos pos1 = m.visitedFields.get(i - 1);
-                Board.BoardPos pos2 = m.visitedFields.get(i);
-
-                m.removedPawns.add(new BoardPos((pos1.x + pos2.x) / 2, (pos1.y + pos2.y) / 2));
-            }
-        }); {
-
-        }
         return moves;
     }
 
