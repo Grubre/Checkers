@@ -86,16 +86,7 @@ public class BasicPawn extends AbstractPawn {
             moveGraph.possibleMoves.add(new MoveNode(x + 1, y + direction, new ArrayList<>()));
         }
 
-        // Optional<Move> maxSizeMove = moves.stream().max(Comparator.comparingInt(cmove -> cmove.visitedFields.size()));
-
-        // if (maxSizeMove.isPresent()) {
-        //     int maxLen = maxSizeMove.get().visitedFields.size();
-        //     System.out.println("MaxSize = " + maxLen);
-        //     moves = moves
-        //             .stream()
-        //             .filter(compMove -> compMove.visitedFields.size() >= maxLen)
-        //             .collect(Collectors.toList());
-        // }
+        int maxSizeMove = moveGraph.getLongestPathLength();
         
         return moveGraph;
     }

@@ -108,7 +108,7 @@ public class GameCreationMenu extends MenuScene {
                 }
                 default -> {}
             }
-            Game game = new Game(board, color);
+            GameController game = new GameController(board, color);
             game.setCurrent();
         });
 

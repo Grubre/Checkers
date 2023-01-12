@@ -3,11 +3,11 @@ package com.checkers.scenes;
 import com.checkers.Grid;
 import com.checkers_core.Board;
 
-public class Game extends MenuScene {
+public class GameController extends MenuScene {
     protected Board board;
     protected Board.Color playerColor;
 
-    public Game(Board board, Board.Color color)
+    public GameController(Board board, Board.Color color)
     {
         super();
         this.playerColor = color;

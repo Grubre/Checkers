@@ -1,6 +1,7 @@
 package com.checkers_core;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,6 +53,30 @@ public class MoveNode implements Iterable<MoveNode>{
     public BoardPos getPos()
     {
         return new BoardPos(x, y);
+    }
+
+    public int getLongestPathLength()
+    {
+        int max = 0;
+        for(MoveNode path : possibleMoves)
+        {
+            max = Math.max(max, path.getLongestPathLength());
+        }
+        return max + 1;
+    }
+
+    public MoveNode pruneNonMaxPaths() {
+        return null;
+    }
+
+    private int countAndPrune()
+    {
+        int max = 0;
+        for(MoveNode path : possibleMoves)
+        {
+            max = Math.max(max, path.getLongestPathLength());
+        }
+        return max + 1;
     }
 
     @Override
