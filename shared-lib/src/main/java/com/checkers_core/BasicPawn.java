@@ -23,14 +23,13 @@ public class BasicPawn extends AbstractPawn {
     class MoveGraph {
         int x;
         int y;
-        List<Board.BoardPos> removedPos;
+        List<Board.BoardPos> removedPawns;
         List<MoveGraph> possibleMoves = new ArrayList<>();
 
         public MoveGraph(int x, int y, List<BoardPos> parentRemovedPos) {
             this.x = x;
             this.y = y;
-            this.removedPos = new ArrayList<>(parentRemovedPos);
-            this.removedPos.add(new BoardPos(x, y));
+            this.removedPawns = parentRemovedPos;
         }
 
         public void toMoveList(List<Move> list, List<BoardPos> visitedFields) {
@@ -46,18 +45,19 @@ public class BasicPawn extends AbstractPawn {
         }
     }
 
-    private MoveGraph findMoveRecursive(Board board, MoveGraph parentMove, Board.BoardPos newPos) {
+    private MoveGraph findMoveRecursive(Board board, MoveGraph parentMove, BoardPos newPos, BoardPos removedPiece) {
         int x = newPos.x;
         int y = newPos.y;
 
-        if (board.isInBounds(x, y) && (board.getPiece(x, y) == null || board.getPiece(x, y) == this)
-                && !parentMove.removedPos.contains(new Board.BoardPos(x, y))) {
-            MoveGraph move = new MoveGraph(x, y, parentMove.removedPos);
+        if (board.isInBounds(x, y) && (board.getPiece(x, y) == null || board.getPiece(x, y) == this)) {
+            MoveGraph move = new MoveGraph(x, y, new ArrayList<>(parentMove.removedPawns));
+            move.removedPawns.add(removedPiece);
 
             for (int i = -1; i <= 1; i += 2) {
                 for (int j = -1; j <= 1; j += 2) {
-                    if (board.getPiece(x + i, y + j) != null && board.getPiece(x + i, y + j).getColor() != color) {
-                        MoveGraph newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j));
+                    AbstractPawn triedPiece = board.getPiece(x + i, y + j);
+                    if (triedPiece != null && triedPiece.getColor() != color && !move.removedPawns.contains(new Board.BoardPos(x + i, y + j))) {
+                        MoveGraph newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
                         if (newMove != null) {
                             move.possibleMoves.add(newMove);
                         }
@@ -81,7 +81,7 @@ public class BasicPawn extends AbstractPawn {
             for (int i = -1; i <= 1; i += 2) {
                 for (int j = -1; j <= 1; j += 2) {
                     if (board.getPiece(x + i, y + j) != null && board.getPiece(x + i, y + j).getColor() != color) {
-                        MoveGraph newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j));
+                        MoveGraph newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
                         if (newMove != null) {
                             move.possibleMoves.add(newMove);
                         }
