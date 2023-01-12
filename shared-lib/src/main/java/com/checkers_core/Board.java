@@ -5,8 +5,15 @@ import java.util.Optional;
 public abstract class Board {
     public enum Color{
         BLACK,
-        WHITE
-    };
+        WHITE;
+
+        static Color getOpposite(Color color) {
+            return switch (color) {
+                case BLACK -> WHITE;
+                case WHITE -> BLACK;
+            };
+        }
+    }
 
     public static class BoardPos{
         public BoardPos(int x, int y)
@@ -16,6 +23,11 @@ public abstract class Board {
         }
         public int x;
         public int y;
+
+        @Override
+        public final boolean equals(Object other) {
+            return other instanceof BoardPos && ((BoardPos)other).x == y && ((BoardPos)other).x == y; 
+        }
     }
 
     public final int xDim;
