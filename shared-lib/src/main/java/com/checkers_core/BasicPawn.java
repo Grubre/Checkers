@@ -20,103 +20,24 @@ public class BasicPawn extends AbstractPawn {
             direction = -1;
     }
 
-    private MoveNode findMoveRecursive(Board board, MoveNode parentMove, BoardPos newPos, BoardPos removedPiece) {
-        int x = newPos.x;
-        int y = newPos.y;
-
-        if (board.isInBounds(x, y) && (board.getPiece(x, y) == null || board.getPiece(x, y) == this)) {
-            MoveNode move = new MoveNode(x, y, new ArrayList<>(parentMove.removedPawns));
-            move.removedPawns.add(removedPiece);
-
-            for (int i = -1; i <= 1; i += 2) {
-                for (int j = -1; j <= 1; j += 2) {
-                    AbstractPawn triedPiece = board.getPiece(x + i, y + j);
-                    if (triedPiece != null && triedPiece.getColor() != color && !move.removedPawns.contains(new Board.BoardPos(x + i, y + j))) {
-                        MoveNode newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
-                        if (newMove != null) {
-                            move.possibleMoves.add(newMove);
-                        }
-                    }
-                }
-            }
-
-            return move;
-        }
-
-        return null;
-    }
-
-    private MoveNode findMoveRecursive(Board board, Board.BoardPos newPos) {
-        int x = newPos.x;
-        int y = newPos.y;
-
-        if (board.isInBounds(x, y) && (board.getPiece(x, y) == null || board.getPiece(x, y) == this)) {
-            MoveNode move = new MoveNode(x, y, new ArrayList<>());
-
-            for (int i = -1; i <= 1; i += 2) {
-                for (int j = -1; j <= 1; j += 2) {
-                    if (board.getPiece(x + i, y + j) != null && board.getPiece(x + i, y + j).getColor() != color) {
-                        MoveNode newMove = findMoveRecursive(board, move, new BoardPos(x + 2 * i, y + 2 * j), new BoardPos(x + i, y + j));
-                        if (newMove != null) {
-                            move.possibleMoves.add(newMove);
-                        }
-                    }
-                }
-            }
-
-            return move;
-        }
-
-        return null;
-    }
-
     @Override
     public MoveNode possibleMoves(Board board, Board.BoardPos boardPos) {
         int x = boardPos.x;
         int y = boardPos.y;
-        MoveNode moveNode = findMoveRecursive(board, new Board.BoardPos(x, y));
-
-        for(MoveNode move : moveNode)
-        {
-            if(move.getPos().equals(boardPos))
-            {
-                moveNode.possibleMoves.remove(move);
-            }
-        }
-
-        if(!moveNode.possibleMoves.isEmpty())
-        {
-            moveNode.setHasCaptured(true);
-            return moveNode;
-        }
-
-        if (board.isInBounds(x - 1, y + direction) && board.getPiece(x - 1, y + direction) == null) {
-            moveNode.possibleMoves.add(new MoveNode(x - 1, y + direction, new ArrayList<>()));
-        }
-        if (board.isInBounds(x + 1, y + direction) && board.getPiece(x + 1, y + direction) == null) {
-            moveNode.possibleMoves.add(new MoveNode(x + 1, y + direction, new ArrayList<>()));
-        }
         
-        return moveNode;
-    }
+        BasicMoveFinder basicMoveFinder = new BasicMoveFinder(board, boardPos, direction, 1);
 
-    // @Override
-    // public ArrayList<Move> possibleMoves(Board board, Board.BoardPos boardPos) {
-    // ArrayList<Move> moves = new ArrayList<Move>();
-    // int x = boardPos.x;
-    // int y = boardPos.y;
-    // Move move = new Move();
-    // if(x > 0 && y > 0 && board.getPiece(x - 1 ,y - 1) == null)
-    // {
-    // move.visitedFields.add(new Board.BoardPos(x - 1, y - 1));
-    // }
-    // if(x < board.xDim - 1 && y > 0 && board.getPiece(x + 1 ,y - 1) == null)
-    // {
-    // move.visitedFields.add(new Board.BoardPos(x + 1, y - 1));
-    // }
-    // moves.add(move);
-    // return moves;
-    // }
+        basicMoveFinder.findCaptures();
+
+        if(basicMoveFinder.foundCaptures())
+        {
+            return basicMoveFinder.getMoveNode();
+        }
+
+        basicMoveFinder.findMoves();
+        
+        return basicMoveFinder.getMoveNode();
+    }
 
     @Override
     public Boolean canAscend(Board board, Board.BoardPos boardPos) {
