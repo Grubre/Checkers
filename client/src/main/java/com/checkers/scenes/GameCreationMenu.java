@@ -1,7 +1,8 @@
 package com.checkers.scenes;
 
 import com.checkers_core.BasicPawnFactory;
-import com.checkers_core.BasicVariant;
+import com.checkers_core.BasicVariantRuleFactory;
+import com.checkers_core.BasicBoard;
 import com.checkers_core.Board;
 import com.checkers_core.Board.Color;
 
@@ -101,10 +102,11 @@ public class GameCreationMenu extends MenuScene {
             switch(variantComboBox.getValue())
             {
                 case "Basic Variant" -> {
-                    board = new BasicVariant(
+                    board = new BasicBoard(
                             (int)widthSlider.getValue(),
                             (int)heightSlider.getValue(),
-                            new BasicPawnFactory());
+                            new BasicPawnFactory(),
+                            new BasicVariantRuleFactory());
                 }
                 default -> {}
             }

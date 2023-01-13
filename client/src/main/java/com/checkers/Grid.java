@@ -7,6 +7,7 @@ import com.checkers.Tile.Color;
 import com.checkers.Tile.State;
 import com.checkers_core.AbstractPawn;
 import com.checkers_core.Board;
+import com.checkers_core.MoveGraph;
 import com.checkers_core.MoveNode;
 import com.checkers_core.Board.BoardPos;
 
@@ -29,8 +30,9 @@ public class Grid extends GridPane {
     private Tile selected = null;
 
     private Board.Color playerColor;
-    private Board.Color currentPlayerMove;
+    private Board.Color currentPlayerColor;
 
+    private MoveGraph thisTurnsMoveGraph;
     private MoveNode currentMoves = null;
 
     public Grid(Board board, Board.Color color)
@@ -39,7 +41,9 @@ public class Grid extends GridPane {
         this.yDim = board.yDim;
         this.board = board;
         this.playerColor = color;
-        currentPlayerMove = Board.Color.WHITE;
+
+        currentPlayerColor = Board.Color.WHITE;
+        
         board.setupBoard();
 
         String css = "checkerboard.css";
@@ -70,6 +74,9 @@ public class Grid extends GridPane {
                 add(tiles[i][j], i, j);
             }
         }
+
+        thisTurnsMoveGraph = board.getPossibleMovesForColor(currentPlayerColor);
+
         drawBoard();
     }
 
@@ -84,10 +91,7 @@ public class Grid extends GridPane {
             return;
         }
 
-        // if(tile.getPiece() == null || tile.getPiece().get_color() != currentPlayerMove) {
-        //     return;
-        // }
-        if(tile.getPiece() == null) {
+        if(tile.getPiece() == null || tile.getPiece().get_color() != currentPlayerColor) {
             System.out.println("Clicked on null");
             selected = null;
             resetTilesState();
@@ -101,16 +105,8 @@ public class Grid extends GridPane {
 
     private void selectNextTile(Tile tile)
     {
+        System.out.println("Continuing the current move!");
         resetTilesState();
-
-        // The move has ended
-        if(currentMoves.getPossibleMoves().size() < 1)
-        {
-            selected = null;
-            currentMoves = null;
-            board.updateAndAscend();
-            return;
-        }
 
         MoveNode nextNode = null;
         for (MoveNode moveNode : currentMoves) {
@@ -120,6 +116,15 @@ public class Grid extends GridPane {
             }
         }
         currentMoves = nextNode;
+
+        // The move has ended
+        if(currentMoves.getLongestPathLength() <= 1)
+        {
+            selected = null;
+            currentMoves = null;
+            newTurn();
+            return;
+        }
 
         select(tile);
 
@@ -136,13 +141,14 @@ public class Grid extends GridPane {
 
     public void selectNewTile(Tile tile)
     {
+        System.out.println("Starting a new move!");
         resetTilesState();
 
         select(tile);
 
         int x = selected.getX();
         int y = selected.getY();
-        currentMoves = board.getPiece(x, y).possibleMoves(board, new Board.BoardPos(x, y));
+        currentMoves = thisTurnsMoveGraph.getMoveNodeAt(new BoardPos(x, y));
         currentMoves.print("");
 
         setPossibleMovesForSelected();
@@ -156,8 +162,9 @@ public class Grid extends GridPane {
             return;
         }
         for (MoveNode move : currentMoves) {
-            if(!move.isMarkedMax())
+            if(!move.isMarkedMax()) {
                 continue;
+            }
             Board.BoardPos pos = move.getPos();
             tiles[pos.x][pos.y].setState(State.LEGALMOVE);
         }
@@ -176,12 +183,19 @@ public class Grid extends GridPane {
 
     public void newTurn()
     {
-        if(currentPlayerMove == Board.Color.WHITE) {
-            currentPlayerMove = Board.Color.BLACK;
+        System.out.println("Starting a new turn");
+        board.updateAndAscend();
+        resetTilesState();
+        drawBoard();
+
+        if(currentPlayerColor == Board.Color.WHITE) {
+            currentPlayerColor = Board.Color.BLACK;
         }
         else {
-            currentPlayerMove = Board.Color.WHITE;
+            currentPlayerColor = Board.Color.WHITE;
         }
+
+        thisTurnsMoveGraph = board.getPossibleMovesForColor(currentPlayerColor);
     }
 
     public void drawBoard()

@@ -8,6 +8,7 @@ import com.checkers_core.Board.BoardPos;
 public class Move {
     public List<Board.BoardPos> visitedFields;
     public List<Board.BoardPos> removedPawns;
+    
     public Move()
     {
         visitedFields = new ArrayList<>();

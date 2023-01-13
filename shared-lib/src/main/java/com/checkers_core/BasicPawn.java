@@ -74,24 +74,29 @@ public class BasicPawn extends AbstractPawn {
     public MoveNode possibleMoves(Board board, Board.BoardPos boardPos) {
         int x = boardPos.x;
         int y = boardPos.y;
-        MoveNode moveGraph = findMoveRecursive(board, new Board.BoardPos(x, y));
+        MoveNode moveNode = findMoveRecursive(board, new Board.BoardPos(x, y));
 
-        if(moveGraph.possibleMoves.size() > 0)
+        for(MoveNode move : moveNode)
         {
-            moveGraph.pruneNonMaxPaths();
-            return moveGraph;
+            if(move.getPos().equals(boardPos))
+            {
+                moveNode.possibleMoves.remove(move);
+            }
+        }
+
+        if(moveNode.possibleMoves.size() > 0)
+        {
+            return moveNode;
         }
 
         if (board.isInBounds(x - 1, y + direction) && board.getPiece(x - 1, y + direction) == null) {
-            moveGraph.possibleMoves.add(new MoveNode(x - 1, y + direction, new ArrayList<>()));
+            moveNode.possibleMoves.add(new MoveNode(x - 1, y + direction, new ArrayList<>()));
         }
         if (board.isInBounds(x + 1, y + direction) && board.getPiece(x + 1, y + direction) == null) {
-            moveGraph.possibleMoves.add(new MoveNode(x + 1, y + direction, new ArrayList<>()));
+            moveNode.possibleMoves.add(new MoveNode(x + 1, y + direction, new ArrayList<>()));
         }
-
-        moveGraph.pruneNonMaxPaths();
         
-        return moveGraph;
+        return moveNode;
     }
 
     // @Override
@@ -115,11 +120,13 @@ public class BasicPawn extends AbstractPawn {
     @Override
     public Boolean canAscend(Board board, Board.BoardPos boardPos) {
         if (color == Color.BLACK) {
-            if (boardPos.y == 0)
+            if (boardPos.y == 0) {   
                 return true;
+            }
         } else if (color == Color.WHITE) {
-            if (boardPos.y == board.xDim - 1)
+            if (boardPos.y == board.xDim - 1) { 
                 return true;
+            }
         }
         return false;
     }

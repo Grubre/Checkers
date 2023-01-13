@@ -37,19 +37,23 @@ public abstract class Board {
 
     protected AbstractPawnFactory pawnFactory;
 
-    Board(int xDim, int yDim, AbstractPawnFactory pawnFactory)
+    protected AbstractRuleFactory ruleFactory;
+
+    Board(int xDim, int yDim, AbstractPawnFactory pawnFactory, AbstractRuleFactory ruleFactory)
     {
         this.xDim = xDim;
         this.yDim = yDim;
         this.pawnFactory = pawnFactory;
+        this.ruleFactory = ruleFactory;
 
         board = new AbstractPawn[xDim][yDim];
     }
 
     public AbstractPawn getPiece(int i, int j)
     {
-        if(!isInBounds(i, j))
+        if(!isInBounds(i, j)) {
             return null;
+        }
         return board[i][j];
     }
 
@@ -73,9 +77,9 @@ public abstract class Board {
         int enemyX = (targetPos.x + piecePos.x) / 2;
         int enemyY = (targetPos.y + piecePos.y) / 2;
 
-        if(getPiece(enemyX, enemyY) != null &&
-        getPiece(targetPos.x, targetPos.y) != null &&
-        getPiece(enemyX, enemyY).getColor() != getPiece(targetPos.x, targetPos.y).getColor())
+        if( getPiece(enemyX, enemyY) != null &&
+            getPiece(targetPos.x, targetPos.y) != null &&
+            getPiece(enemyX, enemyY).getColor() != getPiece(targetPos.x, targetPos.y).getColor())
         {
             setPiece(enemyX, enemyY, null);
         }
@@ -102,15 +106,21 @@ public abstract class Board {
     {
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {
-                if(board[i][j] != null && board[i][j].canAscend(this, new BoardPos(i, j)))
+                if(board[i][j] != null && board[i][j].canAscend(this, new BoardPos(i, j))) {
                     board[i][j] = pawnFactory.create_ascended(board[i][j].getColor());
+                }
             }
         }
     }
 
+    public MoveGraph getPossibleMovesForColor(Board.Color color)
+    {
+        return ruleFactory.getPossibleMoves(this, color);
+    }
+
     public boolean isInBounds(int x, int y)
     {
-        return (0 <= x && x < xDim) && (0 <= y && y < yDim);
+        return 0 <= x && x < xDim && 0 <= y && y < yDim;
     }
 
     public abstract void setupBoard();

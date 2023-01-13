@@ -25,8 +25,9 @@ public class MoveNode implements Iterable<MoveNode>{
     public void print(String parentString)
     {
         String myString = new String("("+x + ", " + y + ", len: " + maxPathLen + "), ");
-        if(possibleMoves.size() == 0)
+        if(possibleMoves.isEmpty()) {
             System.out.println(parentString + myString);
+        }
         for(MoveNode move : possibleMoves)
         {
             move.print(parentString + myString);
@@ -61,28 +62,29 @@ public class MoveNode implements Iterable<MoveNode>{
     public int getLongestPathLength()
     {
         int max = 0;
-        System.out.println("Max: "+max);
         for(MoveNode path : possibleMoves)
         {
             max = Math.max(max, path.getLongestPathLength());
         }
-        maxPathLen = max;
+        maxPathLen = max + 1;
         return max + 1;
     }
 
-    public void pruneNonMaxPaths() {
+    public void pruneNonMaxPaths(int externalMaxSize) {
         getLongestPathLength();
-        countAndPrune();
+        countAndPrune(externalMaxSize);
     }
 
-    private void countAndPrune()
+    private void countAndPrune(int externalMaxSize)
     {
         for(MoveNode child : possibleMoves)
         {
-            if(child.maxPathLen + 1 >= maxPathLen)
+            System.out.println("My size: " + externalMaxSize + ", child's size: " + (child.maxPathLen + 1));
+            if(child.maxPathLen + 1 >= externalMaxSize)
             {
+                System.out.println("Marking as max");
                 child.markedMax = true;
-                child.countAndPrune();
+                child.countAndPrune(externalMaxSize - 1);
             }
         }
     }

@@ -22,7 +22,7 @@ public class RegularPawnTest {
         int xDim = 8;
         int yDim = 8;
         BasicPawn regularPawn = new BasicPawn(Color.WHITE);
-        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
+        BasicBoard basicVariant = new BasicBoard(xDim, yDim, new BasicPawnFactory(), new BasicVariantRuleFactory());
 
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {
@@ -40,7 +40,7 @@ public class RegularPawnTest {
         int xDim = 8;
         int yDim = 8;
         BasicPawn regularPawn = new BasicPawn(Color.BLACK);
-        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
+        BasicBoard basicVariant = new BasicBoard(xDim, yDim, new BasicPawnFactory(), new BasicVariantRuleFactory());
 
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {
@@ -58,7 +58,7 @@ public class RegularPawnTest {
         int xDim = 8;
         int yDim = 8;
         BasicPawn regularPawn = new BasicPawn(Color.WHITE);
-        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
+        BasicBoard basicVariant = new BasicBoard(xDim, yDim, new BasicPawnFactory(), new BasicVariantRuleFactory());
 
         int whiteCnt = 0;
 
@@ -78,7 +78,7 @@ public class RegularPawnTest {
         int xDim = 8;
         int yDim = 8;
         BasicPawn regularPawn = new BasicPawn(Color.BLACK);
-        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
+        BasicBoard basicVariant = new BasicBoard(xDim, yDim, new BasicPawnFactory(), new BasicVariantRuleFactory());
 
         int blackCnt = 0;
 

@@ -12,14 +12,14 @@ public class BasicVariantTest {
     {
         int xDim = 8;
         int yDim = 8;
-        BasicVariant basicVariant = new BasicVariant(xDim, yDim, new BasicPawnFactory());
+        BasicBoard basicVariant = new BasicBoard(xDim, yDim, new BasicPawnFactory(), new BasicVariantRuleFactory());
         assertTrue(basicVariant.xDim == xDim);
         assertTrue(basicVariant.yDim == yDim);
     }
     @Test
     public void startingBoardCntTest()
     {
-        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        BasicBoard startingBoard = new BasicBoard(8, 8, new BasicPawnFactory(), new BasicVariantRuleFactory());
         startingBoard.setupBoard();
         int pawnCnt = 0;
         for (int j = 0; j < 8; j++) {
@@ -33,7 +33,7 @@ public class BasicVariantTest {
     @Test
     public void startingBoardNoPawnsOnWhiteFieldsTest()
     {
-        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        BasicBoard startingBoard = new BasicBoard(8, 8, new BasicPawnFactory(), new BasicVariantRuleFactory());
         startingBoard.setupBoard();
         int whiteFieldPawnCnt = 0;
         for (int j = 0; j < 8; j++) {
@@ -47,7 +47,7 @@ public class BasicVariantTest {
     @Test
     public void startingBoardWhitePlacementTest()
     {
-        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        BasicBoard startingBoard = new BasicBoard(8, 8, new BasicPawnFactory(), new BasicVariantRuleFactory());
         startingBoard.setupBoard();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
@@ -60,7 +60,7 @@ public class BasicVariantTest {
     @Test
     public void startingBoardBlackPlacementTest()
     {
-        BasicVariant startingBoard = new BasicVariant(8, 8, new BasicPawnFactory());
+        BasicBoard startingBoard = new BasicBoard(8, 8, new BasicPawnFactory(), new BasicVariantRuleFactory());
         startingBoard.setupBoard();
         for (int j = 0; j < 8; j++) {
             for (int i = 0; i < 8; i++) {
