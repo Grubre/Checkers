@@ -121,7 +121,7 @@ public class BasicMoveFinder {
                                 {
                                     MoveNode newMove =
                                     findCapturesRecursive(moveNode,
-                                    new BoardPos(x + xDir + j * xDir, y + yDir + j * yDir),
+                                    new BoardPos(x + (d + j) * xDir, y + (d + j) * yDir),
                                     new BoardPos(x + d * xDir, y + d * yDir));
 
                                     if (newMove != null) {

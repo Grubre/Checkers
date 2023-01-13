@@ -149,7 +149,7 @@ public class Grid extends GridPane {
         int x = selected.getX();
         int y = selected.getY();
         currentMoves = thisTurnsMoveGraph.getMoveNodeAt(new BoardPos(x, y));
-        currentMoves.print("");
+        //currentMoves.print("");
 
         setPossibleMovesForSelected();
     }
