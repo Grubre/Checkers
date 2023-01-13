@@ -1,7 +1,5 @@
 package com.checkers;
 
-import com.checkers_core.BasicBoard;
-
 import com.checkers.stage_manager.StageManager;
 import javafx.application.Application;
 import javafx.stage.Stage;

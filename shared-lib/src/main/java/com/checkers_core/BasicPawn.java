@@ -84,8 +84,9 @@ public class BasicPawn extends AbstractPawn {
             }
         }
 
-        if(moveNode.possibleMoves.size() > 0)
+        if(!moveNode.possibleMoves.isEmpty())
         {
+            moveNode.setHasCaptured(true);
             return moveNode;
         }
 
