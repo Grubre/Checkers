@@ -1,6 +1,7 @@
 package com.checkers_core.resp;
 
 import com.checkers_core.resp.response.EndOfGameResponse;
+import com.checkers_core.resp.response.ErrorResponse;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.IncorrectMoveResponse;
@@ -35,6 +36,9 @@ public interface ResponseVisitor<T> {
         return onUnimplemented(response);
     }
     default T visitLobbyList(LobbyListResponse response) {
+        return onUnimplemented(response);
+    }
+    default T visitErrorResponse(ErrorResponse response) {
         return onUnimplemented(response);
     }
 }

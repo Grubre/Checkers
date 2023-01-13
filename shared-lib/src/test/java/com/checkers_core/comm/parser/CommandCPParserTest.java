@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.JoinGameCommand;
+import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
@@ -29,7 +30,7 @@ public class CommandCPParserTest {
 
     @Test
     public void newGameCommandTest() throws ParsingException {
-        Command comm = parser.parse("NEWGAME");
+        Command comm = parser.parse("NEWGAME 5 5 BASIC White");
         
         assert comm instanceof NewGameCommand;
     }
@@ -55,5 +56,12 @@ public class CommandCPParserTest {
         Command comm = parser.parse("RESIGN " + testGameId);
         
         assert comm instanceof ResignCommand;
+    }
+
+    @Test
+    public void listLobbyCommandTest() throws ParsingException {
+        Command comm = parser.parse("LISTLOBBIES");
+        
+        assert comm instanceof ListLobbyCommand;
     }
 }

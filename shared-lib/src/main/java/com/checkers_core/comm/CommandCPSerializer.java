@@ -1,9 +1,11 @@
 package com.checkers_core.comm;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.ErrorCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
+import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
@@ -42,12 +44,18 @@ public class CommandCPSerializer implements CommandSerializer, CommandVisitor<St
 
     @Override
     public String visitNewGame(NewGameCommand command) {
-        return "NEWGAME";
+        VariantStartDescription desc = command.getDesc();
+        return "NEWGAME " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor();
     }
 
     @Override
     public String visitResign(ResignCommand command) {
         return "RESIGN";
+    }
+
+    @Override
+    public String visitListLobby(ListLobbyCommand command) {
+        return "LISTLOBBIES";
     }
 
     @Override
