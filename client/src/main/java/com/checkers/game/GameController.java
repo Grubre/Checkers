@@ -47,6 +47,4 @@ public class GameController implements StageController {
     public void endTurn() {
         moveQueue.clear();
     }
-
-    
 }

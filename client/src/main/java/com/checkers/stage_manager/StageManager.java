@@ -1,6 +1,5 @@
 package com.checkers.stage_manager;
 
-import com.checkers_core.Board.Color;
 import com.checkers.choose_lobby.ChooseLobbyController;
 import com.checkers.connecting_menu.ConnectingMenuController;
 import com.checkers.connection.ServerConnection;
@@ -12,9 +11,7 @@ import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
 import com.checkers.game.GameController;
 import com.checkers.game.MultiGameController;
-import com.checkers_core.BasicPawnFactory;
-import com.checkers_core.BasicVariantRuleFactory;
-import com.checkers_core.BasicBoard;
+import com.checkers.game.SingleGameController;
 import com.checkers_core.VariantStartDescription;
 
 public class StageManager{
@@ -32,7 +29,7 @@ public class StageManager{
 
     public void switchToSingleGame(VariantStartDescription desc) {
         System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
-        gameController = new GameController(this, desc);
+        gameController = new SingleGameController(this, desc);
         changeControllerIfNeeded(gameController);
     }
 

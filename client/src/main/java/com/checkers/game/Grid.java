@@ -98,7 +98,7 @@ public class Grid extends GridPane {
             return;
         }
 
-        if(tile.getPiece() == null || tile.getPiece().get_color() != playerColor) {
+        if(tile.getPiece() == null || tile.getPiece().getColor() != playerColor) {
             System.out.println("Clicked on null");
             selected = null;
             resetTilesState();
