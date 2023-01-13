@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
@@ -35,11 +36,11 @@ public class ResponseCPSerializerTest {
     }
     @Test
     public void gameConnectionSuccessfulTest(){
-        GameConnectionSuccessfulResponse resp = new GameConnectionSuccessfulResponse(testGameId);
+        GameConnectionSuccessfulResponse resp = new GameConnectionSuccessfulResponse(testGameId, new VariantStartDescription(4, 4, "BASIC", "White"));
 
         String result = serializer.serialize(resp);
 
-        assertEquals(result, "GCS 42");
+        assertEquals(result, "GCS 42 4 4 BASIC White");
     }
     @Test
     public void gameConnectionUnsuccessfulTest(){

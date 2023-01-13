@@ -5,7 +5,6 @@ import com.checkers.controller.StageController;
 import com.checkers.stage_manager.StageManager;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
-import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.resp.ResponseListener;
 import com.checkers_core.resp.ResponseVisitor;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
@@ -21,7 +20,7 @@ public class ChooseLobbyController implements StageController, ResponseListener,
         NOT_WAITING
     }
 
-    State state;
+    State state = State.NOT_WAITING;
 
     ChooseLobbyView view = new ChooseLobbyView(this);
     StageManager manager;
@@ -51,8 +50,7 @@ public class ChooseLobbyController implements StageController, ResponseListener,
     }
 
     public void createGame() {
-        state = State.WAITING_FOR_CONNECT;
-        connection.getListener().onCommand(new NewGameCommand());
+        manager.switchToMultiGameCreationMenu(connection);
     }
     
     public void joinGame() {
@@ -66,7 +64,7 @@ public class ChooseLobbyController implements StageController, ResponseListener,
         if (state == State.WAITING_FOR_CONNECT) {
             state = State.NOT_WAITING;
     
-            manager.switchToGameCreationMenu();
+            manager.switchToGame(response.getDesc());
         }
         return null;
     }

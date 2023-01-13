@@ -14,7 +14,7 @@ public class PlaymodeMenuController implements StageController {
     }
 
     public void singleplayer() {
-        manager.switchToGameCreationMenu();
+        manager.switchToSingleGameCreationMenu();
     }
 
     public void multiplayer() {

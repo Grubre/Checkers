@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
@@ -17,8 +18,8 @@ public class Hub extends Lobby {
     Map<Integer, GameLobby> openLobbies = new TreeMap<>();
     int internalIdCounter = 1;
 
-    public int createLobby() {
-        GameLobby newLobby = new GameLobby(this);
+    public int createLobby(VariantStartDescription desc) {
+        GameLobby newLobby = new GameLobby(this, desc);
 
         int gameId = internalIdCounter;
         internalIdCounter++;
@@ -28,7 +29,7 @@ public class Hub extends Lobby {
         return gameId;
     }
 
-    public Lobby getLobby(int gameId) {
+    public GameLobby getLobby(int gameId) {
         return openLobbies.get(gameId);
     }
 
@@ -42,12 +43,12 @@ public class Hub extends Lobby {
 
     @Override
     public Void visitNewGame(NewGameCommand command) {
-        int newGameId = createLobby();
+        int newGameId = createLobby(command.getDesc());
         int playerId = command.getPlayerId();
 
         Lobby newLobby = getLobby(newGameId);
     
-        sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId));
+        sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId, command.getDesc()));
         
         transferPlayerTo(playerId, command.getSource(), newLobby);
 
@@ -59,10 +60,10 @@ public class Hub extends Lobby {
         int gameId = command.getGameId();
         int playerId = command.getPlayerId();
         
-        Lobby lobby = getLobby(gameId);
+        GameLobby lobby = getLobby(gameId);
 
         if (lobby != null) {
-            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId));
+            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, lobby.getDesc()));
             transferPlayerTo(playerId, command.getSource(), lobby);
         }
         else {

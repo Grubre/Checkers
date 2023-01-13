@@ -1,5 +1,6 @@
 package com.checkers_core.resp;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
@@ -29,7 +30,8 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
 
     @Override
     public String visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
-        return "GCS " + response.getGameId();
+        VariantStartDescription desc = response.getDesc();
+        return "GCS " + response.getGameId() + " " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor();
         
     }
 

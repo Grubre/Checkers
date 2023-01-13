@@ -3,6 +3,7 @@ package com.checkers_core.comm.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
@@ -18,7 +19,12 @@ public class CommandCPParser implements CommandParser {
 
         try {
             if("NEWGAME".equals(words[0])) {
-                return new NewGameCommand();
+                int width = Integer.parseInt(words[1]);
+                int height = Integer.parseInt(words[2]);
+                String variant = words[3];
+                String color = words[4];
+
+                return new NewGameCommand(new VariantStartDescription(width, height, variant, color));
             } 
             else if("JOINGAME".equals(words[0])) {
                 int gameId = Integer.parseInt(words[1]);

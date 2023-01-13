@@ -19,7 +19,9 @@ public class ServerConnection {
         sender = new ServerResponseSender(new ResponseCPParser());
         rec = new ReceivingConnection(socket, sender);
 
-        new Thread(rec).start();
+        Thread thread = new Thread(rec);
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public ServerResponseSender getSender() {

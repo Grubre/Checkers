@@ -29,8 +29,6 @@ public class GameCreationView extends StageView{
     private ComboBox<String> variantComboBox;
     private ComboBox<String> colorComboBox;
 
-    private Board board;
-
     public GameCreationView(GameCreationController controller)
     {
         this.controller = controller;

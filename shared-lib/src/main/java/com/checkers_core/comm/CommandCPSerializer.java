@@ -1,5 +1,6 @@
 package com.checkers_core.comm;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.ErrorCommand;
@@ -43,7 +44,8 @@ public class CommandCPSerializer implements CommandSerializer, CommandVisitor<St
 
     @Override
     public String visitNewGame(NewGameCommand command) {
-        return "NEWGAME";
+        VariantStartDescription desc = command.getDesc();
+        return "NEWGAME " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor();
     }
 
     @Override

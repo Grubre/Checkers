@@ -6,6 +6,8 @@ import com.checkers.connecting_menu.ConnectingMenuController;
 import com.checkers.connection.ServerConnection;
 import com.checkers.controller.StageController;
 import com.checkers.game_creation.GameCreationController;
+import com.checkers.game_creation.MultiGameCreationController;
+import com.checkers.game_creation.SingleGameCreationController;
 import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
 import com.checkers.scenes.GameController;
@@ -26,43 +28,40 @@ public class StageManager{
     GameCreationController gameCreationController;
 
     public void switchToGame(VariantStartDescription desc) {
+        System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
+
         new GameController(new BasicVariant(desc.getWidth(), desc.getHeight(), new BasicPawnFactory()), Color.BLACK).setCurrent();
     }
 
-    public void switchToGameCreationMenu() {
-        if (gameCreationController == null) {
-            gameCreationController = new GameCreationController(this);
-        }
+    public void switchToSingleGameCreationMenu() {
+        gameCreationController = new SingleGameCreationController(this);
         changeControllerIfNeeded(gameCreationController);
     }
 
+    public void switchToMultiGameCreationMenu(ServerConnection connection) {
+        gameCreationController = new MultiGameCreationController(this, connection);
+        changeControllerIfNeeded(gameCreationController);
+    }
+    
     public void switchToPlayModeMenu() {
-        if (playmodeMenuController == null) {
-            playmodeMenuController = new PlaymodeMenuController(this);
-        }
+        playmodeMenuController = new PlaymodeMenuController(this);
         changeControllerIfNeeded(playmodeMenuController);
     }
 
     public void switchToChooseLobbyMenu(ServerConnection connection) {
-        if (chooseLobbyController == null) {
-            chooseLobbyController = new ChooseLobbyController(this, connection);
-        }
+        chooseLobbyController = new ChooseLobbyController(this, connection);
         changeControllerIfNeeded(chooseLobbyController);
     }
 
     public void switchToConnectingMenu() {
-        if (connectingMenuController == null) {
-            connectingMenuController = new ConnectingMenuController(this);
-        }
+        connectingMenuController = new ConnectingMenuController(this);
         changeControllerIfNeeded(connectingMenuController);  
     }
 
     public void switchToMainMenu() {
-        if (mainMenuController == null) {
-            mainMenuController = new MainMenuController(this);
-        }
+        mainMenuController = new MainMenuController(this);
         changeControllerIfNeeded(mainMenuController);
-        
+
     }
 
     private void changeControllerIfNeeded(StageController controller) {
