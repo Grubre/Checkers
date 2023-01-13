@@ -35,14 +35,15 @@ public class ResponseCPParser implements ResponseParser {
             }
             else if("MOVED".equals(words[0])) {
                 int playerId = Integer.parseInt(words[1]);
-                int pieceId = Integer.parseInt(words[2]);
+                int pieceX = Integer.parseInt(words[2]);
+                int pieceY = Integer.parseInt(words[3]);
                 List<Integer> tileIds = new ArrayList<>();
 
-                for(int i = 3; i < words.length; i++) {
+                for(int i = 4; i < words.length; i++) {
                     tileIds.add(Integer.parseInt(words[i]));
                 }
 
-                return new PieceMovedResponse(playerId, pieceId, tileIds);
+                return new PieceMovedResponse(playerId, pieceX, pieceY, tileIds);
             }
             else if("EOG".equals(words[0])) {
                 int winnerId = Integer.parseInt(words[1]);

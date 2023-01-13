@@ -6,26 +6,36 @@ import com.checkers_core.resp.ResponseVisitor;
 
 public class PieceMovedResponse extends Response {
     final int playerId;
-    final int pieceId;
+    final int pieceX;
+    final int pieceY;
     final List<Integer> tileIds;
-    
-    public PieceMovedResponse(int playerId, int pieceId, List<Integer> tileIds) {
+
+    public PieceMovedResponse(int playerId, int pieceX, int pieceY, List<Integer> tileIds) {
         this.playerId = playerId;
-        this.pieceId = pieceId;
+        this.pieceX = pieceX;
+        this.pieceY = pieceY;
         this.tileIds = tileIds;
     }
+
     public int getPlayerId() {
         return playerId;
     }
-    public int getPieceId() {
-        return pieceId;
+
+    public int getPieceX() {
+        return pieceX;
     }
+
+    public int getPieceY() {
+        return pieceY;
+    }
+
     public List<Integer> getTileIds() {
         return tileIds;
     }
+
     @Override
     public <T> T accept(ResponseVisitor<T> visitor) {
-        return visitor.visitPieceMoved(this);    
+        return visitor.visitPieceMoved(this);
     }
-    
+
 }

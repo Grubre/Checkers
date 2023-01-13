@@ -53,7 +53,7 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
             stringTileIds += tileId + " ";
         }
 
-        return "MOVED " + response.getPlayerId() + " " + response.getPieceId() + " " + stringTileIds;
+        return "MOVED " + response.getPlayerId() + " " + response.getPieceX() + " " + response.getPieceY() + " " + stringTileIds;
     }
 
     @Override

@@ -32,14 +32,15 @@ public class CommandCPParser implements CommandParser {
                 return new JoinGameCommand(gameId);
             }
             else if("MOVE".equals(words[0])) {
-                int pieceId = Integer.parseInt(words[1]);
+                int pieceX = Integer.parseInt(words[1]);
+                int pieceY = Integer.parseInt(words[2]);
                 List<Integer> tileIds = new ArrayList<>();
 
-                for(int i = 2; i < words.length; i++) {
+                for(int i = 3; i < words.length; i++) {
                     tileIds.add(Integer.parseInt(words[i]));
                 }
 
-                return new MovePieceCommand(pieceId, tileIds);
+                return new MovePieceCommand(pieceX, pieceY, tileIds);
             }
             else if("RESIGN".equals(words[0])) {
                 return new ResignCommand();

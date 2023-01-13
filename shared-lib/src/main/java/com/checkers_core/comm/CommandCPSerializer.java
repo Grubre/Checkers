@@ -39,7 +39,7 @@ public class CommandCPSerializer implements CommandSerializer, CommandVisitor<St
             stringTileIds += tileId + " ";
         }
 
-        return "MOVE " + command.getPieceId() + " " + stringTileIds;
+        return "MOVE " + command.getPieceX() + " " + command.getPieceY() + " " + stringTileIds;
     }
 
     @Override

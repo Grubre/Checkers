@@ -60,11 +60,11 @@ public class ResponseCPSerializerTest {
     }
     @Test
     public void pieceMovedTest(){
-        PieceMovedResponse resp = new PieceMovedResponse(testPlayerId, testPieceId, testTileIds);
+        PieceMovedResponse resp = new PieceMovedResponse(testPlayerId, testPieceId, testPieceId, testTileIds);
 
         String result = serializer.serialize(resp);
 
-        assertEquals(result.trim(), "MOVED 17 10 11 6 20");
+        assertEquals(result.trim(), "MOVED 17 10 10 11 6 20");
     }
     @Test
     public void playerDisconnectedTest(){

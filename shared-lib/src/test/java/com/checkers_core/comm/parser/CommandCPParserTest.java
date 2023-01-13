@@ -42,9 +42,10 @@ public class CommandCPParserTest {
             testStringTileIds += tileId + " ";
         }
 
-        MovePieceCommand comm = (MovePieceCommand)parser.parse("MOVE " + testPieceId + " " + testStringTileIds);
+        MovePieceCommand comm = (MovePieceCommand)parser.parse("MOVE " + testPieceId + " " + testPieceId + " " + testStringTileIds);
         
-        assertEquals(comm.getPieceId(), testPieceId);
+        assertEquals(comm.getPieceX(), testPieceId);
+        assertEquals(comm.getPieceY(), testPieceId);
         assertEquals(comm.getTileIds().size(), testTileIds.size());
         for (int i = 0; i < testTileIds.size(); i++) {
             assertEquals(testTileIds.get(i), comm.getTileIds().get(i));

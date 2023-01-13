@@ -1,6 +1,10 @@
 package com.checkers.lobby;
 
+import com.checkers_core.Board;
+import com.checkers_core.BoardFactory;
+import com.checkers_core.Move;
 import com.checkers_core.VariantStartDescription;
+import com.checkers_core.Board.BoardPos;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.ResignCommand;
@@ -9,11 +13,14 @@ import com.checkers_core.resp.response.PlayerDisconnectedResponse;
 
 public class GameLobby extends Lobby {
     Hub mainHub;
+    
     VariantStartDescription desc;
+    Board board;
     
     public GameLobby(Hub mainHub, VariantStartDescription desc) {
         this.mainHub = mainHub;
         this.desc = desc;
+        this.board = new BoardFactory().createBoard(desc);
     }
     
     @Override
@@ -48,8 +55,15 @@ public class GameLobby extends Lobby {
     
     @Override
     public Void visitMovePiece(MovePieceCommand command) {
-        //TODO Insert game logic
-        broadcastToPlayers(new PieceMovedResponse(command.getPlayerId(), command.getPieceId(), command.getTileIds()));
+
+        BoardPos piecePos = new BoardPos(command.getPieceX(), command.getPieceY());
+
+        for (int tileId : command.getTileIds()) {
+            BoardPos targetPos = new BoardPos(tileId % board.xDim, tileId / board.xDim);
+            board.movePiece(piecePos, targetPos);
+        }
+        
+        broadcastToPlayers(new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds()));
         
         return null;
     }
