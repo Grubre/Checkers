@@ -76,14 +76,16 @@ public class GameLobby extends Lobby {
             }
         }
         
-        if (board.gameOver().isPresent()) {
-            int colorId = switch (board.gameOver().get()) {
-                case WHITE -> 0;
-                case BLACK -> 1;
-            };
+        // if (board.gameOver().isPresent()) {
+        //     System.out.println(board.gameOver().get());
 
-            broadcastToPlayers(new EndOfGameResponse(colorId));
-        }
+        //     int colorId = switch (board.gameOver().get()) {
+        //         case WHITE -> 0;
+        //         case BLACK -> 1;
+        //     };
+
+        //     broadcastToPlayers(new EndOfGameResponse(colorId));
+        // }
         
         
         return null;

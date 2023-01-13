@@ -45,6 +45,9 @@ public class BasicBoard extends Board {
                 }
             }
         }
+
+        System.out.println("white " + white + " black " + black);
+
         if (black == 0) {
             return Optional.of(Color.WHITE);
         } else if (white == 0) {
