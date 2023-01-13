@@ -23,7 +23,7 @@ public class MainMenuController implements StageController{
     }
     
     public void playGame() {
-        manager.switchToConnectingMenu();
+        manager.switchToPlayModeMenu();
     }
 
     @Override
