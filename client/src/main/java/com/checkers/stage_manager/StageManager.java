@@ -1,29 +1,40 @@
 package com.checkers.stage_manager;
 
+import com.checkers.choose_lobby.ChooseLobbyController;
+import com.checkers.connecting_menu.ConnectingMenuController;
+import com.checkers.connection.ServerConnection;
 import com.checkers.controller.StageController;
 import com.checkers.main_menu.MainMenuController;
 
-public class StageManager implements StageManagerInterface {
+public class StageManager{
 
     StageController currentController;
     MainMenuController mainMenuController;
+    ConnectingMenuController connectingMenuController;
+    ChooseLobbyController chooseLobbyController;
 
-    @Override
     public void switchToPlayBoard() {
         // TODO Auto-generated method stub   
     }
 
-    @Override
-    public void switchToChooseLobbyMenu() {
-        // TODO Auto-generated method stub
+    public void switchToGameCreationMenu() {
+        System.out.println("Game Creation");
     }
 
-    @Override
+    public void switchToChooseLobbyMenu(ServerConnection connection) {
+        if (chooseLobbyController == null) {
+            chooseLobbyController = new ChooseLobbyController(this, connection);
+        }
+        changeControllerIfNeeded(chooseLobbyController);
+    }
+
     public void switchToConnectingMenu() {
-        // TODO Auto-generated method stub   
+        if (connectingMenuController == null) {
+            connectingMenuController = new ConnectingMenuController(this);
+        }
+        changeControllerIfNeeded(connectingMenuController);  
     }
 
-    @Override
     public void switchToMainMenu() {
         if (mainMenuController == null) {
             mainMenuController = new MainMenuController(this);
@@ -34,6 +45,7 @@ public class StageManager implements StageManagerInterface {
 
     private void changeControllerIfNeeded(StageController controller) {
         if (controller != currentController) {
+            currentController.deactivate();
             currentController = controller;
             controller.activate();
         }

@@ -2,6 +2,7 @@ package com.checkers_core.resp;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.IncorrectMoveResponse;
+import com.checkers_core.resp.response.LobbyListResponse;
 import com.checkers_core.resp.response.PieceMovedResponse;
 import com.checkers_core.resp.response.PlayerDisconnectedResponse;
 import com.checkers_core.resp.response.WrongCommandResponse;
@@ -78,5 +80,14 @@ public class ResponseCPSerializerTest {
         String result = serializer.serialize(resp);
 
         assertEquals(result, "WRONGCOMM");
+    }
+
+    @Test
+    public void lobbyListTest(){
+        LobbyListResponse resp = new LobbyListResponse(List.of(3, 4, 1));
+
+        String result = serializer.serialize(resp);
+
+        assertEquals(result, "LOBBIES 3 4 1 ");
     }
 }

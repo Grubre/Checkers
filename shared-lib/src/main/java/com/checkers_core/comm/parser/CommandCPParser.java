@@ -6,6 +6,7 @@ import java.util.List;
 import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
+import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
@@ -36,6 +37,9 @@ public class CommandCPParser implements CommandParser {
             }
             else if("RESIGN".equals(words[0])) {
                 return new ResignCommand();
+            }
+            else if("LISTLOBBIES".equals(words[0])) {
+                return new ListLobbyCommand();
             }
             else if("DISCONNECT".equals(words[0])) {
                 return new DisconnectCommand();

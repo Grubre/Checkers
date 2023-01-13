@@ -47,7 +47,7 @@ public final class PlayMenu extends MenuScene{
         styleComponent(backButton);
 
         backButton.setOnAction(onAction -> {
-            MainMenu.getInstance().setCurrent();
+            //MainMenu.getInstance().setCurrent();
         });
 
         singlePlayerButton.setOnAction(onAction -> {
