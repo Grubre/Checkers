@@ -63,6 +63,13 @@ public abstract class Board {
         return board[i][j];
     }
 
+    public AbstractPawn getPiece(BoardPos pawnPos) {
+        if (!isInBounds(pawnPos.x, pawnPos.y)) {
+            return null;
+        }
+        return board[pawnPos.x][pawnPos.y];
+    }
+
     public void setPiece(int i, int j, AbstractPawn piece) {
         if (isInBounds(i, j)) {
             board[i][j] = piece;

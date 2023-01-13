@@ -98,7 +98,7 @@ public class MoveNode implements Iterable<MoveNode>{
         }
     }
 
-    public boolean isMarkedMax()
+    public boolean isMarkedForMove()
     {
         return markedMax;
     }

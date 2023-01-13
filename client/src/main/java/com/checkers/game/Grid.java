@@ -145,7 +145,7 @@ public class Grid extends GridPane {
 
         select(tile);
 
-        currentMoves.print("");
+        //currentMoves.print("");
 
         setPossibleMovesForSelected();
     }
@@ -166,7 +166,7 @@ public class Grid extends GridPane {
         int x = selected.getX();
         int y = selected.getY();
         currentMoves = thisTurnsMoveGraph.getMoveNodeAt(new BoardPos(x, y));
-        currentMoves.print("");
+        //currentMoves.print("");
 
         setPossibleMovesForSelected();
     }
@@ -179,7 +179,7 @@ public class Grid extends GridPane {
             return;
         }
         for (MoveNode move : currentMoves) {
-            if(!move.isMarkedMax()) {
+            if(!move.isMarkedForMove()) {
                 continue;
             }
             Board.BoardPos pos = move.getPos();
