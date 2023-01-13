@@ -68,19 +68,19 @@ public class BasicMoveFinder {
         for (int xDir : xDirs) {
             for (int yDir : yDirs) {
                 // Find the first enemy pawn in your way
-                for(int i = 1; i <= depth; i++)
+                for(int d = 1; d <= depth; d++)
                 {
-                    if (board.getPiece(x + i * xDir, y + i * yDir) != null)
+                    if (board.getPiece(x + d * xDir, y + d * yDir) != null)
                     {
                         // If it is an enemy pawn you can move there
-                        if(board.getPiece(x + i * xDir, y + i * yDir).getColor() != color)
+                        if(board.getPiece(x + d * xDir, y + d * yDir).getColor() != color)
                         {
                             for(int j = 1; j <= depth; j++)
                             {
                                 MoveNode newMove =
                                 findCapturesRecursive(moveNode,
-                                new BoardPos(x + xDir + j * xDir, y + yDir + j * yDir),
-                                new BoardPos(x + i * xDir, y + i * yDir));
+                                new BoardPos(x + (d + j) * xDir, y + (d + j) * yDir),
+                                new BoardPos(x + d * xDir, y + d * yDir));
 
                                 if (newMove != null) {
                                     moveNode.possibleMoves.add(newMove);
