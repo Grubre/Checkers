@@ -5,7 +5,9 @@ import com.checkers.stage_manager.StageManager;
 import com.checkers_core.Board;
 import com.checkers_core.VariantStartDescription;
 import com.checkers_core.Board.BoardPos;
+import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
+import com.checkers_core.comm.command.ResignCommand;
 import com.checkers_core.resp.ResponseListener;
 import com.checkers_core.resp.ResponseVisitor;
 import com.checkers_core.resp.response.EndOfGameResponse;
@@ -57,8 +59,10 @@ public class MultiGameController extends GameController implements ResponseVisit
 
     @Override
     public Void visitEndOfGame(EndOfGameResponse response) {
-        manager.switchToChooseLobbyMenu(connection);
+        connection.getListener().onCommand(new ResignCommand());
         
+        manager.switchToChooseLobbyMenu(connection);
+
         return null;
     }
 
