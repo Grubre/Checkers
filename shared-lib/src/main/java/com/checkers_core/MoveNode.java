@@ -13,6 +13,7 @@ public class MoveNode implements Iterable<MoveNode>{
     List<MoveNode> possibleMoves = new ArrayList<>();
 
     private boolean markedMax = false;
+    private boolean hasCaptured = false;
 
     private int maxPathLen = 0;
 
@@ -59,6 +60,16 @@ public class MoveNode implements Iterable<MoveNode>{
         return new BoardPos(x, y);
     }
 
+    public void setHasCaptured(boolean hasCaptured)
+    {
+        this.hasCaptured = hasCaptured;
+    }
+
+    public boolean hasCaptured()
+    {
+        return hasCaptured;
+    }
+
     public int getLongestPathLength()
     {
         int max = 0;
@@ -79,10 +90,8 @@ public class MoveNode implements Iterable<MoveNode>{
     {
         for(MoveNode child : possibleMoves)
         {
-            System.out.println("My size: " + externalMaxSize + ", child's size: " + (child.maxPathLen + 1));
             if(child.maxPathLen + 1 >= externalMaxSize)
             {
-                System.out.println("Marking as max");
                 child.markedMax = true;
                 child.countAndPrune(externalMaxSize - 1);
             }

@@ -85,23 +85,6 @@ public abstract class Board {
         }
     }
 
-    public void movePiece(Board.BoardPos piecePos, Move move)
-    {
-        int s = move.visitedFields.size();
-        int targetX = move.visitedFields.get(s).x;
-        int targetY = move.visitedFields.get(s).y;
-
-        if(targetX != piecePos.x && targetY != piecePos.y)
-        {
-            board[targetX][targetY] = board[piecePos.x][piecePos.y];
-            board[piecePos.x][piecePos.y] = null;
-        }
-
-        move.removedPawns.stream().peek(pawnPos -> {
-            setPiece(pawnPos.x, pawnPos.y, null);
-        });
-    }
-
     public void updateAndAscend()
     {
         for (int j = 0; j < yDim; j++) {

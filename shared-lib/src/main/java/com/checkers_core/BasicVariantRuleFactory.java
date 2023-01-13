@@ -10,6 +10,8 @@ public class BasicVariantRuleFactory implements AbstractRuleFactory {
 
         int maxSize = 0;
 
+        boolean canCapture = false;
+
         for(int j = 0; j < board.yDim; j++)
         {
             for(int i = 0; i < board.xDim; i++)
@@ -20,6 +22,9 @@ public class BasicVariantRuleFactory implements AbstractRuleFactory {
                     continue;
                 }
                 MoveNode moveNode = piece.possibleMoves(board, boardPos);
+                if(moveNode.hasCaptured()) {
+                    canCapture = true;
+                }
                 moveGraph.setPawnMoveNode(boardPos, moveNode);
                 maxSize = Math.max(maxSize, moveNode.getLongestPathLength());
             }
@@ -31,7 +36,9 @@ public class BasicVariantRuleFactory implements AbstractRuleFactory {
             {
                 MoveNode moveNode = moveGraph.getMoveNodeAt(new Board.BoardPos(i, j));
                 if(moveNode != null) {
-                    moveNode.pruneNonMaxPaths(maxSize);
+                    if(canCapture && moveNode.hasCaptured() || !canCapture) {
+                        moveNode.pruneNonMaxPaths(maxSize);
+                    }
                 }
             }
         }
