@@ -1,12 +1,6 @@
 package com.checkers.game_creation;
 
-import com.checkers.scenes.GameController;
 import com.checkers.view.StageView;
-import com.checkers_core.BasicPawnFactory;
-import com.checkers_core.BasicVariant;
-import com.checkers_core.Board;
-import com.checkers_core.Board.Color;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;

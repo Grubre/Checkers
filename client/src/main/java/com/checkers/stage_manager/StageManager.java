@@ -12,7 +12,8 @@ import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
 import com.checkers.scenes.GameController;
 import com.checkers_core.BasicPawnFactory;
-import com.checkers_core.BasicVariant;
+import com.checkers_core.BasicVariantRuleFactory;
+import com.checkers_core.BasicBoard;
 import com.checkers_core.VariantStartDescription;
 
 public class StageManager{
@@ -30,7 +31,7 @@ public class StageManager{
     public void switchToGame(VariantStartDescription desc) {
         System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
 
-        new GameController(new BasicVariant(desc.getWidth(), desc.getHeight(), new BasicPawnFactory()), Color.BLACK).setCurrent();
+        new GameController(new BasicBoard(desc.getWidth(), desc.getHeight(), new BasicPawnFactory(), new BasicVariantRuleFactory()), Color.BLACK).setCurrent();
     }
 
     public void switchToSingleGameCreationMenu() {
