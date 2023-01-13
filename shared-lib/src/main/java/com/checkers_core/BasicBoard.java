@@ -12,9 +12,9 @@ public class BasicBoard extends Board {
     public void setupBoard() {
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {
-                if (j < 3 && (i + j) % 2 == 1) {
+                if (j < yDim / 2 - 1 && (i + j) % 2 == 1) {
                     board[i][j] = pawnFactory.create_regular(Color.WHITE);
-                } else if (j >= yDim - 3 && (i + j) % 2 == 1) {
+                } else if (j >= yDim / 2 + 1 && (i + j) % 2 == 1) {
                     board[i][j] = pawnFactory.create_regular(Color.BLACK);
                 } else {
                     board[i][j] = null;
