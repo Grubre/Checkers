@@ -12,6 +12,7 @@ import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
 import com.checkers.game.GameController;
 import com.checkers.game.MultiGameController;
+import com.checkers.game.SingleGameController;
 import com.checkers_core.VariantStartDescription;
 
 public class StageManager{
@@ -31,7 +32,7 @@ public class StageManager{
 
     public void switchToSingleGame(VariantStartDescription desc) {
         System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
-        gameController = new GameController(this, desc);
+        gameController = new SingleGameController(this, desc);
         changeControllerIfNeeded(gameController);
     }
 
