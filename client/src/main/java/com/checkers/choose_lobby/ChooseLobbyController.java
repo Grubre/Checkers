@@ -64,7 +64,7 @@ public class ChooseLobbyController implements StageController, ResponseListener,
         if (state == State.WAITING_FOR_CONNECT) {
             state = State.NOT_WAITING;
     
-            manager.switchToGame(response.getDesc());
+            manager.switchToMultiGame(response.getDesc(), connection);
         }
         return null;
     }

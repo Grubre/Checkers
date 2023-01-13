@@ -10,7 +10,8 @@ import com.checkers.game_creation.MultiGameCreationController;
 import com.checkers.game_creation.SingleGameCreationController;
 import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
-import com.checkers.scenes.GameController;
+import com.checkers.game.GameController;
+import com.checkers.game.MultiGameController;
 import com.checkers_core.BasicPawnFactory;
 import com.checkers_core.BasicVariantRuleFactory;
 import com.checkers_core.BasicBoard;
@@ -27,11 +28,18 @@ public class StageManager{
     ChooseLobbyController chooseLobbyController;
 
     GameCreationController gameCreationController;
+    GameController gameController;
 
-    public void switchToGame(VariantStartDescription desc) {
+    public void switchToSingleGame(VariantStartDescription desc) {
         System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
+        gameController = new GameController(this, desc);
+        changeControllerIfNeeded(gameController);
+    }
 
-        new GameController(new BasicBoard(desc.getWidth(), desc.getHeight(), new BasicPawnFactory(), new BasicVariantRuleFactory()), Color.BLACK).setCurrent();
+    public void switchToMultiGame(VariantStartDescription desc, ServerConnection connection) {
+        System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
+        gameController = new MultiGameController(this, desc, connection);
+        changeControllerIfNeeded(gameController);
     }
 
     public void switchToSingleGameCreationMenu() {

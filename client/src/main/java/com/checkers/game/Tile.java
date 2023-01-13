@@ -1,5 +1,6 @@
-package com.checkers;
+package com.checkers.game;
 
+import com.checkers.VisualChecker;
 import com.checkers_core.Board;
 
 import javafx.scene.layout.GridPane;

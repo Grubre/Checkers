@@ -63,7 +63,7 @@ public class Hub extends Lobby {
         GameLobby lobby = getLobby(gameId);
 
         if (lobby != null) {
-            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, lobby.getDesc()));
+            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, lobby.getAnotherColoredDesc()));
             transferPlayerTo(playerId, command.getSource(), lobby);
         }
         else {

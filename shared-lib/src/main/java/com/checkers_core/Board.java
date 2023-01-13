@@ -7,10 +7,18 @@ public abstract class Board {
         BLACK,
         WHITE;
 
-        static Color getOpposite(Color color) {
+        public static Color getOpposite(Color color) {
             return switch (color) {
                 case BLACK -> WHITE;
                 case WHITE -> BLACK;
+            };
+        }
+
+        public static Color fromString(String color) {
+            return switch (color.toLowerCase()) {
+                case "black" -> BLACK;
+                case "white" -> WHITE;
+                default -> throw new IllegalArgumentException();
             };
         }
     }

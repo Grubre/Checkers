@@ -1,10 +1,12 @@
-package com.checkers;
+package com.checkers.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.checkers.Tile.Color;
-import com.checkers.Tile.State;
+import com.checkers.VisualAscendedChecker;
+import com.checkers.VisualBasicChecker;
+import com.checkers.game.Tile.Color;
+import com.checkers.game.Tile.State;
 import com.checkers_core.AbstractPawn;
 import com.checkers_core.Board;
 import com.checkers_core.MoveGraph;
@@ -21,6 +23,8 @@ import javafx.scene.layout.RowConstraints;
  * A container which extends GridPane with added support for multithreaded Cells.
  */
 public class Grid extends GridPane {
+    private GameController  controller;
+    
     private final int xDim;
     private final int yDim;
 
@@ -35,8 +39,10 @@ public class Grid extends GridPane {
     private MoveGraph thisTurnsMoveGraph;
     private MoveNode currentMoves = null;
 
-    public Grid(Board board, Board.Color color)
+    public Grid(Board board, Board.Color color, GameController controller)
     {
+        this.controller = controller;
+
         this.xDim = board.xDim;
         this.yDim = board.yDim;
         this.board = board;
@@ -88,10 +94,11 @@ public class Grid extends GridPane {
                             new BoardPos(tile.getX(), tile.getY()));
             selectNextTile(tile);
             drawBoard();
+            
             return;
         }
 
-        if(tile.getPiece() == null || tile.getPiece().get_color() != currentPlayerColor) {
+        if(tile.getPiece() == null || tile.getPiece().get_color() != playerColor) {
             System.out.println("Clicked on null");
             selected = null;
             resetTilesState();
@@ -101,6 +108,9 @@ public class Grid extends GridPane {
         
         selectNewTile(tile);
         drawBoard();
+
+        //////
+        controller.queuePiece(tile.getX(), tile.getY());
     }
 
     private void selectNextTile(Tile tile)
@@ -117,12 +127,19 @@ public class Grid extends GridPane {
         }
         currentMoves = nextNode;
 
+        ///////
+        controller.addMove(tile.getX() + tile.getY() * board.xDim);
+
         // The move has ended
         if(currentMoves.getLongestPathLength() <= 1)
         {
             selected = null;
             currentMoves = null;
             newTurn();
+
+            ////
+            controller.endTurn();
+
             return;
         }
 

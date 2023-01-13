@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class BasicBoard extends Board {
-    public BasicBoard(int xDim, int yDim, AbstractPawnFactory pawnFactory, AbstractRuleFactory ruleFactory)
-    {
+    public BasicBoard(int xDim, int yDim, AbstractPawnFactory pawnFactory, AbstractRuleFactory ruleFactory) {
         super(xDim, yDim, pawnFactory, ruleFactory);
     }
 
@@ -13,13 +12,11 @@ public class BasicBoard extends Board {
     public void setupBoard() {
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {
-                if(j < 3 && (i + j) % 2 == 1) {
+                if (j < 3 && (i + j) % 2 == 1) {
                     board[i][j] = pawnFactory.create_regular(Color.WHITE);
-                }
-                else if(j >= yDim - 3 && (i + j) % 2 == 1) {
+                } else if (j >= yDim - 3 && (i + j) % 2 == 1) {
                     board[i][j] = pawnFactory.create_regular(Color.BLACK);
-                }
-                else {
+                } else {
                     board[i][j] = null;
                 }
             }
@@ -28,25 +25,32 @@ public class BasicBoard extends Board {
 
     @Override
     public Optional<Color> gameOver() {
-        HashMap<Color,Integer> colorCnt = new HashMap<Board.Color,Integer>();
+        int black = 0;
+        int white = 0;
+
         for (int i = 0; i < xDim; i++) {
             for (int j = 0; j < yDim; j++) {
                 AbstractPawn pawn = board[i][j];
-                if(pawn == null) {
+                if (pawn == null) {
                     continue;
                 }
                 Color key = pawn.getColor();
-                colorCnt.putIfAbsent(key, 0);
-                colorCnt.put(key, colorCnt.get(key) + 1);
+                switch (key) {
+                    case WHITE -> {
+                        white++;
+                    }
+                    case BLACK -> {
+                        black++;
+                    }
+                }
             }
         }
-        if(colorCnt.get(Color.BLACK) == 0) {
+        if (black == 0) {
             return Optional.of(Color.WHITE);
-        }
-        else if(colorCnt.get(Color.WHITE) == 0) {
+        } else if (white == 0) {
             return Optional.of(Color.BLACK);
         }
         return Optional.empty();
     }
-    
+
 }

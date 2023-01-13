@@ -46,7 +46,7 @@ public class MultiGameCreationController implements GameCreationController, Stag
     public Void visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
         if(state == State.WAITING_FOR_CONFIRMATION) {
             state = State.NOT_WAITING;
-            manager.switchToGame(response.getDesc());
+            manager.switchToMultiGame(response.getDesc(), connection);
         }
 
         return null;

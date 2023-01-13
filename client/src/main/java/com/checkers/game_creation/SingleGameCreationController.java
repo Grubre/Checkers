@@ -27,7 +27,7 @@ public class SingleGameCreationController implements GameCreationController, Sta
             default -> null;
         };
 
-        manager.switchToGame(new VariantStartDescription(view.getWidth(), view.getHeight(), variant, view.getColor()));
+        manager.switchToSingleGame(new VariantStartDescription(view.getWidth(), view.getHeight(), variant, view.getColor()));
     }
 
     @Override
