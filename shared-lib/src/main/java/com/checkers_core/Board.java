@@ -54,6 +54,8 @@ public abstract class Board {
         this.ruleFactory = ruleFactory;
 
         board = new AbstractPawn[xDim][yDim];
+
+        setupBoard();
     }
 
     public AbstractPawn getPiece(int i, int j) {
