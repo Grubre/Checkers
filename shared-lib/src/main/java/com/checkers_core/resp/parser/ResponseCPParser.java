@@ -3,6 +3,7 @@ package com.checkers_core.resp.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.checkers_core.VariantStartDescription;
 import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
@@ -25,8 +26,12 @@ public class ResponseCPParser implements ResponseParser {
             } 
             else if("GCS".equals(words[0])) {
                 int gameId = Integer.parseInt(words[1]);
+                int width = Integer.parseInt(words[2]);
+                int height = Integer.parseInt(words[3]);
+                String variant = words[4];
+                String color = words[5];
 
-                return new GameConnectionSuccessfulResponse(gameId);
+                return new GameConnectionSuccessfulResponse(gameId, new VariantStartDescription(width, height, variant, color));
             }
             else if("MOVED".equals(words[0])) {
                 int playerId = Integer.parseInt(words[1]);

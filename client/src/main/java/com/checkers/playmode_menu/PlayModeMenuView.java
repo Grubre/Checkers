@@ -1,20 +1,24 @@
-package com.checkers.scenes;
+package com.checkers.playmode_menu;
+
+import com.checkers.view.StageView;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public final class PlayMenu extends MenuScene{
+public class PlayModeMenuView extends StageView {
+    PlaymodeMenuController controller;
+    
     Button multiPlayerButton;
     Button singlePlayerButton;
     Button backButton;
 
     VBox vBox;
     
-    private PlayMenu()
+    public PlayModeMenuView(PlaymodeMenuController controller)
     {
-        super();
+        this.controller = controller;
 
         vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
@@ -47,32 +51,15 @@ public final class PlayMenu extends MenuScene{
         styleComponent(backButton);
 
         backButton.setOnAction(onAction -> {
-            MainMenu.getInstance().setCurrent();
+            controller.back();
         });
 
         singlePlayerButton.setOnAction(onAction -> {
-            GameCreationMenu gameCreationMenu = new GameCreationMenu();
-            gameCreationMenu.setCurrent();
+            controller.singleplayer();
         });
 
         multiPlayerButton.setOnAction(onAction -> {
-            MultiPlayerMenu.getInstance().setCurrent();
+            controller.multiplayer();
         });
-    }
-
-    private static PlayMenu instance;
-
-    public static synchronized PlayMenu getInstance()
-    {
-        if (instance == null) {
-            instance = new PlayMenu();
-        }
-        return instance;
-    }
-
-    @Override
-    protected void onEnter()
-    {
-        
     }
 }
