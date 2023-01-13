@@ -77,6 +77,11 @@ public class BasicMoveFinder {
                         {
                             for(int j = 1; j <= depth; j++)
                             {
+                                AbstractPawn potentialMove = board.getPiece(x + (d + j) * xDir, y + (d + j) * yDir);
+                                if (potentialMove != null)
+                                {
+                                    break;
+                                }
                                 MoveNode newMove =
                                 findCapturesRecursive(moveNode,
                                 new BoardPos(x + (d + j) * xDir, y + (d + j) * yDir),
@@ -119,6 +124,11 @@ public class BasicMoveFinder {
                             {
                                 for(int j = 1; j <= depth; j++)
                                 {
+                                    AbstractPawn potentialMove = board.getPiece(x + (d + j) * xDir, y + (d + j) * yDir);
+                                    if (potentialMove != null)
+                                    {
+                                        break;
+                                    }
                                     MoveNode newMove =
                                     findCapturesRecursive(moveNode,
                                     new BoardPos(x + (d + j) * xDir, y + (d + j) * yDir),

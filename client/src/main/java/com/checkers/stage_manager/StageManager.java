@@ -1,6 +1,5 @@
 package com.checkers.stage_manager;
 
-import com.checkers_core.Board.Color;
 import com.checkers.choose_lobby.ChooseLobbyController;
 import com.checkers.connecting_menu.ConnectingMenuController;
 import com.checkers.connection.ServerConnection;
@@ -8,13 +7,11 @@ import com.checkers.controller.StageController;
 import com.checkers.game_creation.GameCreationController;
 import com.checkers.game_creation.MultiGameCreationController;
 import com.checkers.game_creation.SingleGameCreationController;
+import com.checkers.game_over_menu.GameOverController;
 import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
 import com.checkers.game.GameController;
 import com.checkers.game.MultiGameController;
-import com.checkers_core.BasicPawnFactory;
-import com.checkers_core.BasicVariantRuleFactory;
-import com.checkers_core.BasicBoard;
 import com.checkers_core.VariantStartDescription;
 
 public class StageManager{
@@ -29,6 +26,8 @@ public class StageManager{
 
     GameCreationController gameCreationController;
     GameController gameController;
+
+    GameOverController gameOverController;
 
     public void switchToSingleGame(VariantStartDescription desc) {
         System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
@@ -71,6 +70,11 @@ public class StageManager{
         mainMenuController = new MainMenuController(this);
         changeControllerIfNeeded(mainMenuController);
 
+    }
+
+    public void switchToGameOver(boolean youWon) {
+        gameOverController = new GameOverController(this, youWon);
+        changeControllerIfNeeded(gameOverController);
     }
 
     private void changeControllerIfNeeded(StageController controller) {
