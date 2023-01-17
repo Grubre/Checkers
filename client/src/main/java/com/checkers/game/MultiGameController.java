@@ -2,10 +2,8 @@ package com.checkers.game;
 
 import com.checkers.connection.ServerConnection;
 import com.checkers.stage_manager.StageManager;
-import com.checkers_core.Board;
 import com.checkers_core.VariantStartDescription;
 import com.checkers_core.Board.BoardPos;
-import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.ResignCommand;
 import com.checkers_core.resp.ResponseListener;

@@ -1,10 +1,5 @@
 package com.checkers_core;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.checkers_core.Board.BoardPos;
-
 public abstract class AbstractPawn {
     protected Board.Color color;
 

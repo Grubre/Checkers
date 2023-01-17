@@ -1,7 +1,5 @@
 package com.checkers_core;
 
-import java.util.ArrayList;
-
 import com.checkers_core.Board.Color;
 
 public class BasicAscendedPawn extends AbstractPawn {
@@ -9,18 +7,17 @@ public class BasicAscendedPawn extends AbstractPawn {
 
     public BasicAscendedPawn(Color color) {
         super(color);
-        if (color == Color.WHITE)
+        if (color == Color.WHITE) {
             direction = 1;
-        else
+        }
+        else {
             direction = -1;
+        }
     }
 
     @Override
     public MoveNode possibleMoves(Board board, Board.BoardPos boardPos) {
-        int x = boardPos.x;
-        int y = boardPos.y;
-        
-        BasicMoveFinder basicMoveFinder = new BasicMoveFinder(board, boardPos, direction, 25);
+        BasicMoveFinder basicMoveFinder = new BasicMoveFinder(board, boardPos, direction, 1000);
 
         basicMoveFinder.findCaptures();
 

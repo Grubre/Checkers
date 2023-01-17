@@ -1,5 +1,7 @@
 package com.checkers_core;
 
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 public abstract class Board {
@@ -15,7 +17,7 @@ public abstract class Board {
         }
 
         public static Color fromString(String color) {
-            return switch (color.toLowerCase()) {
+            return switch (color.toLowerCase(Locale.US)) {
                 case "black" -> BLACK;
                 case "white" -> WHITE;
                 default -> throw new IllegalArgumentException();
@@ -35,6 +37,9 @@ public abstract class Board {
         @Override
         public final boolean equals(Object other) {
             return other instanceof BoardPos && ((BoardPos) other).x == x && ((BoardPos) other).y == y;
+        }
+        public int hashCode() {
+            return Objects.hash(this,x,y);
         }
     }
 
@@ -78,10 +83,6 @@ public abstract class Board {
         }
     }
 
-    public AbstractPawn[][] getBoard() {
-        return board;
-    }
-
     public void movePiece(Board.BoardPos piecePos, Board.BoardPos targetPos) {
         board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         board[piecePos.x][piecePos.y] = null;
@@ -102,7 +103,6 @@ public abstract class Board {
                 setPiece(enemyX, enemyY, null);
             }
         }
-
     }
 
     public void updateAndAscend() {
@@ -123,7 +123,10 @@ public abstract class Board {
         return 0 <= x && x < xDim && 0 <= y && y < yDim;
     }
 
-    public abstract void setupBoard();
-
-    public abstract Optional<Color> gameOver();
+    public void setupBoard() {
+        ruleFactory.setupBoard(this, this.pawnFactory);
+    }
+    public Optional<Board.Color> gameOver() {
+        return ruleFactory.gameOver(this);
+    }
 }

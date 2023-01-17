@@ -1,15 +1,15 @@
 package com.checkers.lobby;
 
+import java.util.Locale;
+
 import com.checkers_core.Board;
 import com.checkers_core.BoardFactory;
-import com.checkers_core.Move;
 import com.checkers_core.VariantStartDescription;
 import com.checkers_core.Board.BoardPos;
 import com.checkers_core.comm.CommandCPSerializer;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.ResignCommand;
-import com.checkers_core.resp.ResponseListener;
 import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.PieceMovedResponse;
 import com.checkers_core.resp.response.PlayerDisconnectedResponse;
@@ -72,7 +72,7 @@ public class GameLobby extends Lobby {
         
         for (int id : connectedPlayers.keySet()) {
             if (command.getPlayerId() != id) {
-                sendToPlayer(id, (new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds())));
+                sendToPlayer(id, new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds()));
             }
         }
         
@@ -100,7 +100,7 @@ public class GameLobby extends Lobby {
     }
 
     public VariantStartDescription getAnotherColoredDesc() {
-        String oppos = switch (desc.getColor().toLowerCase()) {
+        String oppos = switch (desc.getColor().toLowerCase(Locale.US)) {
             case "white" -> "black";
             case "black" -> "white";
             default -> null;

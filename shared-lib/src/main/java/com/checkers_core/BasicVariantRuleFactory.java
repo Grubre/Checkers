@@ -1,5 +1,7 @@
 package com.checkers_core;
 
+import java.util.Optional;
+
 import com.checkers_core.Board.Color;
 
 public class BasicVariantRuleFactory implements AbstractRuleFactory {
@@ -44,6 +46,54 @@ public class BasicVariantRuleFactory implements AbstractRuleFactory {
         }
 
         return moveGraph;
+    }
+    @Override
+    public void setupBoard(Board board, AbstractPawnFactory pawnFactory) {
+        for (int j = 0; j < board.yDim; j++) {
+            for (int i = 0; i < board.xDim; i++) {
+                if (j < board.yDim / 2 - 1 && (i + j) % 2 == 1) {
+                    board.setPiece(i, j, pawnFactory.create_regular(Color.WHITE)); 
+                } else if (j >= board.yDim / 2 + 1 && (i + j) % 2 == 1) {
+                    board.setPiece(i, j, pawnFactory.create_regular(Color.BLACK));
+                } else {
+                    board.setPiece(i, j, null);
+                }
+            }
+        }
+    }
+
+    @Override
+    public Optional<Color> gameOver(Board board) {
+        int black = 0;
+        int white = 0;
+
+        for (int i = 0; i < board.xDim; i++) {
+            for (int j = 0; j < board.yDim; j++) {
+                AbstractPawn pawn = board.getPiece(i, j);
+                if (pawn == null) {
+                    continue;
+                }
+                Color key = pawn.getColor();
+                switch (key) {
+                    case WHITE -> {
+                        white++;
+                    }
+                    case BLACK -> {
+                        black++;
+                    }
+                    default -> {}
+                }
+            }
+        }
+
+        System.out.println("white " + white + " black " + black);
+
+        if (black == 0) {
+            return Optional.of(Color.WHITE);
+        } else if (white == 0) {
+            return Optional.of(Color.BLACK);
+        }
+        return Optional.empty();
     }
     
 }
