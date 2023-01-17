@@ -220,13 +220,38 @@ public class Grid extends GridPane {
         }
 
         thisTurnsMoveGraph = board.getPossibleMovesForColor(currentPlayerColor);
+
+        markPawnsThatCanMove();
+    }
+
+    private void markPawnsThatCanMove()
+    {
+        if(currentPlayerColor != playerColor) {
+            return;
+        }
+        for(int j = 0; j < yDim; j++)
+        {
+            for(int i = 0; i < xDim; i++)
+            {
+                boolean hasMove = false;
+                MoveNode moveNode = thisTurnsMoveGraph.getMoveNodeAt(new BoardPos(i, j));
+                if(moveNode != null) {
+                    for (MoveNode move : moveNode) {
+                        if(move.isMarkedForMove()) {
+                            hasMove = true;
+                        }
+                    }
+                    if(hasMove) {
+                        System.out.println("Marked for move");
+                        tiles[i][j].setState(State.PAWNHASMOVE);
+                    }
+                }
+            }
+        }
     }
 
     public void drawBoard()
     {
-        if(board.gameOver().isPresent())
-        {
-        }
         for(int j = 0; j < yDim; j++)
         {
             for(int i = 0; i < xDim; i++)
@@ -253,10 +278,10 @@ public class Grid extends GridPane {
 
     public void setAnchorPaneLayout(Boolean top, Boolean left, Boolean bottom, Boolean right)
     {
-        if(top)    AnchorPane.setTopAnchor(this, 0.0);
-        if(left)   AnchorPane.setLeftAnchor(this, 0.0);
-        if(bottom) AnchorPane.setBottomAnchor(this, 0.0);
-        if(right)  AnchorPane.setRightAnchor(this, 0.0);
+        if(top) { AnchorPane.setTopAnchor(this, 0.0); }
+        if(left) { AnchorPane.setLeftAnchor(this, 0.0); }
+        if(bottom) { AnchorPane.setBottomAnchor(this, 0.0); }
+        if(right)  {AnchorPane.setRightAnchor(this, 0.0); }
     }
 
     /**

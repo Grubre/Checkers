@@ -10,7 +10,8 @@ public class Tile extends StackPane {
     public enum State {
         BASE,
         SELECTED,
-        LEGALMOVE
+        LEGALMOVE,
+        PAWNHASMOVE
     }
     
     private final int x;
@@ -23,11 +24,13 @@ public class Tile extends StackPane {
     }
 
     public VisualChecker piece;
+    private Tile.Color color;
 
     Tile(Tile.Color color, int x, int y)
     {
         this.x = x;
         this.y = y;
+        this.color = color;
         GridPane.setFillWidth(this, true);
         GridPane.setFillHeight(this, true);
 
@@ -43,18 +46,28 @@ public class Tile extends StackPane {
         this.state = state;
         if(this.state == State.SELECTED)
         {
-            getStyleClass().remove("field_legalmove");
+            getStyleClass().clear();
             getStyleClass().add("field_selected");
         }
         else if(this.state == State.LEGALMOVE)
         {
-            getStyleClass().remove("field_selected");
+            getStyleClass().clear();
             getStyleClass().add("field_legalmove");
+        }
+        else if(this.state == State.PAWNHASMOVE)
+        {
+            getStyleClass().clear();
+            getStyleClass().add("field_pawnhasmove");
         }
         else
         {
-            getStyleClass().remove("field_selected");
-            getStyleClass().remove("field_legalmove");
+            getStyleClass().clear();
+            switch(color)
+            {
+                case BLACK -> getStyleClass().add("black_field");
+                case WHITE -> getStyleClass().add("white_field");
+                default -> {}
+            }
         }
     }
 

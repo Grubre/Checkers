@@ -23,14 +23,13 @@ public class ChooseLobbyView extends StageView{
     private Button gameCreateButton;
     private Button refreshButton;
     private ListView<Integer> list;
-
-    private VBox vBox;
+    private static Image img = new Image("refresh-icon.png");
     
     public ChooseLobbyView(ChooseLobbyController controller)
     {
         this.controller = controller;
 
-        vBox = new VBox();
+        VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setId("background");
         AnchorPane.setTopAnchor(vBox, 0.0);
@@ -82,7 +81,6 @@ public class ChooseLobbyView extends StageView{
         gameCreateButton = new Button("Create new game");
         gameCreateButton.setId("menu_button");
 
-        Image img = new Image("refresh-icon.png");
         ImageView view = new ImageView(img);
         view.setFitHeight(30);
         view.setPreserveRatio(true);
