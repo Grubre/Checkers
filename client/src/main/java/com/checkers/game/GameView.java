@@ -15,7 +15,7 @@ public class GameView extends StageView {
     }
 
     public void newTurn() {
-        grid.newTurn();
+        grid.endTurn();
     }
 }
 

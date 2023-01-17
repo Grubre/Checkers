@@ -107,6 +107,7 @@ public class Grid extends GridPane {
             System.out.println("Clicked on null");
             selected = null;
             resetTilesState();
+            markPawnsThatCanMove();
             drawBoard();
             return;
         }
@@ -120,10 +121,9 @@ public class Grid extends GridPane {
 
     private void selectNextTile(Tile tile)
     {
-        System.out.println("Continuing the current move!");
+        isInMove = true;
         resetTilesState();
 
-        isInMove = true;
         MoveNode nextNode = null;
         for (MoveNode moveNode : currentMoves) {
             if(moveNode.getPos().equals(tile.getPos()))
@@ -139,7 +139,7 @@ public class Grid extends GridPane {
         // The move has ended
         if(currentMoves.getLongestPathLength() <= 1)
         {
-            newTurn();
+            endTurn();
 
             ////
             controller.endTurn();
@@ -148,8 +148,6 @@ public class Grid extends GridPane {
         }
 
         select(tile);
-
-        //currentMoves.print("");
 
         setPossibleMovesForSelected();
     }
@@ -162,15 +160,15 @@ public class Grid extends GridPane {
 
     public void selectNewTile(Tile tile)
     {
-        System.out.println("Starting a new move!");
         resetTilesState();
+
+        markPawnsThatCanMove();
 
         select(tile);
 
         int x = selected.getX();
         int y = selected.getY();
         currentMoves = thisTurnsMoveGraph.getMoveNodeAt(new BoardPos(x, y));
-        //currentMoves.print("");
 
         setPossibleMovesForSelected();
     }
@@ -202,7 +200,7 @@ public class Grid extends GridPane {
         }
     }
 
-    public void newTurn()
+    public void endTurn()
     {
         selected = null;
         currentMoves = null;
@@ -235,16 +233,17 @@ public class Grid extends GridPane {
             {
                 boolean hasMove = false;
                 MoveNode moveNode = thisTurnsMoveGraph.getMoveNodeAt(new BoardPos(i, j));
-                if(moveNode != null) {
-                    for (MoveNode move : moveNode) {
-                        if(move.isMarkedForMove()) {
-                            hasMove = true;
-                        }
+                if(moveNode == null) {
+                    continue;
+                }
+                for (MoveNode move : moveNode) {
+                    if(move.isMarkedForMove()) {
+                        hasMove = true;
+                        break;
                     }
-                    if(hasMove) {
-                        System.out.println("Marked for move");
-                        tiles[i][j].setState(State.PAWNHASMOVE);
-                    }
+                }
+                if(hasMove) {
+                    tiles[i][j].setState(State.PAWNHASMOVE);
                 }
             }
         }

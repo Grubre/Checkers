@@ -13,19 +13,10 @@
 .field_selected {
   -fx-background-color: rgb(156, 156, 156);
 }
-.field_selected:hover {
-  -fx-background-color: rgb(150, 150, 150);
-}
 .field_legalmove {
   -fx-background-color: rgb(164, 150, 27);
 }
-.field_legalmove:hover {
-  -fx-background-color: rgb(197, 200, 35);
-}
 .field_pawnhasmove {
-  -fx-background-color: green;
-}
-.field_pawnhasmove:hover {
   -fx-background-color: green;
 }
 .white_pawn {
@@ -33,10 +24,4 @@
 }
 .black_pawn {
   -fx-fill: rgb(57, 52, 202);
-}
-.white_pawn:hover {
-  -fx-fill: rgb(183, 167, 63) ;
-}
-.black_pawn:hover {
-  -fx-fill: rgb(182, 164, 76) ;
 }
