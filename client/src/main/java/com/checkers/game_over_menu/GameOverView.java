@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 public class GameOverView extends StageView{
-    GameOverController controller;
+    private GameOverController controller;
 
     private Button leaveButton;
     private VBox vBox;
@@ -17,7 +17,7 @@ public class GameOverView extends StageView{
 
     public GameOverView(GameOverController gameOverController, boolean youWon)
     {
-        this.controller = controller;
+        this.controller = gameOverController;
 
         this.youWon = youWon;
 

@@ -10,17 +10,21 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ChooseLobbyView extends StageView{
 
-    ChooseLobbyController controller;
+    private ChooseLobbyController controller;
 
-    Button gameCreateButton;
-    ListView<Integer> list;
+    private Button gameCreateButton;
+    private Button refreshButton;
+    private ListView<Integer> list;
 
-    VBox vBox;
+    private VBox vBox;
     
     public ChooseLobbyView(ChooseLobbyController controller)
     {
@@ -50,7 +54,14 @@ public class ChooseLobbyView extends StageView{
             }
         });
 
-        vBox.getChildren().addAll(lobbyLabel, list,gameCreateButton);
+        HBox hBox = new HBox();
+        styleComponent(hBox);
+        AnchorPane.setTopAnchor(hBox, 0.0);
+        AnchorPane.setLeftAnchor(hBox, 0.0);
+        AnchorPane.setBottomAnchor(hBox, 0.0);
+        AnchorPane.setRightAnchor(hBox, 0.0);
+        hBox.getChildren().addAll(gameCreateButton, refreshButton);
+        vBox.getChildren().addAll(lobbyLabel, list, hBox);
     }
 
     public void setLobbys(ObservableList<Integer> items)
@@ -71,10 +82,25 @@ public class ChooseLobbyView extends StageView{
         gameCreateButton = new Button("Create new game");
         gameCreateButton.setId("menu_button");
 
+        Image img = new Image("refresh-icon.png");
+        ImageView view = new ImageView(img);
+        view.setFitHeight(30);
+        view.setPreserveRatio(true);
+
+        refreshButton = new Button();
+        refreshButton.setPrefSize(30, 30);
+        refreshButton.setGraphic(view);
+        refreshButton.setId("menu_button");
+
         styleComponent(gameCreateButton);
+        styleComponent(refreshButton);
 
         gameCreateButton.setOnAction(action -> {
             controller.createGame();
+        });
+
+        refreshButton.setOnAction(action -> {
+            controller.refreshList();
         });
     }
 }

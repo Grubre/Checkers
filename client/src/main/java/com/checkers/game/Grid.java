@@ -38,6 +38,7 @@ public class Grid extends GridPane {
 
     private MoveGraph thisTurnsMoveGraph;
     private MoveNode currentMoves = null;
+    private boolean isInMove = false;
 
     public Grid(Board board, Board.Color color, GameController controller)
     {
@@ -98,6 +99,10 @@ public class Grid extends GridPane {
             return;
         }
 
+        if(isInMove) {
+            return;
+        }
+
         if(tile.getPiece() == null || tile.getPiece().getColor() != playerColor) {
             System.out.println("Clicked on null");
             selected = null;
@@ -118,6 +123,7 @@ public class Grid extends GridPane {
         System.out.println("Continuing the current move!");
         resetTilesState();
 
+        isInMove = true;
         MoveNode nextNode = null;
         for (MoveNode moveNode : currentMoves) {
             if(moveNode.getPos().equals(tile.getPos()))
@@ -133,8 +139,6 @@ public class Grid extends GridPane {
         // The move has ended
         if(currentMoves.getLongestPathLength() <= 1)
         {
-            selected = null;
-            currentMoves = null;
             newTurn();
 
             ////
@@ -200,6 +204,9 @@ public class Grid extends GridPane {
 
     public void newTurn()
     {
+        selected = null;
+        currentMoves = null;
+        isInMove = false;
         System.out.println("Starting a new turn");
         board.updateAndAscend();
         resetTilesState();
