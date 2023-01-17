@@ -104,7 +104,6 @@ public class Grid extends GridPane {
         }
 
         if(tile.getPiece() == null || tile.getPiece().getColor() != playerColor) {
-            System.out.println("Clicked on null");
             selected = null;
             resetTilesState();
             markPawnsThatCanMove();
@@ -177,7 +176,6 @@ public class Grid extends GridPane {
     {
         if(currentMoves == null)
         {
-            System.out.println("possibleMoves is null");
             return;
         }
         for (MoveNode move : currentMoves) {

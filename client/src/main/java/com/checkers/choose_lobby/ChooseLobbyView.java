@@ -78,7 +78,7 @@ public class ChooseLobbyView extends StageView{
 
     private void setButtons()
     {
-        gameCreateButton = new Button("Create new game");
+        gameCreateButton = new Button("Create new lobby");
         gameCreateButton.setId("menu_button");
 
         ImageView view = new ImageView(img);

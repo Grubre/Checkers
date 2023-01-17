@@ -1,5 +1,5 @@
 module com.checkers {
-    requires javafx.controls;
-    requires com.checkers_core;
+    requires transitive javafx.controls;
+    requires transitive com.checkers_core;
     exports com.checkers;
 }

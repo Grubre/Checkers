@@ -1,10 +1,9 @@
 package com.checkers.game_creation;
 
-import com.checkers.controller.StageController;
 import com.checkers.stage_manager.StageManager;
 import com.checkers_core.VariantStartDescription;
 
-public class SingleGameCreationController implements GameCreationController, StageController {
+public class SingleGameCreationController implements GameCreationController {
 
     GameCreationView view = new GameCreationView(this);
     StageManager manager;
@@ -32,6 +31,7 @@ public class SingleGameCreationController implements GameCreationController, Sta
 
     @Override
     public void deactivate() {
+        //
     }
 
 }

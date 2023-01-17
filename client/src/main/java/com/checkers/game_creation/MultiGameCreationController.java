@@ -1,7 +1,6 @@
 package com.checkers.game_creation;
 
 import com.checkers.connection.ServerConnection;
-import com.checkers.controller.StageController;
 import com.checkers.stage_manager.StageManager;
 import com.checkers_core.VariantStartDescription;
 import com.checkers_core.comm.command.NewGameCommand;
@@ -11,7 +10,7 @@ import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.Response;
 
-public class MultiGameCreationController implements GameCreationController, StageController, ResponseListener, ResponseVisitor<Void> {
+public class MultiGameCreationController implements GameCreationController, ResponseListener, ResponseVisitor<Void> {
     private enum State {
         WAITING_FOR_CONFIRMATION,
         NOT_WAITING

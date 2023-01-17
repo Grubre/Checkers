@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 public class GameOverView extends StageView{
     private GameOverController controller;
 
-    private Button leaveButton;
     private VBox vBox;
     private boolean youWon;
 
@@ -45,7 +44,7 @@ public class GameOverView extends StageView{
             label.setText("You LOST!");
         }
 
-        leaveButton = new Button("Go back");
+        Button leaveButton = new Button("Go back");
         leaveButton.setId("menu_button");
         leaveButton.setOnAction(onAction -> {
             controller.goBackToPlayMenu();

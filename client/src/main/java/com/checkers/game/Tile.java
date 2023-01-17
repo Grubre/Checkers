@@ -38,6 +38,7 @@ public class Tile extends StackPane {
         {
             case BLACK -> getStyleClass().add("black_field");
             case WHITE -> getStyleClass().add("white_field");
+            default -> {}
         }
     }
 
@@ -78,13 +79,15 @@ public class Tile extends StackPane {
 
     void setPiece(VisualChecker piece)
     {
-        if(this.piece != null)
+        if(this.piece != null) {
             getChildren().remove(this.piece);
+        }
         
         this.piece = piece;
 
-        if(piece != null)
+        if(piece != null) {
             getChildren().add(this.piece);
+        }
     }
 
     VisualChecker getPiece()
