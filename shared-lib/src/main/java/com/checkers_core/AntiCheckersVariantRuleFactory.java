@@ -4,7 +4,8 @@ import java.util.Optional;
 
 import com.checkers_core.Board.Color;
 
-public class BasicVariantRuleFactory implements AbstractRuleFactory {
+public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
+    
     @Override
     public MoveGraph getPossibleMoves(Board board, Color playerColor) {
         MoveGraph moveGraph = new MoveGraph(board.xDim, board.yDim);
@@ -88,11 +89,10 @@ public class BasicVariantRuleFactory implements AbstractRuleFactory {
         System.out.println("white " + white + " black " + black);
 
         if (black == 0) {
-            return Optional.of(Color.WHITE);
-        } else if (white == 0) {
             return Optional.of(Color.BLACK);
+        } else if (white == 0) {
+            return Optional.of(Color.WHITE);
         }
         return Optional.empty();
     }
-    
 }

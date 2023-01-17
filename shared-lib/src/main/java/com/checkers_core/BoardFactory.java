@@ -10,6 +10,10 @@ public class BoardFactory {
                 pawn = new BasicPawnFactory();
                 rule = new BasicVariantRuleFactory();
             }
+            case "ANTI" -> {
+                pawn = new BasicPawnFactory();
+                rule = new AntiCheckersVariantRuleFactory();
+            }
             default -> {
                 throw new IllegalArgumentException();
             }

@@ -54,7 +54,10 @@ public class ChooseLobbyController implements StageController, ResponseListener,
     }
     
     public void joinGame() {
-        int lobbyId = view.getSelectedLobby();
+        Integer lobbyId = view.getSelectedLobby();
+        if(lobbyId == null) {
+            return;
+        }
         state = State.WAITING_FOR_CONNECT;
         connection.getListener().onCommand(new JoinGameCommand(lobbyId));
     }

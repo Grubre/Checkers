@@ -72,7 +72,7 @@ public class ChooseLobbyView extends StageView{
         list.getItems().setAll(items);
     }
 
-    public int getSelectedLobby() {
+    public Integer getSelectedLobby() {
         return list.getSelectionModel().getSelectedItem();
     }
 

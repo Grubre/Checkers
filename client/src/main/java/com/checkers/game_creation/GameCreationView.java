@@ -20,6 +20,7 @@ public class GameCreationView extends StageView{
 
     private Slider widthSlider;
     private Slider heightSlider;
+    private TextArea textArea;
     private ComboBox<String> variantComboBox;
     private ComboBox<String> colorComboBox;
 
@@ -70,20 +71,18 @@ public class GameCreationView extends StageView{
         heightSlider.setId("slider");
 
 
-        TextArea textArea = new TextArea("abc");
+        textArea = new TextArea("abc");
         textArea.setId("variant_textarea");
         textArea.setEditable(false);
 
 
         ObservableList<String> variants = FXCollections.observableArrayList (
-            "Basic Variant", "Another Variant");
+            "Basic Variant", "Anti Checkers");
         variantComboBox = new ComboBox<String>(variants);
-        variantComboBox.setOnAction(actionEvent -> {
-            textArea.setText("Opis: \n"+variantComboBox.getValue());
-        });
+        variantComboBox.setOnAction(actionEvent -> { setDescription(); });
         variantComboBox.getSelectionModel().selectFirst();
         variantComboBox.getSelectionModel().getSelectedItem();
-        textArea.setText("Opis: \n"+variantComboBox.getValue());
+        setDescription();
 
         ObservableList<String> colors = FXCollections.observableArrayList (
             "Black", "White");
@@ -108,6 +107,25 @@ public class GameCreationView extends StageView{
                                 heightLabel, heightSlider,
                                 variantComboBox, colorComboBox,
                                 startGameButton);
+    }
+
+    private void setDescription()
+    {
+        String descString = new String();
+        switch(variantComboBox.getValue()) {
+            case "Basic Variant" -> {
+                descString =
+                "Basic checkers variant,\nyou can capture backwards,\n"
+                .concat("whoever captures all enemy pawns wins");
+            }
+            case "Anti Checkers" -> {
+                descString =
+                "Anti Checkers follows standard rules\nwith one exception,\n"
+                .concat("the winner is whoever\nhad all his pieces captured,");
+            }
+            default -> {descString = "error"; }
+        }
+        textArea.setText(descString);
     }
 
     public int getWidth() {

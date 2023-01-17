@@ -32,6 +32,7 @@ public class MultiGameCreationController implements GameCreationController, Resp
         System.out.println("Height: " + view.getHeight() + "Width: " + view.getWidth());
         String variant = switch (view.getVariant()) {
             case "Basic Variant" -> "BASIC";
+            case "Anti Checkers" -> "ANTI";
             default -> null;
         };
 

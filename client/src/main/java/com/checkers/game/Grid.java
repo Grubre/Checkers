@@ -84,6 +84,7 @@ public class Grid extends GridPane {
 
         thisTurnsMoveGraph = board.getPossibleMovesForColor(currentPlayerColor);
 
+        markPawnsThatCanMove();
         drawBoard();
     }
 
