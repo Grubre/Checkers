@@ -6,8 +6,18 @@ import java.util.Optional;
 
 public abstract class Board {
     public enum Color {
-        BLACK,
-        WHITE;
+        BLACK(0),
+        WHITE(1);
+
+        int id;
+
+        Color(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return this.id;
+        }
 
         public static Color getOpposite(Color color) {
             return switch (color) {

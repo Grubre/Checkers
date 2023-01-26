@@ -17,10 +17,12 @@ public class GameController implements StageController {
     List<Integer> moveQueue = new ArrayList<>();
     int queuedPieceX;
     int queuedPieceY;
+    int playerColorId;
 
     public GameController(StageManager manager, VariantStartDescription desc) {
         this.manager = manager;
         this.boardModel = new BoardFactory().createBoard(desc);
+        this.playerColorId = Board.Color.fromString(desc.getColor()).getId(); 
         this.view = new GameView(boardModel, Board.Color.fromString(desc.getColor()), this);
     }
 

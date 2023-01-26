@@ -57,9 +57,9 @@ public class MultiGameController extends GameController implements ResponseVisit
 
     @Override
     public Void visitEndOfGame(EndOfGameResponse response) {
-        connection.getListener().onCommand(new ResignCommand());
-        //int winnerColor = response.getWinnerId();
-        manager.switchToGameOver(false);
+        int winnerColor = response.getWinnerId();
+        connection.close();
+        manager.switchToGameOver(winnerColor == playerColorId);
 
         return null;
     }

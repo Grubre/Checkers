@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import com.checkers.comm.PlayerCommandSender;
-
 public class ReceivingConnection implements Runnable {
     
     Scanner input;
     Socket socket;
-    PlayerCommandSender connectedPlayer;
+    ClientConnection connectedPlayer;
     
-    public ReceivingConnection(Socket socket, PlayerCommandSender player) throws IOException {
+    public ReceivingConnection(Socket socket, ClientConnection player) throws IOException {
         this.socket = socket;
         this.connectedPlayer = player;
         this.input = new Scanner(socket.getInputStream());
@@ -24,7 +22,6 @@ public class ReceivingConnection implements Runnable {
             String command = input.nextLine();
             connectedPlayer.onMessage(command);
         }
-        connectedPlayer.disconnect();
         try {
             socket.close();
         } catch (IOException e) {
@@ -32,6 +29,4 @@ public class ReceivingConnection implements Runnable {
             e.printStackTrace();
         }
     }
-
-
 }
