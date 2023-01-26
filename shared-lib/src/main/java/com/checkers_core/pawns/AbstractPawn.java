@@ -1,4 +1,7 @@
-package com.checkers_core;
+package com.checkers_core.pawns;
+
+import com.checkers_core.boards.Board;
+import com.checkers_core.moves.MoveNode;
 
 public abstract class AbstractPawn {
     protected Board.Color color;

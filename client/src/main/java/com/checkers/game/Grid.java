@@ -7,11 +7,11 @@ import com.checkers.VisualAscendedChecker;
 import com.checkers.VisualBasicChecker;
 import com.checkers.game.Tile.Color;
 import com.checkers.game.Tile.State;
-import com.checkers_core.AbstractPawn;
-import com.checkers_core.Board;
-import com.checkers_core.MoveGraph;
-import com.checkers_core.MoveNode;
-import com.checkers_core.Board.BoardPos;
+import com.checkers_core.boards.Board;
+import com.checkers_core.boards.Board.BoardPos;
+import com.checkers_core.moves.MoveGraph;
+import com.checkers_core.moves.MoveNode;
+import com.checkers_core.pawns.AbstractPawn;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -137,7 +137,7 @@ public class Grid extends GridPane {
         controller.addMove(tile.getX() + tile.getY() * board.xDim);
 
         // The move has ended
-        if(currentMoves.getLongestPathLength() <= 1)
+        if(currentMoves.getLongestBranchLength() <= 1)
         {
             endTurn();
 

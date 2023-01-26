@@ -39,19 +39,4 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-
-    // public List<?> query(String queryStr, Class<?> queryClass)
-    // {
-    //     List<DatabaseEntry> result;
-    //     try {
-    //         Session session = sessionFactory.openSession();
-    //         session.beginTransaction();
-    //         result = session.createQuery( "from VariantEntry", queryClass ).getResultList();
-    //         session.getTransaction().commit();
-    //         session.close();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
-    //     return result;
-    // }
 }

@@ -1,16 +1,17 @@
-package com.checkers_core;
+package com.checkers_core.moves;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.checkers_core.Board.BoardPos;
+import com.checkers_core.boards.Board;
+import com.checkers_core.boards.Board.BoardPos;
 
 public class MoveNode implements Iterable<MoveNode>{
     int x;
     int y;
-    List<BoardPos> removedPawns;
-    List<MoveNode> possibleMoves = new ArrayList<>();
+    public List<BoardPos> removedPawns;
+    public List<MoveNode> possibleMoves = new ArrayList<>();
 
     private boolean markedMax = false;
     private boolean hasCaptured = false;
@@ -70,30 +71,30 @@ public class MoveNode implements Iterable<MoveNode>{
         return hasCaptured;
     }
 
-    public int getLongestPathLength()
+    public int getLongestBranchLength()
     {
         int max = 0;
         for(MoveNode path : possibleMoves)
         {
-            max = Math.max(max, path.getLongestPathLength());
+            max = Math.max(max, path.getLongestBranchLength());
         }
         maxPathLen = max + 1;
         return max + 1;
     }
 
-    public void pruneNonMaxPaths(int externalMaxSize) {
-        getLongestPathLength();
-        countAndPrune(externalMaxSize);
+    public void markNonMaxBranches(int externalMaxSize) {
+        getLongestBranchLength();
+        countAndMark(externalMaxSize);
     }
 
-    private void countAndPrune(int externalMaxSize)
+    private void countAndMark(int externalMaxSize)
     {
         for(MoveNode child : possibleMoves)
         {
             if(child.maxPathLen + 1 >= externalMaxSize)
             {
                 child.markedMax = true;
-                child.countAndPrune(externalMaxSize - 1);
+                child.countAndMark(externalMaxSize - 1);
             }
         }
     }
@@ -101,6 +102,11 @@ public class MoveNode implements Iterable<MoveNode>{
     public boolean isMarkedForMove()
     {
         return markedMax;
+    }
+
+    // TODO
+    public List<Move> getPossibleMoves() {
+        return null;
     }
 
     @Override

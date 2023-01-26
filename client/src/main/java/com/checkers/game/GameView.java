@@ -1,7 +1,7 @@
 package com.checkers.game;
 
 import com.checkers.view.StageView;
-import com.checkers_core.Board;
+import com.checkers_core.boards.Board;
 
 public class GameView extends StageView {
     GameController controller;

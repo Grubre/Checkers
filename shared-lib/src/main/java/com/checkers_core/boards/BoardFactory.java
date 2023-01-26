@@ -1,4 +1,11 @@
-package com.checkers_core;
+package com.checkers_core.boards;
+
+import com.checkers_core.VariantStartDescription;
+import com.checkers_core.pawns.AbstractPawnFactory;
+import com.checkers_core.pawns.BasicPawnFactory;
+import com.checkers_core.rules.AbstractRuleFactory;
+import com.checkers_core.rules.AntiCheckersVariantRuleFactory;
+import com.checkers_core.rules.BasicVariantRuleFactory;
 
 public class BoardFactory {
     public Board createBoard(VariantStartDescription desc) {

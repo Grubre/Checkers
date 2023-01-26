@@ -4,7 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.checkers_core.Board.Color;
+import com.checkers_core.boards.BasicBoard;
+import com.checkers_core.boards.Board;
+import com.checkers_core.boards.Board.Color;
+import com.checkers_core.pawns.BasicPawn;
+import com.checkers_core.pawns.BasicPawnFactory;
+import com.checkers_core.rules.BasicVariantRuleFactory;
 
 public class RegularPawnTest {
     @Test

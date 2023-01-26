@@ -2,10 +2,10 @@ package com.checkers.lobby;
 
 import java.util.Locale;
 
-import com.checkers_core.Board;
-import com.checkers_core.BoardFactory;
 import com.checkers_core.VariantStartDescription;
-import com.checkers_core.Board.BoardPos;
+import com.checkers_core.boards.Board;
+import com.checkers_core.boards.BoardFactory;
+import com.checkers_core.boards.Board.BoardPos;
 import com.checkers_core.comm.CommandCPSerializer;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
