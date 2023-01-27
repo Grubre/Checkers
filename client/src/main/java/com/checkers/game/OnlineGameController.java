@@ -12,11 +12,11 @@ import com.checkers_core.resp.response.EndOfGameResponse;
 import com.checkers_core.resp.response.PieceMovedResponse;
 import com.checkers_core.resp.response.Response;
 
-public class MultiGameController extends GameController implements ResponseVisitor<Void>, ResponseListener {
+public class OnlineGameController extends GameController implements ResponseVisitor<Void>, ResponseListener {
 
     ServerConnection connection;
 
-    public MultiGameController(StageManager manager, VariantStartDescription desc, ServerConnection connection) {
+    public OnlineGameController(StageManager manager, VariantStartDescription desc, ServerConnection connection) {
         super(manager, desc);
         this.connection = connection;
     }
@@ -40,6 +40,11 @@ public class MultiGameController extends GameController implements ResponseVisit
         super.endTurn();
     }
 
+    
+    /** 
+     * @param response
+     * @return Void
+     */
     @Override
     public Void visitPieceMoved(PieceMovedResponse response) {
         BoardPos piecePos = new BoardPos(response.getPieceX(), response.getPieceY());
@@ -55,6 +60,11 @@ public class MultiGameController extends GameController implements ResponseVisit
         return null;
     }
 
+    
+    /** 
+     * @param response
+     * @return Void
+     */
     @Override
     public Void visitEndOfGame(EndOfGameResponse response) {
         connection.getListener().onCommand(new ResignCommand());
@@ -64,12 +74,21 @@ public class MultiGameController extends GameController implements ResponseVisit
         return null;
     }
 
+    
+    /** 
+     * @param response
+     * @return Void
+     */
     @Override
     public Void onUnimplemented(Response response) {
         System.out.println("unimplemented");
         return null;
     }
 
+    
+    /** 
+     * @param response
+     */
     @Override
     public void onResponse(Response response) {
         response.accept(this);

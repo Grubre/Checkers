@@ -12,10 +12,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Widok menu tworzenia gry
+ */
 public class GameCreationView extends StageView{
-    GameCreationController controller;
+    private GameCreationController controller;
 
-    private Button startGameButton;
     private VBox vBox;
 
     private Slider widthSlider;
@@ -24,6 +26,11 @@ public class GameCreationView extends StageView{
     private ComboBox<String> variantComboBox;
     private ComboBox<String> colorComboBox;
 
+
+    /**
+     * Kontruktor
+     * @param controller
+     */
     public GameCreationView(GameCreationController controller)
     {
         this.controller = controller;
@@ -90,7 +97,7 @@ public class GameCreationView extends StageView{
         colorComboBox.getSelectionModel().selectFirst();
         colorComboBox.getSelectionModel().getSelectedItem();
 
-        startGameButton = new Button("Start");
+        Button startGameButton = new Button("Start");
         startGameButton.setOnAction(onAction -> {
             controller.game();
         });
@@ -128,18 +135,38 @@ public class GameCreationView extends StageView{
         textArea.setText(descString);
     }
 
+    
+    /** 
+     * Ustawiona szerokość planszy do gry
+     * @return int
+     */
     public int getWidth() {
         return (int)widthSlider.getValue();
     }
     
+    
+    /** 
+     * Ustawiona wysokość planszy do gry
+     * @return int
+     */
     public int getHeight() {
         return (int)heightSlider.getValue();
     }
 
+    
+    /** 
+     * Ustawiony wariant planszy do gry
+     * @return String
+     */
     public String getVariant() {
         return variantComboBox.getSelectionModel().getSelectedItem();
     }
 
+    
+    /** 
+     * Ustawiony kolor, z którym gracz chce zacząć
+     * @return String
+     */
     public String getColor() {
         return colorComboBox.getSelectionModel().getSelectedItem();
     }

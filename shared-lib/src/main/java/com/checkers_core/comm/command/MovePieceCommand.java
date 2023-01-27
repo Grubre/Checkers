@@ -9,14 +9,26 @@ public class MovePieceCommand extends Command {
     final int pieceY;
     final List<Integer> tileIds;
 
+    
+    /** 
+     * @return List<Integer>
+     */
     public List<Integer> getTileIds() {
         return tileIds;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getPieceX() {
         return pieceX;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getPieceY() {
         return pieceY;
     }
@@ -27,6 +39,11 @@ public class MovePieceCommand extends Command {
         this.tileIds = tileId;
     }
 
+    
+    /** 
+     * @param visitor
+     * @return T
+     */
     @Override
     public <T> T accept(CommandVisitor<T> visitor) {
         return visitor.visitMovePiece(this);

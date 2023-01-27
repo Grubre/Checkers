@@ -1,6 +1,11 @@
 package com.checkers_core;
 
 public class BoardFactory {
+    
+    /** 
+     * @param desc
+     * @return Board
+     */
     public Board createBoard(VariantStartDescription desc) {
         AbstractPawnFactory pawn;
         AbstractRuleFactory rule;

@@ -88,6 +88,10 @@ public class Grid extends GridPane {
         drawBoard();
     }
 
+    
+    /** 
+     * @param tile
+     */
     public void handleClick(Tile tile)
     {
         if(tile.getState() == State.LEGALMOVE)
@@ -119,6 +123,10 @@ public class Grid extends GridPane {
         controller.queuePiece(tile.getX(), tile.getY());
     }
 
+    
+    /** 
+     * @param tile
+     */
     private void selectNextTile(Tile tile)
     {
         isInMove = true;
@@ -152,12 +160,20 @@ public class Grid extends GridPane {
         setPossibleMovesForSelected();
     }
 
+    
+    /** 
+     * @param tile
+     */
     private void select(Tile tile)
     {
         selected = tile;
         selected.setState(State.SELECTED);
     }
 
+    
+    /** 
+     * @param tile
+     */
     public void selectNewTile(Tile tile)
     {
         resetTilesState();
@@ -274,6 +290,13 @@ public class Grid extends GridPane {
         }
     }
 
+    
+    /** 
+     * @param top
+     * @param left
+     * @param bottom
+     * @param right
+     */
     public void setAnchorPaneLayout(Boolean top, Boolean left, Boolean bottom, Boolean right)
     {
         if(top) { AnchorPane.setTopAnchor(this, 0.0); }
@@ -304,6 +327,13 @@ public class Grid extends GridPane {
         }
     }
     
+    
+    /** 
+     * @param conversion
+     * @param iIndex
+     * @param jIndex
+     * @return List<T>
+     */
     public <T extends Node> List<T> getCell(Class<T> conversion, int iIndex, int jIndex) {
         List<T> children = new ArrayList<T>();
         for(Node node : getChildren()) {
@@ -318,6 +348,12 @@ public class Grid extends GridPane {
         return children;
     }
     
+    
+    /** 
+     * @param clazz
+     * @param i
+     * @param j
+     */
     public <T extends Node> void removeCell(Class<T> clazz, int i, int j) {
         getChildren().removeAll(getCell(clazz, i, j));
     }

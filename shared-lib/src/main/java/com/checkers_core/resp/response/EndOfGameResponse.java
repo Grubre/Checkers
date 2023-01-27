@@ -9,10 +9,19 @@ public class EndOfGameResponse extends Response {
         this.winnerId = winnerId;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getWinnerId() {
         return winnerId;
     }
 
+    
+    /** 
+     * @param visitor
+     * @return T
+     */
     @Override
     public <T> T accept(ResponseVisitor<T> visitor) {
         return visitor.visitEndOfGame(this);

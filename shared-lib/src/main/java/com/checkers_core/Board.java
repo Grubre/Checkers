@@ -63,6 +63,12 @@ public abstract class Board {
         setupBoard();
     }
 
+    
+    /** 
+     * @param i
+     * @param j
+     * @return AbstractPawn
+     */
     public AbstractPawn getPiece(int i, int j) {
         if (!isInBounds(i, j)) {
             return null;
@@ -70,6 +76,11 @@ public abstract class Board {
         return board[i][j];
     }
 
+    
+    /** 
+     * @param pawnPos
+     * @return AbstractPawn
+     */
     public AbstractPawn getPiece(BoardPos pawnPos) {
         if (!isInBounds(pawnPos.x, pawnPos.y)) {
             return null;
@@ -77,12 +88,23 @@ public abstract class Board {
         return board[pawnPos.x][pawnPos.y];
     }
 
+    
+    /** 
+     * @param i
+     * @param j
+     * @param piece
+     */
     public void setPiece(int i, int j, AbstractPawn piece) {
         if (isInBounds(i, j)) {
             board[i][j] = piece;
         }
     }
 
+    
+    /** 
+     * @param piecePos
+     * @param targetPos
+     */
     public void movePiece(Board.BoardPos piecePos, Board.BoardPos targetPos) {
         board[targetPos.x][targetPos.y] = board[piecePos.x][piecePos.y];
         board[piecePos.x][piecePos.y] = null;
@@ -115,10 +137,21 @@ public abstract class Board {
         }
     }
 
+    
+    /** 
+     * @param color
+     * @return MoveGraph
+     */
     public MoveGraph getPossibleMovesForColor(Board.Color color) {
         return ruleFactory.getPossibleMoves(this, color);
     }
 
+    
+    /** 
+     * @param x
+     * @param y
+     * @return boolean
+     */
     public boolean isInBounds(int x, int y) {
         return 0 <= x && x < xDim && 0 <= y && y < yDim;
     }
@@ -126,6 +159,10 @@ public abstract class Board {
     public void setupBoard() {
         ruleFactory.setupBoard(this, this.pawnFactory);
     }
+    
+    /** 
+     * @return Optional<Color>
+     */
     public Optional<Board.Color> gameOver() {
         return ruleFactory.gameOver(this);
     }

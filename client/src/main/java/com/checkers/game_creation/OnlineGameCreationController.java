@@ -10,22 +10,38 @@ import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.Response;
 
-public class MultiGameCreationController implements GameCreationController, ResponseListener, ResponseVisitor<Void> {
+/*
+ * Kontroler menu tworzenia gry dla wersji online
+ */
+public class OnlineGameCreationController implements GameCreationController, ResponseListener, ResponseVisitor<Void> {
+    
+    /*
+     * Stan menu. Czy czekamy na odpowiedź serwera czy nie?
+     */
     private enum State {
         WAITING_FOR_CONFIRMATION,
         NOT_WAITING
     }
 
-    State state = State.NOT_WAITING;
-    ServerConnection connection;
-    StageManager manager;
-    GameCreationView view = new GameCreationView(this);
+    private State state = State.NOT_WAITING;
+    private ServerConnection connection;
+    private StageManager manager;
+    private GameCreationView view = new GameCreationView(this);
 
-    public MultiGameCreationController(StageManager manager, ServerConnection connection) {
+
+    /**
+     * Konstruktor
+     * @param manager Menadźer scen
+     * @param connection Połączenie z serwerem
+     */
+    public OnlineGameCreationController(StageManager manager, ServerConnection connection) {
         this.manager = manager;
         this.connection = connection;
     }
 
+    /*
+     * Wysłanie na serwer prośby o rozpoczęcie gry na podstawie opcji wybranych w widoku
+     */
     @Override
     public void game() {
         System.out.println("Variant: " + view.getVariant());
@@ -42,16 +58,28 @@ public class MultiGameCreationController implements GameCreationController, Resp
         connection.getListener().onCommand(new NewGameCommand(desc));
     }
 
+    
+    /** 
+     * Po uzyskaniu odpowiedzi o połączeniu przechodzimy do gry
+     * @param response
+     * @return Void
+     */
     @Override
     public Void visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
         if(state == State.WAITING_FOR_CONFIRMATION) {
             state = State.NOT_WAITING;
-            manager.switchToMultiGame(response.getDesc(), connection);
+            manager.switchToOnlineGame(response.getDesc(), connection);
         }
 
         return null;
     }
 
+    
+    /** 
+     * Po uzyskaniu odpowiedzi o nieudanym połączeniu nie robimi nic
+     * @param response
+     * @return Void
+     */
     @Override
     public Void visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response) {
         if (state == State.WAITING_FOR_CONFIRMATION) {
@@ -71,12 +99,21 @@ public class MultiGameCreationController implements GameCreationController, Resp
         connection.getSender().removeListener(this);
     }
 
+    
+    /** 
+     * @param response
+     * @return Void
+     */
     @Override
     public Void onUnimplemented(Response response) {
         System.out.println("unimplemented");
         return null;
     }
 
+    
+    /** 
+     * @param response
+     */
     @Override
     public void onResponse(Response response) {
         response.accept(this);

@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.checkers.view.StageView;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,15 +14,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/*
+ * View menu do wybierania lobby, do którego użytkownik chce dołączyć
+ */
 public class ChooseLobbyView extends StageView{
 
     private ChooseLobbyController controller;
-
     private Button gameCreateButton;
     private Button refreshButton;
     private ListView<Integer> list;
     private static Image img = new Image("refresh-icon.png");
     
+    /**
+     * Konstruktor
+     * @param controller Kontroler tego view
+     */
     public ChooseLobbyView(ChooseLobbyController controller)
     {
         this.controller = controller;
@@ -45,7 +49,6 @@ public class ChooseLobbyView extends StageView{
 
         Label lobbyLabel = new Label("Choose your lobby:");
         list = new ListView<Integer>();
-        setLobbys(FXCollections.observableArrayList (2));
         list.setId("lobby_list");
         list.setOnMouseClicked(click -> {
             if (click.getClickCount() >= 2) {
@@ -62,16 +65,20 @@ public class ChooseLobbyView extends StageView{
         hBox.getChildren().addAll(gameCreateButton, refreshButton);
         vBox.getChildren().addAll(lobbyLabel, list, hBox);
     }
-
-    public void setLobbys(ObservableList<Integer> items)
-    {
-        list.setItems(items);
-    }
-
+    
+    /** 
+     * Ustawienie listy lobby do wyświetlenia
+     * @param items lista lobby
+     */
     public void setLobbys(List<Integer> items) {
         list.getItems().setAll(items);
     }
 
+    
+    /** 
+     * Lobby które jest wybrane
+     * @return Integer
+     */
     public Integer getSelectedLobby() {
         return list.getSelectionModel().getSelectedItem();
     }

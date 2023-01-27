@@ -15,6 +15,12 @@ public class BasicAscendedPawn extends AbstractPawn {
         }
     }
 
+    
+    /** 
+     * @param board
+     * @param boardPos
+     * @return MoveNode
+     */
     @Override
     public MoveNode possibleMoves(Board board, Board.BoardPos boardPos) {
         BasicMoveFinder basicMoveFinder = new BasicMoveFinder(board, boardPos, direction, 1000);
@@ -31,11 +37,21 @@ public class BasicAscendedPawn extends AbstractPawn {
         return basicMoveFinder.getMoveNode();
     }
 
+    
+    /** 
+     * @param board
+     * @param boardPos
+     * @return Boolean
+     */
     @Override
     public Boolean canAscend(Board board, Board.BoardPos boardPos) {
         return false;
     }
     
+    
+    /** 
+     * @return Boolean
+     */
     public Boolean isAscended()
     {
         return true;

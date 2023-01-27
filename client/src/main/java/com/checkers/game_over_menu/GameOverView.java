@@ -8,12 +8,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Widok ekranu końca gry
+ */
 public class GameOverView extends StageView{
     private GameOverController controller;
-
     private VBox vBox;
     private boolean youWon;
 
+
+    /**
+     * Konstruktor
+     * @param gameOverController
+     * @param youWon
+     */
     public GameOverView(GameOverController gameOverController, boolean youWon)
     {
         this.controller = gameOverController;

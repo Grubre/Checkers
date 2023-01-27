@@ -21,6 +21,10 @@ public class CommandCPParserTest {
     int testPieceId = 10;
     List<Integer> testTileIds = Arrays.asList(11, 6, 20);
 
+    
+    /** 
+     * @throws ParsingException
+     */
     @Test
     public void joinGameCommandTest() throws ParsingException {
         JoinGameCommand comm = (JoinGameCommand)parser.parse("JOINGAME " + testGameId);
@@ -28,6 +32,10 @@ public class CommandCPParserTest {
         assertEquals(comm.getGameId(), testGameId);
     }
 
+    
+    /** 
+     * @throws ParsingException
+     */
     @Test
     public void newGameCommandTest() throws ParsingException {
         Command comm = parser.parse("NEWGAME 5 5 BASIC White");
@@ -35,6 +43,10 @@ public class CommandCPParserTest {
         assert comm instanceof NewGameCommand;
     }
 
+    
+    /** 
+     * @throws ParsingException
+     */
     @Test
     public void movePieceCommandTest() throws ParsingException {
         String testStringTileIds = "";
@@ -52,6 +64,10 @@ public class CommandCPParserTest {
         }
     }
 
+    
+    /** 
+     * @throws ParsingException
+     */
     @Test
     public void resignCommandTest() throws ParsingException {
         Command comm = parser.parse("RESIGN " + testGameId);
@@ -59,6 +75,10 @@ public class CommandCPParserTest {
         assert comm instanceof ResignCommand;
     }
 
+    
+    /** 
+     * @throws ParsingException
+     */
     @Test
     public void listLobbyCommandTest() throws ParsingException {
         Command comm = parser.parse("LISTLOBBIES");

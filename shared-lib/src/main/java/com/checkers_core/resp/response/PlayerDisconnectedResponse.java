@@ -9,9 +9,18 @@ public class PlayerDisconnectedResponse extends Response {
     public PlayerDisconnectedResponse(int playerId) {
         this.playerId = playerId;
     }
+    
+    /** 
+     * @return int
+     */
     public int getPlayerId() {
         return playerId;
     }
+    
+    /** 
+     * @param visitor
+     * @return T
+     */
     @Override
     public <T> T accept(ResponseVisitor<T> visitor) {
         return visitor.visitPlayerDisconnected(this);    

@@ -6,18 +6,34 @@ public class VariantStartDescription {
     String name;
     String color;
 
+    
+    /** 
+     * @return int
+     */
     public int getWidth() {
         return width;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getHeight() {
         return height;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getColor() {
         return color;
     }

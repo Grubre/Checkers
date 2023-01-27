@@ -5,12 +5,22 @@ import java.net.Socket;
 import com.checkers_core.comm.CommandCPSerializer;
 import com.checkers_core.resp.parser.ResponseCPParser;
 
+/*
+ * Pełne połączenie z serwerem. Pośredniczy w wysyłaniu i odbieraniu wiadomości.
+ */
 public class ServerConnection {
-    ReceivingConnection rec;
-    SendingConnection send;
-    ServerCommandListener listener;
-    ServerResponseSender sender;
+    private ReceivingConnection rec;
+    private SendingConnection send;
+    private ServerCommandListener listener;
+    private ServerResponseSender sender;
     
+    /**
+     * Konstruktor
+     * Łączy się z serwerem
+     * @param host Ip serwera
+     * @param port Port 
+     * @throws IOException
+     */
     public ServerConnection(String host, int port) throws IOException {
         Socket socket = new Socket(host, port);
         send = new SendingConnection(socket);
@@ -24,10 +34,18 @@ public class ServerConnection {
         thread.start();
     }
 
+    
+    /** 
+     * @return ServerResponseSender
+     */
     public ServerResponseSender getSender() {
         return sender;
     }
 
+    
+    /** 
+     * @return ServerCommandListener
+     */
     public ServerCommandListener getListener() {
         return listener;
     }

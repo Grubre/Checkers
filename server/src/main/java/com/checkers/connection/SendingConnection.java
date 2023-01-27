@@ -14,6 +14,10 @@ public class SendingConnection {
         this.output = new PrintWriter(socket.getOutputStream(), true);
     }
 
+    
+    /** 
+     * @param message
+     */
     public void sendMessage(String message) {
         output.println(message);
     }

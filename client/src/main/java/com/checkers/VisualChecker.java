@@ -13,6 +13,10 @@ public abstract class VisualChecker extends StackPane
         this.color = color;
     }
 
+    
+    /** 
+     * @return Color
+     */
     public Board.Color getColor()
     {
         return color;

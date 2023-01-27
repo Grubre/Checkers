@@ -8,13 +8,25 @@ import com.checkers_core.resp.response.Response;
 
 import javafx.application.Platform;
 
+/*
+ * Serwerowy wysyłacz odpowiedzi. Przyjmuje tekstowe odpowiedzi z serwera i konwertuje je na odpowiednie typy, na które możemy odpowiadać.
+ */
 public class ServerResponseSender extends ResponseSender {
-    ResponseParser parser;    
+    private ResponseParser parser;    
 
+    /**
+     * Konstruktor
+     * @param parser Sposób konwertowania tekstowych odpowiedzi
+     */
     public ServerResponseSender(ResponseParser parser) {
         this.parser = parser;
     }
 
+    
+    /** 
+     * Przekonwertuj wiadomość tekstową i przekaż ją dalej
+     * @param message
+     */
     public void onMessage(String message) {
         Platform.runLater(() -> {
             Response response;

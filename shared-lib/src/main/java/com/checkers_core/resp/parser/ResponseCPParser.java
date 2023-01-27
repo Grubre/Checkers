@@ -16,6 +16,12 @@ import com.checkers_core.resp.response.WrongCommandResponse;
 
 public class ResponseCPParser implements ResponseParser {
 
+    
+    /** 
+     * @param text
+     * @return Response
+     * @throws ParsingException
+     */
     @Override
     public Response parse(String text) throws ParsingException {
         String[] words = text.split(" ");

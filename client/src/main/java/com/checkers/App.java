@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 public class App extends Application {
     private static Stage mStage;
 
+    
+    /** 
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
         mStage = stage;
@@ -30,6 +34,10 @@ public class App extends Application {
         return mStage;
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

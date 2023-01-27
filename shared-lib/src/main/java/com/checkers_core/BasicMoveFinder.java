@@ -39,6 +39,11 @@ public class BasicMoveFinder {
         }
     }
 
+    
+    /** 
+     * @param xDirs[]
+     * @param yDirs[]
+     */
     private void findMovesHelper(int xDirs[], int yDirs[])
     {
         for(int xDir : xDirs)
@@ -101,6 +106,13 @@ public class BasicMoveFinder {
         }
     }
 
+    
+    /** 
+     * @param parentMove
+     * @param newPos
+     * @param removedPiece
+     * @return MoveNode
+     */
     private MoveNode findCapturesRecursive(MoveNode parentMove, Board.BoardPos newPos, BoardPos removedPiece) {
         int x = newPos.x;
         int y = newPos.y;
@@ -149,11 +161,19 @@ public class BasicMoveFinder {
         return null;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean foundCaptures()
     {
         return foundCaptures;
     }
 
+    
+    /** 
+     * @return MoveNode
+     */
     public MoveNode getMoveNode()
     {
         return moveNode;

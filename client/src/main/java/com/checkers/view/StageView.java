@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Abstrakcyjny widok sceny
+ */
 public abstract class StageView {
     protected String css;
     protected Scene scene;
@@ -19,6 +22,10 @@ public abstract class StageView {
         scene = new Scene(root);
     }
 
+    
+    /** 
+     * @param obj
+     */
     public void styleComponent(Parent obj)
     {
         obj.getStylesheets().add(css);

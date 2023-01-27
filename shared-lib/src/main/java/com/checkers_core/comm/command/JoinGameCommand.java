@@ -9,11 +9,20 @@ public class JoinGameCommand extends Command {
         this.gameId = gameId;
     }
 
+    
+    /** 
+     * @param visitor
+     * @return T
+     */
     @Override
     public <T> T accept(CommandVisitor<T> visitor) {
         return visitor.visitJoinGame(this);       
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getGameId() {
         return gameId;
     }

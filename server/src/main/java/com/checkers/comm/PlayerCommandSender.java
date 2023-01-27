@@ -18,6 +18,10 @@ public class PlayerCommandSender extends CommandSender {
         this.listener = listener;
     }
     
+    
+    /** 
+     * @param message
+     */
     public void onMessage(String message) {
         Command command;
         

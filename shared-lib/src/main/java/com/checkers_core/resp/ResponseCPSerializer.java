@@ -12,22 +12,42 @@ import com.checkers_core.resp.response.Response;
 import com.checkers_core.resp.response.WrongCommandResponse;
 
 public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor<String> {
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String serialize(Response response) {
         return response.accept(this);
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String onUnimplemented(Response response) {
         return "NULL";
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitEndOfGame(EndOfGameResponse response) {
         return "EOG " + response.getWinnerId();
         
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
         VariantStartDescription desc = response.getDesc();
@@ -35,17 +55,32 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
         
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response) {
         return "GCU";
         
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitIncorrectMove(IncorrectMoveResponse response) {
         return "INCORRMOVE";
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitPieceMoved(PieceMovedResponse response) {
         String stringTileIds = "";
@@ -56,18 +91,33 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
         return "MOVED " + response.getPlayerId() + " " + response.getPieceX() + " " + response.getPieceY() + " " + stringTileIds;
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitPlayerDisconnected(PlayerDisconnectedResponse response) {
         return "DISCONNECT " + response.getPlayerId();
         
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitWrongCommand(WrongCommandResponse response) {
         return "WRONGCOMM";
         
     }
 
+    
+    /** 
+     * @param response
+     * @return String
+     */
     @Override
     public String visitLobbyList(LobbyListResponse response) {
         String stringLobbyIds = "";

@@ -7,20 +7,24 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Widok menu do wybierania trybu gry
+ */
 public class PlayModeMenuView extends StageView {
-    PlaymodeMenuController controller;
+    private PlaymodeMenuController controller;
+    private Button multiPlayerButton;
+    private Button singlePlayerButton;
+    private Button backButton;
     
-    Button multiPlayerButton;
-    Button singlePlayerButton;
-    Button backButton;
-
-    VBox vBox;
-    
+    /**
+     * Konstruktor
+     * @param controller
+     */
     public PlayModeMenuView(PlaymodeMenuController controller)
     {
         this.controller = controller;
 
-        vBox = new VBox();
+        VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setId("background");
         AnchorPane.setTopAnchor(vBox, 0.0);
@@ -55,11 +59,11 @@ public class PlayModeMenuView extends StageView {
         });
 
         singlePlayerButton.setOnAction(onAction -> {
-            controller.singleplayer();
+            controller.local();
         });
 
         multiPlayerButton.setOnAction(onAction -> {
-            controller.multiplayer();
+            controller.online();
         });
     }
 }

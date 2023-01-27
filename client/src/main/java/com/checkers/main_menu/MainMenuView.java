@@ -7,18 +7,23 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Widok głównego menu
+ */
 public final class MainMenuView extends StageView {
-    MainMenuController controller;
+    private MainMenuController controller;
+    private Button playButton;
+    private Button exitButton;
 
-    Button playButton;
-    Button exitButton;
-    VBox vBox;
-
+    /**
+     * Konstruktor
+     * @param controller
+     */
     public MainMenuView(MainMenuController controller)
     {
         this.controller = controller;
 
-        vBox = new VBox();
+        VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setId("background");
         

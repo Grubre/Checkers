@@ -9,24 +9,28 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/*
+ * View do menu, podczas łączenie użytkownika z serwerem
+ */
 public class ConnectingMenuView extends StageView {
-    private Text loadingText;
-    private ProgressBar progressBar;
     private Button abortButton;
-    private VBox vBox;
 
-    ConnectingMenuController controller;
+    private ConnectingMenuController controller;
     
+    /**
+     * Konstruktor
+     * @param controller
+     */
     public ConnectingMenuView(ConnectingMenuController controller)
     {
         this.controller = controller;
 
-        progressBar = new ProgressBar();
+        ProgressBar progressBar = new ProgressBar();
 
-        loadingText = new Text("Connecting...");
+        Text loadingText = new Text("Connecting...");
         loadingText.setId("loading_text");
 
-        vBox = new VBox();
+        VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setId("background");
         AnchorPane.setTopAnchor(vBox, 0.0);

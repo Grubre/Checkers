@@ -9,18 +9,34 @@ public abstract class Command {
 
     public abstract <T> T accept(CommandVisitor<T> visitor);
 
+    
+    /** 
+     * @return CommandSender
+     */
     public CommandSender getSource() {
         return source;
     }
 
+    
+    /** 
+     * @param source
+     */
     public void setSource(CommandSender source) {
         this.source = source;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getPlayerId() {
         return playerId;
     }
 
+    
+    /** 
+     * @param playerId
+     */
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
     }

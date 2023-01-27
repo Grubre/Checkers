@@ -13,6 +13,12 @@ import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
 
 public class CommandCPParser implements CommandParser {
+    
+    /** 
+     * @param text
+     * @return Command
+     * @throws ParsingException
+     */
     @Override
     public Command parse(String text) throws ParsingException {
         String[] words = text.split(" ");

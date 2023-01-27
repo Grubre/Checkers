@@ -6,6 +6,12 @@ import com.checkers_core.Board.Color;
 
 public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
     
+    
+    /** 
+     * @param board
+     * @param playerColor
+     * @return MoveGraph
+     */
     @Override
     public MoveGraph getPossibleMoves(Board board, Color playerColor) {
         MoveGraph moveGraph = new MoveGraph(board.xDim, board.yDim);
@@ -47,6 +53,11 @@ public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
 
         return moveGraph;
     }
+    
+    /** 
+     * @param board
+     * @param pawnFactory
+     */
     @Override
     public void setupBoard(Board board, AbstractPawnFactory pawnFactory) {
         for (int j = 0; j < board.yDim; j++) {
@@ -62,6 +73,11 @@ public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
         }
     }
 
+    
+    /** 
+     * @param board
+     * @return Optional<Color>
+     */
     @Override
     public Optional<Color> gameOver(Board board) {
         int black = 0;

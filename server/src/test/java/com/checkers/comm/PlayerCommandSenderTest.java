@@ -38,6 +38,10 @@ public class PlayerCommandSenderTest {
     @Captor
     ArgumentCaptor<Command> commandCaptor;
 
+    
+    /** 
+     * @throws ParsingException
+     */
     @Test
     public void correctInjectingPlayerDataInCommands() throws ParsingException {
         PlayerCommandSender p = new PlayerCommandSender(testId, parser, listener);

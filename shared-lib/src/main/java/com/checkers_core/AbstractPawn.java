@@ -8,11 +8,20 @@ public abstract class AbstractPawn {
         this.color = color;
     }
 
+    
+    /** 
+     * @return Color
+     */
     public Board.Color getColor()
     {
         return color;
     }
 
+    
+    /** 
+     * @param otherPawn
+     * @return boolean
+     */
     public boolean isEnemy(AbstractPawn otherPawn)
     {
         return otherPawn.getColor() != this.color;

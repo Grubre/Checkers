@@ -4,6 +4,11 @@ import com.checkers_core.comm.CommandVisitor;
 
 public class ListLobbyCommand extends Command {
 
+    
+    /** 
+     * @param visitor
+     * @return T
+     */
     @Override
     public <T> T accept(CommandVisitor<T> visitor) {
         return visitor.visitListLobby(this);

@@ -18,6 +18,11 @@ public class Hub extends Lobby {
     Map<Integer, GameLobby> openLobbies = new TreeMap<>();
     int internalIdCounter = 1;
 
+    
+    /** 
+     * @param desc
+     * @return int
+     */
     public int createLobby(VariantStartDescription desc) {
         GameLobby newLobby = new GameLobby(this, desc);
 
@@ -29,18 +34,36 @@ public class Hub extends Lobby {
         return gameId;
     }
 
+    
+    /** 
+     * @param gameId
+     * @return GameLobby
+     */
     public GameLobby getLobby(int gameId) {
         return openLobbies.get(gameId);
     }
 
+    
+    /** 
+     * @param gameId
+     */
     public void closeLobby(int gameId) {
         openLobbies.remove(gameId);
     }
 
+    
+    /** 
+     * @param lobby
+     */
     public void closeLobby(Lobby lobby) {
         openLobbies.values().remove(lobby);
     }
 
+    
+    /** 
+     * @param command
+     * @return Void
+     */
     @Override
     public Void visitNewGame(NewGameCommand command) {
         int newGameId = createLobby(command.getDesc());
@@ -55,6 +78,11 @@ public class Hub extends Lobby {
         return null;
     }
 
+    
+    /** 
+     * @param command
+     * @return Void
+     */
     @Override
     public Void visitJoinGame(JoinGameCommand command) {
         int gameId = command.getGameId();
@@ -73,6 +101,11 @@ public class Hub extends Lobby {
         return null;
     }
 
+    
+    /** 
+     * @param command
+     * @return Void
+     */
     public Void visitListLobby(ListLobbyCommand command) {
 
         Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
@@ -84,6 +117,11 @@ public class Hub extends Lobby {
         return null;
     }
 
+    
+    /** 
+     * @param command
+     * @return Void
+     */
     @Override
     public Void visitDisconnect(DisconnectCommand command) {
         removePlayer(command.getPlayerId());

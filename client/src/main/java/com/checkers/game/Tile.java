@@ -42,6 +42,10 @@ public class Tile extends StackPane {
         }
     }
 
+    
+    /** 
+     * @param state
+     */
     void setState(State state)
     {
         this.state = state;
@@ -72,11 +76,19 @@ public class Tile extends StackPane {
         }
     }
 
+    
+    /** 
+     * @return State
+     */
     State getState()
     {
         return state;
     }
 
+    
+    /** 
+     * @param piece
+     */
     void setPiece(VisualChecker piece)
     {
         if(this.piece != null) {
@@ -90,6 +102,10 @@ public class Tile extends StackPane {
         }
     }
 
+    
+    /** 
+     * @return VisualChecker
+     */
     VisualChecker getPiece()
     {
         return piece;

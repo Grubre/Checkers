@@ -23,12 +23,20 @@ public class Server {
         this.port = port;
     }
 
+    
+    /** 
+     * @return int
+     */
     private int getNewPlayerId() {
         int id = internalIdCounter;
         internalIdCounter++;
         return id;
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     public void start() throws IOException {
 
         Hub hub = new Hub();

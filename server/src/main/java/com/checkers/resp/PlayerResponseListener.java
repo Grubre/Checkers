@@ -14,6 +14,10 @@ public class PlayerResponseListener implements ResponseListener {
         this.serializer = serializer;
     }
 
+    
+    /** 
+     * @param response
+     */
     @Override
     public void onResponse(Response response) {
         String message = serializer.serialize(response);

@@ -12,20 +12,30 @@ import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.LobbyListResponse;
 import com.checkers_core.resp.response.Response;
 
+/*
+ * Kontroler menu do wybierania lobby, do którego użytkownik chce dołączyć
+ */
 public class ChooseLobbyController implements StageController, ResponseListener, ResponseVisitor<Void>{
 
+    /*
+     * Stan menu. Jakiej odpowiedzi od serwera oczekujemy? 
+     */
     private enum State {
         WAITING_FOR_CONNECT,
         WAITING_FOR_LIST,
         NOT_WAITING
     }
 
-    State state = State.NOT_WAITING;
+    private State state = State.NOT_WAITING;
+    private ChooseLobbyView view = new ChooseLobbyView(this);
+    private StageManager manager;
+    private ServerConnection connection;
 
-    ChooseLobbyView view = new ChooseLobbyView(this);
-    StageManager manager;
-    ServerConnection connection;
-
+    /**
+     * Konstruktor
+     * @param manager Menadżer scen
+     * @param connection Połączenie z serwerem
+     */
     public ChooseLobbyController(StageManager manager, ServerConnection connection) {
         this.manager = manager;
         this.connection = connection;
@@ -44,15 +54,25 @@ public class ChooseLobbyController implements StageController, ResponseListener,
         connection.getSender().removeListener(this);
     }
 
+    /*
+     * Odświeżenie listy lobby z serwera
+     */
     public void refreshList() {
         state = State.WAITING_FOR_LIST;
         connection.getListener().onCommand(new ListLobbyCommand());
     }
 
+    /*
+     * Wysłanie zapytania o stworzenie gry
+     */
     public void createGame() {
-        manager.switchToMultiGameCreationMenu(connection);
+        manager.switchToOnlineGameCreationMenu(connection);
     }
-    
+
+
+    /*
+     * Wysłanie zapytania o dołączenie do gry
+     */
     public void joinGame() {
         Integer lobbyId = view.getSelectedLobby();
         if(lobbyId == null) {
@@ -62,16 +82,22 @@ public class ChooseLobbyController implements StageController, ResponseListener,
         connection.getListener().onCommand(new JoinGameCommand(lobbyId));
     }
 
+    /*
+     * W razie udanego połączenia z grą, przejdź do sceny gry
+     */
     @Override
     public Void visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
         if (state == State.WAITING_FOR_CONNECT) {
             state = State.NOT_WAITING;
     
-            manager.switchToMultiGame(response.getDesc(), connection);
+            manager.switchToOnlineGame(response.getDesc(), connection);
         }
         return null;
     }
 
+    /*
+     * W razie nieudanego połączenia nic nie rób
+     */
     @Override
     public Void visitGameConnectionUnsuccessful(GameConnectionUnsuccessfulResponse response) {
         if (state == State.WAITING_FOR_CONNECT) {
@@ -80,7 +106,10 @@ public class ChooseLobbyController implements StageController, ResponseListener,
 
         return null;
     }
-
+    
+    /*
+     * W razie dostania listy lobby, wyświetl ją
+     */
     @Override
     public Void visitLobbyList(LobbyListResponse response) {
         if (state == State.WAITING_FOR_LIST) {
