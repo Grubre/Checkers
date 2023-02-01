@@ -1,6 +1,6 @@
 package com.checkers;
 
-import com.checkers_core.Board;
+import com.checkers_core.boards.Board;
 
 import javafx.scene.layout.StackPane;
 

@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.checkers.controller.StageController;
 import com.checkers.stage_manager.StageManager;
-import com.checkers_core.Board;
-import com.checkers_core.BoardFactory;
 import com.checkers_core.VariantStartDescription;
+import com.checkers_core.boards.Board;
+import com.checkers_core.boards.BoardFactory;
 
 public class GameController implements StageController {
 

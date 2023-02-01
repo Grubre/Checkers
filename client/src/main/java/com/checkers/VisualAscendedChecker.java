@@ -1,6 +1,6 @@
 package com.checkers;
 
-import com.checkers_core.Board;
+import com.checkers_core.boards.Board;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;

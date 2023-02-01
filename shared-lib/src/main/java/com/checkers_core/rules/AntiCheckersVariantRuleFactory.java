@@ -1,8 +1,14 @@
-package com.checkers_core;
+package com.checkers_core.rules;
 
 import java.util.Optional;
 
-import com.checkers_core.Board.Color;
+import com.checkers_core.boards.Board;
+import com.checkers_core.boards.Board.BoardPos;
+import com.checkers_core.boards.Board.Color;
+import com.checkers_core.moves.MoveGraph;
+import com.checkers_core.moves.MoveNode;
+import com.checkers_core.pawns.AbstractPawn;
+import com.checkers_core.pawns.AbstractPawnFactory;
 
 public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
     
@@ -28,7 +34,7 @@ public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
                     canCapture = true;
                 }
                 moveGraph.setPawnMoveNode(boardPos, moveNode);
-                maxSize = Math.max(maxSize, moveNode.getLongestPathLength());
+                maxSize = Math.max(maxSize, moveNode.getLongestBranchLength());
             }
         }
 
@@ -39,7 +45,7 @@ public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
                 MoveNode moveNode = moveGraph.getMoveNodeAt(new Board.BoardPos(i, j));
                 if(moveNode != null) {
                     if(canCapture && moveNode.hasCaptured() || !canCapture) {
-                        moveNode.pruneNonMaxPaths(maxSize);
+                        moveNode.markNonMaxBranches(maxSize);
                     }
                 }
             }
@@ -52,9 +58,9 @@ public class AntiCheckersVariantRuleFactory implements AbstractRuleFactory {
         for (int j = 0; j < board.yDim; j++) {
             for (int i = 0; i < board.xDim; i++) {
                 if (j < board.yDim / 2 - 1 && (i + j) % 2 == 1) {
-                    board.setPiece(i, j, pawnFactory.create_regular(Color.WHITE)); 
+                    board.setPiece(i, j, pawnFactory.createRegular(Color.WHITE)); 
                 } else if (j >= board.yDim / 2 + 1 && (i + j) % 2 == 1) {
-                    board.setPiece(i, j, pawnFactory.create_regular(Color.BLACK));
+                    board.setPiece(i, j, pawnFactory.createRegular(Color.BLACK));
                 } else {
                     board.setPiece(i, j, null);
                 }

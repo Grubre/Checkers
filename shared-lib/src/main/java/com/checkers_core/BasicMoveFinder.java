@@ -2,7 +2,10 @@ package com.checkers_core;
 
 import java.util.ArrayList;
 
-import com.checkers_core.Board.BoardPos;
+import com.checkers_core.boards.Board.BoardPos;
+import com.checkers_core.boards.Board;
+import com.checkers_core.moves.MoveNode;
+import com.checkers_core.pawns.AbstractPawn;
 
 public class BasicMoveFinder {
     private final int depth;

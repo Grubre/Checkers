@@ -1,8 +1,14 @@
-package com.checkers_core;
+package com.checkers_core.boards;
 
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+
+import com.checkers_core.moves.Move;
+import com.checkers_core.moves.MoveGraph;
+import com.checkers_core.pawns.AbstractPawn;
+import com.checkers_core.pawns.AbstractPawnFactory;
+import com.checkers_core.rules.AbstractRuleFactory;
 
 public abstract class Board {
     public enum Color {
@@ -105,11 +111,17 @@ public abstract class Board {
         }
     }
 
+    public void movePiece(Move move) {
+        for(int i = 0; i < move.visitedFields.size() - 1; i++) {
+            movePiece(move.visitedFields.get(i), move.visitedFields.get(i + 1));
+        }
+    }
+
     public void updateAndAscend() {
         for (int j = 0; j < yDim; j++) {
             for (int i = 0; i < xDim; i++) {
                 if (board[i][j] != null && board[i][j].canAscend(this, new BoardPos(i, j))) {
-                    board[i][j] = pawnFactory.create_ascended(board[i][j].getColor());
+                    board[i][j] = pawnFactory.createAscended(board[i][j].getColor());
                 }
             }
         }
