@@ -36,11 +36,6 @@ public class MoveNode implements Iterable<MoveNode>{
         }
     }
 
-    public List<MoveNode> getPossibleMoves()
-    {
-        return possibleMoves;
-    }
-
     public void toMoveList(List<Move> list, List<BoardPos> visitedFields) {
         visitedFields.add(new BoardPos(x, y));
 
