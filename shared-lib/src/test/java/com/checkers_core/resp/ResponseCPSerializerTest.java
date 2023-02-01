@@ -35,11 +35,11 @@ public class ResponseCPSerializerTest {
     }
     @Test
     public void gameConnectionSuccessfulTest(){
-        GameConnectionSuccessfulResponse resp = new GameConnectionSuccessfulResponse(testGameId, new VariantStartDescription(4, 4, "BASIC", "White"));
+        GameConnectionSuccessfulResponse resp = new GameConnectionSuccessfulResponse(testGameId, new VariantStartDescription(4, 4, "BASIC", "White"), testPlayerId);
 
         String result = serializer.serialize(resp);
 
-        assertEquals(result, "GCS 42 4 4 BASIC White");
+        assertEquals(result, "GCS 42 17 4 4 BASIC White");
     }
     @Test
     public void gameConnectionUnsuccessfulTest(){

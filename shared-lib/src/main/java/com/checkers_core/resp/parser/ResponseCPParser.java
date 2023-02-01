@@ -26,12 +26,13 @@ public class ResponseCPParser implements ResponseParser {
             } 
             else if("GCS".equals(words[0])) {
                 int gameId = Integer.parseInt(words[1]);
-                int width = Integer.parseInt(words[2]);
-                int height = Integer.parseInt(words[3]);
-                String variant = words[4];
-                String color = words[5];
+                int playerId = Integer.parseInt(words[2]);
+                int width = Integer.parseInt(words[3]);
+                int height = Integer.parseInt(words[4]);
+                String variant = words[5];
+                String color = words[6];
 
-                return new GameConnectionSuccessfulResponse(gameId, new VariantStartDescription(width, height, variant, color));
+                return new GameConnectionSuccessfulResponse(gameId, new VariantStartDescription(width, height, variant, color), playerId);
             }
             else if("MOVED".equals(words[0])) {
                 int playerId = Integer.parseInt(words[1]);

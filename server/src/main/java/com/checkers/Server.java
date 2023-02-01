@@ -6,13 +6,8 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.checkers.comm.PlayerCommandSender;
-import com.checkers.connection.ReceivingConnection;
-import com.checkers.connection.SendingConnection;
+import com.checkers.connection.ClientConnection;
 import com.checkers.lobby.Hub;
-import com.checkers.resp.PlayerResponseListener;
-import com.checkers_core.comm.parser.CommandCPParser;
-import com.checkers_core.resp.ResponseCPSerializer;
 
 public class Server {
 
@@ -42,15 +37,11 @@ public class Server {
 
                     int id = getNewPlayerId();
 
-                    PlayerCommandSender sender = new PlayerCommandSender(id, new CommandCPParser(), hub);
-                    ReceivingConnection recConn = new ReceivingConnection(newConnection, sender);
+                    ClientConnection player = new ClientConnection(newConnection, id);
 
-                    SendingConnection sendConn = new SendingConnection(newConnection);
-                    PlayerResponseListener listener = new PlayerResponseListener(sendConn, new ResponseCPSerializer());
-                    
-                    hub.addPlayer(id, listener);
+                    hub.addPlayer(id, player);
 
-                    pool.execute(recConn);
+                    pool.execute(player);
                     System.out.println("Connected user id: " + id);
                 }
                 catch (IOException e) {

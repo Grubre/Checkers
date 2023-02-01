@@ -32,4 +32,8 @@ public class ServerConnection {
         return listener;
     }
 
+    public void close() {
+        send.close();
+    }
+
 }
