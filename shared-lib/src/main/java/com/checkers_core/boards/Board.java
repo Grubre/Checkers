@@ -25,6 +25,13 @@ public abstract class Board implements Cloneable{
             return this.id;
         }
 
+        public String getName() {
+            return switch (this) {
+                case BLACK -> "black";
+                case WHITE -> "white";
+            };
+        }
+
         public static Color getOpposite(Color color) {
             return switch (color) {
                 case BLACK -> WHITE;

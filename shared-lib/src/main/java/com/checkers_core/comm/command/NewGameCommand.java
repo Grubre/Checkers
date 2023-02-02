@@ -6,13 +6,19 @@ import com.checkers_core.comm.CommandVisitor;
 public class NewGameCommand extends Command {
 
     final VariantStartDescription desc;
+    final boolean with_bot;
+
+    public boolean isWithBot() {
+        return with_bot;
+    }
 
     public VariantStartDescription getDesc() {
         return desc;
     }
 
-    public NewGameCommand(VariantStartDescription desc) {
+    public NewGameCommand(VariantStartDescription desc, boolean withBot) {
         this.desc = desc;
+        this.with_bot = withBot;
     }
 
     @Override

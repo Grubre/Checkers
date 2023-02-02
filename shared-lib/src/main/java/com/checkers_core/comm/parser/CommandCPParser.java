@@ -11,6 +11,7 @@ import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.ResignCommand;
+import com.checkers_core.comm.command.WatchReplayCommand;
 
 public class CommandCPParser implements CommandParser {
     @Override
@@ -23,13 +24,19 @@ public class CommandCPParser implements CommandParser {
                 int height = Integer.parseInt(words[2]);
                 String variant = words[3];
                 String color = words[4];
+                boolean withBot = Boolean.parseBoolean(words[5]);
 
-                return new NewGameCommand(new VariantStartDescription(width, height, variant, color));
+                return new NewGameCommand(new VariantStartDescription(width, height, variant, color), withBot);
             } 
             else if("JOINGAME".equals(words[0])) {
                 int gameId = Integer.parseInt(words[1]);
 
                 return new JoinGameCommand(gameId);
+            }
+            else if("REPLAY".equals(words[0])) {
+                int gameId = Integer.parseInt(words[1]);
+
+                return new WatchReplayCommand(gameId);
             }
             else if("MOVE".equals(words[0])) {
                 int pieceX = Integer.parseInt(words[1]);
