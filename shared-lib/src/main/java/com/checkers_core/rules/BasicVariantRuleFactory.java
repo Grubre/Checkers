@@ -89,5 +89,27 @@ public class BasicVariantRuleFactory implements AbstractRuleFactory {
         }
         return Optional.empty();
     }
+
+    public int eval(Board board, Board.Color maximizingPlayer) {
+        int val = 0;
+        for(int i = 0; i < board.yDim; i++) {
+            for(int j = 0; j < board.xDim; j++) {
+                AbstractPawn pawn = board.getPiece(j, i);
+                int coeff = 0;
+                if(pawn != null) {
+                    if(pawn.getColor() == maximizingPlayer) {
+                        coeff+=3;
+                    } else {
+                        coeff--;
+                    }
+                    if(pawn.isAscended()) {
+                        coeff *= 2;
+                    }
+                }
+                val += coeff;
+            }
+        }
+        return val;
+    }
     
 }

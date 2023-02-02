@@ -10,4 +10,5 @@ public interface AbstractRuleFactory {
     MoveGraph getPossibleMoves(Board board, Board.Color playerColor);
     void setupBoard(Board board, AbstractPawnFactory pawnFactory);
     Optional<Board.Color> gameOver(Board board);
+    int eval(Board board, Board.Color maximizingPlayer);
 }

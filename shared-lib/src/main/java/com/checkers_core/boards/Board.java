@@ -157,6 +157,10 @@ public abstract class Board implements Cloneable{
         ruleFactory.setupBoard(this, this.pawnFactory);
     }
 
+    public int eval(Board.Color maximizingPLayer) {
+        return ruleFactory.eval(this, maximizingPLayer);
+    }
+
     public Object clone() throws CloneNotSupportedException
     {
         return super.clone();

@@ -16,11 +16,12 @@ public class MiniMax implements Algorithm{
     }
 
     @Override
-    public Move getBestMove(Board board, Board.Color currentPlayer)
+    public Move getBestMove(Board board, Board.Color maximizingPlayer)
     {
         MinimaxRet minimaxRet;
         try {
-            minimaxRet = minimax(board, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, currentPlayer, currentPlayer);
+            System.out.println("Maximizing: " + maximizingPlayer.toString());
+            minimaxRet = minimax(board, depth, Integer.MIN_VALUE, Integer.MAX_VALUE, maximizingPlayer, maximizingPlayer);
             System.out.println("Chose value = " + minimaxRet.value);
             return minimaxRet.move;
         } catch (CloneNotSupportedException e) {
@@ -28,24 +29,6 @@ public class MiniMax implements Algorithm{
             e.printStackTrace();
             return null;
         }
-    }
-
-    private Integer evalBoard(Board board, Board.Color player) {
-        int val = 0;
-        for(int i = 0; i < board.yDim; i++) {
-            for(int j = 0; j < board.xDim; j++) {
-                AbstractPawn pawn = board.getPiece(j, i);
-                if(pawn != null) {
-                    if(pawn.getColor() == player) {
-                        val++;
-                    } else {
-                        val--;
-                    }
-                }
-            }
-        }
-        System.out.println("val = " + val);
-        return val;
     }
 
     private class MinimaxRet {
@@ -64,7 +47,7 @@ public class MiniMax implements Algorithm{
         
         // if depth == 0 || is leaf return 0;
         if(currentDepth == 0 || moves == null || moves.isEmpty()) {
-            return new MinimaxRet(evalBoard(board, maximizingPlayer), null);
+            return new MinimaxRet(board.eval(maximizingPlayer), null);
         }
 
         MinimaxRet minimaxRet = new MinimaxRet(0, null);
