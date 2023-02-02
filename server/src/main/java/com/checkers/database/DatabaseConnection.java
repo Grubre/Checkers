@@ -8,11 +8,13 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import lombok.Synchronized;
 import lombok.Getter;
 
 public class DatabaseConnection {
     @Getter
     private SessionFactory sessionFactory;
+    static DatabaseConnection singleton;
 
     public void connect() {
         // A SessionFactory is set up once for an application!
@@ -40,5 +42,17 @@ public class DatabaseConnection {
             
             e.printStackTrace();
         }
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public synchronized static DatabaseConnection getInstance() {
+        if(singleton == null) {
+            singleton = new DatabaseConnection();
+            singleton.connect();
+        }
+        return singleton;
     }
 }

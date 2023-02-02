@@ -20,7 +20,7 @@ public class ConnectingMenuController implements StageController {
         view.setCurrent();
 
         try {
-            ServerConnection connection = new ServerConnection("192.168.1.26", 58901);
+            ServerConnection connection = new ServerConnection("localhost", 58901);
             manager.switchToChooseLobbyMenu(connection);
         } catch (IOException e) {
             // TODO Auto-generated catch block

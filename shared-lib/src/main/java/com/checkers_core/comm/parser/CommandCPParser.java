@@ -51,6 +51,9 @@ public class CommandCPParser implements CommandParser {
             else if("DISCONNECT".equals(words[0])) {
                 return new DisconnectCommand();
             }
+            else if("NEXTMOVE".equals(words[0])) {
+                return new DisconnectCommand();
+            }
             else {
                 throw new ParsingException();
             }

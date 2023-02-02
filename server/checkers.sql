@@ -15,6 +15,7 @@ CREATE TABLE Matches(
 );
 
 CREATE TABLE Moves(
+    ID int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     turn_number int unsigned,
     move_number int unsigned,
     starting_x int unsigned,
@@ -22,6 +23,5 @@ CREATE TABLE Moves(
     target_x int unsigned,
     target_y int unsigned,
     match_id int unsigned,
-    PRIMARY KEY (turn_number, move_number),
     FOREIGN KEY (match_id) REFERENCES Matches(ID)
 );
