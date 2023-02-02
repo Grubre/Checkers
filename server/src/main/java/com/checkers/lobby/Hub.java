@@ -27,7 +27,9 @@ public class Hub extends Lobby {
 
         GameLobby newLobby = new GameLobby(this, desc, gameId);
 
-        openLobbies.put(gameId, newLobby);
+        synchronized(openLobbies) {
+            openLobbies.put(gameId, newLobby);
+        }
 
         return gameId;
     }
@@ -38,21 +40,29 @@ public class Hub extends Lobby {
 
         RecordLobby newLobby = new RecordLobby(this, matchId, gameId);
 
-        openLobbies.put(gameId, newLobby);
+        synchronized(openLobbies) {
+            openLobbies.put(gameId, newLobby);
+        }
 
         return gameId;
     }
 
     public Lobby getLobby(int gameId) {
-        return openLobbies.get(gameId);
+        synchronized(openLobbies) {
+            return openLobbies.get(gameId);
+        }
     }
 
     public void closeLobby(int gameId) {
-        openLobbies.remove(gameId);
+        synchronized(openLobbies) {
+            openLobbies.remove(gameId);
+        }
     }
 
     public void closeLobby(Lobby lobby) {
-        openLobbies.values().remove(lobby);
+        synchronized(openLobbies) {
+            openLobbies.values().remove(lobby);
+        }
     }
 
     @Override
@@ -103,14 +113,14 @@ public class Hub extends Lobby {
     }
 
     public Void visitListLobby(ListLobbyCommand command) {
-
-        Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
-
-        int playerId = command.getPlayerId();
-
-        sendToPlayer(playerId, resp);
-
-        return null;
+        synchronized(openLobbies) {
+            Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
+            int playerId = command.getPlayerId();
+    
+            sendToPlayer(playerId, resp);
+    
+            return null;
+        }
     }
 
     @Override

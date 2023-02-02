@@ -113,7 +113,7 @@ public class GameCreationView extends StageView{
                                 widthLabel, widthSlider,
                                 heightLabel, heightSlider,
                                 variantComboBox, colorComboBox,
-                                startGameButton);
+                                startGameButton, botComboBox);
     }
 
     private void setDescription()

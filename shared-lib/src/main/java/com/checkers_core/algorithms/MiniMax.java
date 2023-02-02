@@ -55,7 +55,7 @@ public class MiniMax implements Algorithm{
             this.move = move;
             this.value = value;
         }
-    };
+    }
 
     private MinimaxRet minimax(Board board, Integer currentDepth, Board.Color currentPlayer) throws CloneNotSupportedException {
         // if depth == 0 || is leaf return 0;
@@ -72,7 +72,7 @@ public class MiniMax implements Algorithm{
             minimaxRet.value = Integer.MIN_VALUE;
             for(Move move : moves) {
                 Board boardCopy = (Board)board.clone();
-                boardCopy.movePiece(move);
+                boardCopy.movePieceAndUpdate(move);
                 MinimaxRet eval = minimax(boardCopy, currentDepth - 1, Color.getOpposite(currentPlayer));
                 if(minimaxRet.value < eval.value) {
                     minimaxRet.move = move;
@@ -85,7 +85,7 @@ public class MiniMax implements Algorithm{
             minimaxRet.value = Integer.MAX_VALUE;
             for(Move move : moves) {
                 Board boardCopy = (Board)board.clone();
-                boardCopy.movePiece(move);
+                boardCopy.movePieceAndUpdate(move);
                 MinimaxRet eval = minimax(boardCopy, currentDepth - 1, Color.getOpposite(currentPlayer));
                 if(minimaxRet.value > eval.value) {
                     minimaxRet.move = move;

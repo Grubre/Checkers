@@ -75,37 +75,39 @@ public class GameLobby extends Lobby {
     
     @Override
     public Void visitMovePiece(MovePieceCommand command) {
-        BoardPos piecePos = new BoardPos(command.getPieceX(), command.getPieceY());
-
-        int moveNumber = 0;
-        for (int tileId : command.getTileIds()) {
-            BoardPos targetPos = new BoardPos(tileId % board.xDim, tileId / board.xDim);
-            board.movePiece(piecePos, targetPos);
-            piecePos = targetPos;
-
-            MoveEntry move = new MoveEntry();
-            move.setTurn_number(turn_number);
-            move.setMove_number(moveNumber);
-            move.setMatch(match);
-            move.setStarting_x(piecePos.x);
-            move.setStarting_y(piecePos.y);
-            move.setTarget_x(targetPos.x);
-            move.setTarget_y(targetPos.y);
-            DatabaseUtil.persist(move);
-
-            moveNumber += 1;
+        synchronized (board) {
+            BoardPos piecePos = new BoardPos(command.getPieceX(), command.getPieceY());
+    
+            int moveNumber = 0;
+            for (int tileId : command.getTileIds()) {
+                BoardPos targetPos = new BoardPos(tileId % board.xDim, tileId / board.xDim);
+                board.movePiece(piecePos, targetPos);
+                piecePos = targetPos;
+    
+                MoveEntry move = new MoveEntry();
+                move.setTurn_number(turn_number);
+                move.setMove_number(moveNumber);
+                move.setMatch(match);
+                move.setStarting_x(piecePos.x);
+                move.setStarting_y(piecePos.y);
+                move.setTarget_x(targetPos.x);
+                move.setTarget_y(targetPos.y);
+                DatabaseUtil.persist(move);
+    
+                moveNumber += 1;
+            }
+            turn_number += 1;
+            
+            // System.out.println(new CommandCPSerializer().serialize(command));
+            
+            broadcastToPlayers((id) -> id != command.getPlayerId(), new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds()));
+            
+            if (board.gameOver().isPresent()) {
+                broadcastToAllPlayers(new EndOfGameResponse(board.gameOver().get().getId()));
+            }
+            
+            return null;
         }
-        turn_number += 1;
-        
-        // System.out.println(new CommandCPSerializer().serialize(command));
-        
-        broadcastToPlayers((id) -> id != command.getPlayerId(), new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds()));
-        
-        if (board.gameOver().isPresent()) {
-            broadcastToAllPlayers(new EndOfGameResponse(board.gameOver().get().getId()));
-        }
-        
-        return null;
     }
 
     @Override

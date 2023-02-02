@@ -128,10 +128,11 @@ public abstract class Board implements Cloneable{
         }
     }
 
-    public void movePiece(Move move) {
+    public void movePieceAndUpdate(Move move) {
         for(int i = 0; i < move.visitedFields.size() - 1; i++) {
             movePiece(move.visitedFields.get(i), move.visitedFields.get(i + 1));
         }
+        updateAndAscend();
     }
 
     public void updateAndAscend() {
