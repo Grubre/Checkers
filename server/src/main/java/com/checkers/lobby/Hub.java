@@ -19,17 +19,17 @@ public class Hub extends Lobby {
     int internalIdCounter = 1;
 
     public int createLobby(VariantStartDescription desc) {
-        GameLobby newLobby = new GameLobby(this, desc);
-
         int gameId = internalIdCounter;
         internalIdCounter++;
+
+        GameLobby newLobby = new GameLobby(this, desc, gameId);
 
         openLobbies.put(gameId, newLobby);
 
         return gameId;
     }
 
-    public GameLobby getLobby(int gameId) {
+    public Lobby getLobby(int gameId) {
         return openLobbies.get(gameId);
     }
 
@@ -47,8 +47,6 @@ public class Hub extends Lobby {
         int playerId = command.getPlayerId();
 
         Lobby newLobby = getLobby(newGameId);
-    
-        sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId, command.getDesc(), playerId));
         
         transferPlayerTo(playerId, newLobby);
 
@@ -60,10 +58,9 @@ public class Hub extends Lobby {
         int gameId = command.getGameId();
         int playerId = command.getPlayerId();
         
-        GameLobby lobby = getLobby(gameId);
+        Lobby lobby = getLobby(gameId);
 
         if (lobby != null) {
-            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, lobby.getAnotherColoredDesc(), playerId));
             transferPlayerTo(playerId, lobby);
         }
         else {

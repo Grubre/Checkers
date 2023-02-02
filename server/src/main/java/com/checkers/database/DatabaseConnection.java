@@ -8,8 +8,11 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import lombok.Synchronized;
+
 public class DatabaseConnection {
     private SessionFactory sessionFactory;
+    static DatabaseConnection singleton;
 
     public void connect() {
         // A SessionFactory is set up once for an application!
@@ -33,10 +36,21 @@ public class DatabaseConnection {
             session.persist(entry);
             session.getTransaction().commit();
             session.close();
-            session = sessionFactory.openSession();
         } catch (Exception e) {
             
             e.printStackTrace();
         }
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public synchronized static DatabaseConnection getInstance() {
+        if(singleton == null) {
+            singleton = new DatabaseConnection();
+            singleton.connect();
+        }
+        return singleton;
     }
 }

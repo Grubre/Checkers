@@ -18,6 +18,7 @@ public class Lobby implements CommandListener, CommandVisitor<Void> {
     public void addPlayer(int playerId, PlayerConnection player) {
         connectedPlayers.put(playerId, player);
         player.setListener(this);
+        onPlayerJoin(playerId);
     }
 
     public PlayerConnection getPlayer(int playerId) {
@@ -56,6 +57,8 @@ public class Lobby implements CommandListener, CommandVisitor<Void> {
             player.onResponse(response);
         }
     }
+
+    public void onPlayerJoin(int playerId) {}
 
     @Override
     public void onCommand(Command command) {

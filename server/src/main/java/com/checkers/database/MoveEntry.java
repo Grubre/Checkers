@@ -2,6 +2,8 @@ package com.checkers.database;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,9 +17,13 @@ import lombok.Setter;
 @Table(name="Moves")
 public class MoveEntry implements DatabaseEntry {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    
+    @Column(name = "turn_number")
     private Integer turn_number;
 
-    @Id
+    @Column(name = "move_number")
     private Integer move_number;
 
     @Column(name = "starting_x")
