@@ -20,7 +20,7 @@ public class MiniMax implements Algorithm{
     {
         MinimaxRet minimaxRet;
         try {
-            minimaxRet = minimax(board, depth, currentPlayer);
+            minimaxRet = minimax(board, depth, currentPlayer, currentPlayer);
             return minimaxRet.move;
         } catch (CloneNotSupportedException e) {
             
@@ -29,13 +29,13 @@ public class MiniMax implements Algorithm{
         }
     }
 
-    private Integer evalBoard(Board board) {
+    private Integer evalBoard(Board board, Board.Color player) {
         int val = 0;
         for(int i = 0; i < board.yDim; i++) {
             for(int j = 0; j < board.xDim; j++) {
                 AbstractPawn pawn = board.getPiece(i, j);
                 if(pawn != null) {
-                    if(pawn.getColor() == Color.WHITE) {
+                    if(pawn.getColor() == player) {
                         val++;
                     }
                     else {
@@ -57,10 +57,10 @@ public class MiniMax implements Algorithm{
         }
     }
 
-    private MinimaxRet minimax(Board board, Integer currentDepth, Board.Color currentPlayer) throws CloneNotSupportedException {
+    private MinimaxRet minimax(Board board, Integer currentDepth, Board.Color currentPlayer, Board.Color player) throws CloneNotSupportedException {
         // if depth == 0 || is leaf return 0;
         if(currentDepth == 0) {
-            return new MinimaxRet(evalBoard(board), null);
+            return new MinimaxRet(evalBoard(board, currentPlayer), null);
         }
 
         MoveGraph moveGraph = board.getPossibleMovesForColor(currentPlayer);
@@ -68,12 +68,12 @@ public class MiniMax implements Algorithm{
 
         MinimaxRet minimaxRet = new MinimaxRet(0, null);
         // if maximizing player then
-        if(currentPlayer == Color.WHITE) {
+        if(currentPlayer == player) {
             minimaxRet.value = Integer.MIN_VALUE;
             for(Move move : moves) {
                 Board boardCopy = (Board)board.clone();
                 boardCopy.movePieceAndUpdate(move);
-                MinimaxRet eval = minimax(boardCopy, currentDepth - 1, Color.getOpposite(currentPlayer));
+                MinimaxRet eval = minimax(boardCopy, currentDepth - 1, Color.getOpposite(currentPlayer), player);
                 if(minimaxRet.value < eval.value) {
                     minimaxRet.move = move;
                     minimaxRet.value = eval.value;
@@ -86,7 +86,7 @@ public class MiniMax implements Algorithm{
             for(Move move : moves) {
                 Board boardCopy = (Board)board.clone();
                 boardCopy.movePieceAndUpdate(move);
-                MinimaxRet eval = minimax(boardCopy, currentDepth - 1, Color.getOpposite(currentPlayer));
+                MinimaxRet eval = minimax(boardCopy, currentDepth - 1, Color.getOpposite(currentPlayer), player);
                 if(minimaxRet.value > eval.value) {
                     minimaxRet.move = move;
                     minimaxRet.value = eval.value;

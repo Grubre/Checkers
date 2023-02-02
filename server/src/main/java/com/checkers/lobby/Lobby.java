@@ -49,20 +49,26 @@ public class Lobby implements CommandListener, CommandVisitor<Void> {
     }
 
     public void sendToPlayer(int playerId, Response response) {
-        connectedPlayers.get(playerId).onResponse(response);
+        synchronized (connectedPlayers) {
+            connectedPlayers.get(playerId).onResponse(response);
+        }
     }
 
     public void broadcastToPlayers(Predicate<Integer> test, Response response) {
-        connectedPlayers.forEach((id, player) -> {
-            if (test.test(id)) {
-                player.onResponse(response);
-            }
-        });
+        synchronized (connectedPlayers) {
+            connectedPlayers.forEach((id, player) -> {
+                if (test.test(id)) {
+                    player.onResponse(response);
+                }
+            });
+        }
     }
 
     public void broadcastToAllPlayers(Response response) {
-        for (ResponseListener player : connectedPlayers.values()) {
-            player.onResponse(response);
+        synchronized (connectedPlayers) {
+            for (ResponseListener player : connectedPlayers.values()) {
+                player.onResponse(response);
+            }
         }
     }
 
