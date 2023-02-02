@@ -9,8 +9,10 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import lombok.Synchronized;
+import lombok.Getter;
 
 public class DatabaseConnection {
+    @Getter
     private SessionFactory sessionFactory;
     static DatabaseConnection singleton;
 

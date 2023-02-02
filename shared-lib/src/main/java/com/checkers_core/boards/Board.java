@@ -10,7 +10,7 @@ import com.checkers_core.pawns.AbstractPawn;
 import com.checkers_core.pawns.AbstractPawnFactory;
 import com.checkers_core.rules.AbstractRuleFactory;
 
-public abstract class Board {
+public abstract class Board implements Cloneable{
     public enum Color {
         BLACK(0),
         WHITE(1);
@@ -148,6 +148,14 @@ public abstract class Board {
     public void setupBoard() {
         ruleFactory.setupBoard(this, this.pawnFactory);
     }
+
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
+
+    // public abstract Board clone();
+
     public Optional<Board.Color> gameOver() {
         return ruleFactory.gameOver(this);
     }
