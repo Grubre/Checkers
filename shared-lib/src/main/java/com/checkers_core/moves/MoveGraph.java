@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import com.checkers_core.boards.Board;
+import com.checkers_core.boards.Board.BoardPos;
 
 public class MoveGraph {
     private final int xDim;
@@ -43,13 +44,12 @@ public class MoveGraph {
         }
     }
 
-    // TODO
     public List<Move> getMaximalMoves() {
         List<Move> moves = new ArrayList<Move>();
         for(int j = 0; j < yDim; j++) {
-            for(int i = 0; j < xDim; i++) {
-                if(movePerPawn[i][j] != null) {
-                    movePerPawn[i][j].toMaxMoveList(moves, null);
+            for(int i = 0; i < xDim; i++) {
+                if(movePerPawn[i][j] != null && movePerPawn[i][j].possibleMoves.size() > 0) {
+                    movePerPawn[i][j].toMaxMoveList(moves, new ArrayList<BoardPos>());
                 }
             }
         }

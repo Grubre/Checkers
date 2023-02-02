@@ -15,7 +15,9 @@ public class BasicBoard extends Board {
 
         for (int j = 0; j < board.yDim; j++) {
             for (int i = 0; i < board.xDim; i++) {
-                board.setPiece(i, j, (AbstractPawn)getPiece(i, j).clone());
+                if(getPiece(i,j) != null) {
+                    board.setPiece(i, j, (AbstractPawn)getPiece(i, j).clone());
+                }
             }
         }
 
