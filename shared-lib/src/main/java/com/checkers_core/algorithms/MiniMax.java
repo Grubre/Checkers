@@ -58,13 +58,14 @@ public class MiniMax implements Algorithm{
     };
 
     private MinimaxRet minimax(Board board, Integer currentDepth, Board.Color currentPlayer) throws CloneNotSupportedException {
-        // if depth == 0 || is leaf return 0;
-        if(currentDepth == 0) {
-            return new MinimaxRet(evalBoard(board), null);
-        }
-
+        
         MoveGraph moveGraph = board.getPossibleMovesForColor(currentPlayer);
         List<Move> moves = moveGraph.getMaximalMoves();
+        
+        // if depth == 0 || is leaf return 0;
+        if(currentDepth == 0 || moves == null || moves.isEmpty()) {
+            return new MinimaxRet(evalBoard(board), null);
+        }
 
         MinimaxRet minimaxRet = new MinimaxRet(0, null);
         // if maximizing player then

@@ -17,7 +17,6 @@ import com.checkers_core.boards.Board;
 import com.checkers_core.boards.Board.Color;
 import com.checkers_core.moves.Move;
 import com.checkers_core.moves.MoveGraph;
-import com.checkers_core.moves.MoveNode;
 import com.checkers_core.pawns.AbstractPawn;
 import com.checkers_core.pawns.BasicPawnFactory;
 import com.checkers_core.rules.BasicVariantRuleFactory;
@@ -56,7 +55,16 @@ public class MiniMaxTest {
     public void miniMaxTest() {
         BasicBoard board = new BasicBoard(8, 8, new BasicPawnFactory(), new BasicVariantRuleFactory());
         board.setupBoard();
-        Algorithm miniMax = new MiniMax(1);
+        Algorithm miniMax = new MiniMax(10);
+        Move bestMove = miniMax.getBestMove(board, Color.WHITE);
+
+        assertNotNull(bestMove);
+    }
+
+    @Test
+    public void miniMaxCaptureTest() {
+        BasicBoard board = new BasicBoard(8, 8, new BasicPawnFactory(), new BasicVariantRuleFactory());
+        Algorithm miniMax = new MiniMax(10);
         Move bestMove = miniMax.getBestMove(board, Color.WHITE);
 
         assertNotNull(bestMove);
