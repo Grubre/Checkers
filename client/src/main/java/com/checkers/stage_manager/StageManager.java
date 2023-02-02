@@ -12,6 +12,7 @@ import com.checkers.main_menu.MainMenuController;
 import com.checkers.playmode_menu.PlaymodeMenuController;
 import com.checkers.game.GameController;
 import com.checkers.game.MultiGameController;
+import com.checkers.game.ReplayGameController;
 import com.checkers.game.SingleGameController;
 import com.checkers_core.VariantStartDescription;
 
@@ -39,6 +40,12 @@ public class StageManager{
     public void switchToMultiGame(VariantStartDescription desc, ServerConnection connection) {
         System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
         gameController = new MultiGameController(this, desc, connection);
+        changeControllerIfNeeded(gameController);
+    }
+
+    public void switchToReplayGame(VariantStartDescription desc, ServerConnection connection) {
+        System.out.println(desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor());
+        gameController = new ReplayGameController(this, desc, connection);
         changeControllerIfNeeded(gameController);
     }
 

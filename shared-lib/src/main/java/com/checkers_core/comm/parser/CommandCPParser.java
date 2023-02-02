@@ -8,8 +8,10 @@ import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
+import com.checkers_core.comm.command.ListReplaysCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
+import com.checkers_core.comm.command.NextMoveCommand;
 import com.checkers_core.comm.command.ResignCommand;
 import com.checkers_core.comm.command.WatchReplayCommand;
 
@@ -55,11 +57,14 @@ public class CommandCPParser implements CommandParser {
             else if("LISTLOBBIES".equals(words[0])) {
                 return new ListLobbyCommand();
             }
+            else if("LISTREPLAYS".equals(words[0])) {
+                return new ListReplaysCommand();
+            }
             else if("DISCONNECT".equals(words[0])) {
                 return new DisconnectCommand();
             }
             else if("NEXTMOVE".equals(words[0])) {
-                return new DisconnectCommand();
+                return new NextMoveCommand();
             }
             else {
                 throw new ParsingException();

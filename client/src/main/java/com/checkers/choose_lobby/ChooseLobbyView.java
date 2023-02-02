@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,7 @@ public class ChooseLobbyView extends StageView{
 
     private Button gameCreateButton;
     private Button refreshButton;
+    private ToggleButton replays;
     private ListView<Integer> list;
     private static Image img = new Image("refresh-icon.png");
     
@@ -53,6 +55,8 @@ public class ChooseLobbyView extends StageView{
             }
         });
 
+        replays = new ToggleButton("Replays");
+
         HBox hBox = new HBox();
         styleComponent(hBox);
         AnchorPane.setTopAnchor(hBox, 0.0);
@@ -60,7 +64,7 @@ public class ChooseLobbyView extends StageView{
         AnchorPane.setBottomAnchor(hBox, 0.0);
         AnchorPane.setRightAnchor(hBox, 0.0);
         hBox.getChildren().addAll(gameCreateButton, refreshButton);
-        vBox.getChildren().addAll(lobbyLabel, list, hBox);
+        vBox.getChildren().addAll(lobbyLabel, list, hBox, replays);
     }
 
     public void setLobbys(ObservableList<Integer> items)
@@ -74,6 +78,10 @@ public class ChooseLobbyView extends StageView{
 
     public Integer getSelectedLobby() {
         return list.getSelectionModel().getSelectedItem();
+    }
+    
+    public boolean getShowReplays() {
+        return replays.isSelected();
     }
 
     private void setButtons()

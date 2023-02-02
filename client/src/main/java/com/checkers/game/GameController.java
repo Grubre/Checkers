@@ -22,8 +22,14 @@ public class GameController implements StageController {
     public GameController(StageManager manager, VariantStartDescription desc) {
         this.manager = manager;
         this.boardModel = new BoardFactory().createBoard(desc);
-        this.playerColorId = Board.Color.fromString(desc.getColor()).getId(); 
-        this.view = new GameView(boardModel, Board.Color.fromString(desc.getColor()), this);
+
+        Board.Color col = Board.Color.fromString(desc.getColor());
+
+        if (col != null) {
+            this.playerColorId = col.getId(); 
+        }
+        
+        this.view = new GameView(boardModel, col, this);
     }
 
     @Override
@@ -49,4 +55,6 @@ public class GameController implements StageController {
     public void endTurn() {
         moveQueue.clear();
     }
+
+    public void click() {}
 }

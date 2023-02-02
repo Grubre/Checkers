@@ -43,7 +43,7 @@ public abstract class Board implements Cloneable{
             return switch (color.toLowerCase(Locale.US)) {
                 case "black" -> BLACK;
                 case "white" -> WHITE;
-                default -> throw new IllegalArgumentException();
+                default -> null;
             };
         }
     }

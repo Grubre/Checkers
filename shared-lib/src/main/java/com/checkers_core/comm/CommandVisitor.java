@@ -5,6 +5,7 @@ import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.ErrorCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
+import com.checkers_core.comm.command.ListReplaysCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.NextMoveCommand;
@@ -48,6 +49,10 @@ public interface CommandVisitor<T> {
     }
 
     default T visitWatchReplayCommand(WatchReplayCommand command) {
+        return onUnimplemented(command);
+    }
+
+    default T visitListReplaysCommand(ListReplaysCommand command) {
         return onUnimplemented(command);
     }
 }

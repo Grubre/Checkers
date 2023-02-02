@@ -82,8 +82,7 @@ public class GameLobby extends Lobby {
             for (int tileId : command.getTileIds()) {
                 BoardPos targetPos = new BoardPos(tileId % board.xDim, tileId / board.xDim);
                 board.movePiece(piecePos, targetPos);
-                piecePos = targetPos;
-    
+                
                 MoveEntry move = new MoveEntry();
                 move.setTurn_number(turn_number);
                 move.setMove_number(moveNumber);
@@ -93,8 +92,9 @@ public class GameLobby extends Lobby {
                 move.setTarget_x(targetPos.x);
                 move.setTarget_y(targetPos.y);
                 DatabaseUtil.persist(move);
-    
+                
                 moveNumber += 1;
+                piecePos = targetPos;
             }
             turn_number += 1;
             
