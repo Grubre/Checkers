@@ -7,6 +7,7 @@ import com.checkers_core.boards.Board;
 import com.checkers_core.boards.BoardFactory;
 import com.checkers_core.boards.Board.BoardPos;
 import com.checkers_core.comm.CommandCPSerializer;
+import com.checkers_core.comm.command.Command;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.ResignCommand;
@@ -34,9 +35,7 @@ public class GameLobby extends Lobby {
         
         //TODO Insert game logic
         
-        broadcastToPlayers(new PlayerDisconnectedResponse(playerId));
-        
-        closeIfEmpty();
+        broadcastToAllPlayers(new PlayerDisconnectedResponse(playerId));
 
         return null;
     }
@@ -45,11 +44,11 @@ public class GameLobby extends Lobby {
     public Void visitResign(ResignCommand command) {
         int playerId = command.getPlayerId();
         
-        transferPlayerTo(playerId, command.getSource(), mainHub);
+        transferPlayerTo(playerId, mainHub);
         
         //TODO Insert game logic
         
-        broadcastToPlayers(new PlayerDisconnectedResponse(playerId));
+        broadcastToAllPlayers(new PlayerDisconnectedResponse(playerId));
         
         closeIfEmpty();
         
@@ -66,25 +65,14 @@ public class GameLobby extends Lobby {
             board.movePiece(piecePos, targetPos);
             piecePos = targetPos;
         }
-
         
         System.out.println(new CommandCPSerializer().serialize(command));
         
-        for (int id : connectedPlayers.keySet()) {
-            if (command.getPlayerId() != id) {
-                sendToPlayer(id, new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds()));
-            }
-        }
+        broadcastToPlayers((id) -> id != command.getPlayerId(), new PieceMovedResponse(command.getPlayerId(), command.getPieceX(), command.getPieceY(), command.getTileIds()));
         
         if (board.gameOver().isPresent()) {
-            int colorId = switch (board.gameOver().get()) {
-                case WHITE -> 0;
-                case BLACK -> 1;
-            };
-
-            broadcastToPlayers(new EndOfGameResponse(colorId));
+            broadcastToAllPlayers(new EndOfGameResponse(board.gameOver().get().getId()));
         }
-        
         
         return null;
     }
@@ -98,6 +86,12 @@ public class GameLobby extends Lobby {
     public VariantStartDescription getDesc() {
         return desc;
     }
+
+    @Override
+    public void onCommand(Command command) {
+        super.onCommand(command);
+        this.closeIfEmpty();
+    }    
 
     public VariantStartDescription getAnotherColoredDesc() {
         String oppos = switch (desc.getColor().toLowerCase(Locale.US)) {

@@ -48,9 +48,9 @@ public class Hub extends Lobby {
 
         Lobby newLobby = getLobby(newGameId);
     
-        sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId, command.getDesc()));
+        sendToPlayer(playerId, new GameConnectionSuccessfulResponse(newGameId, command.getDesc(), playerId));
         
-        transferPlayerTo(playerId, command.getSource(), newLobby);
+        transferPlayerTo(playerId, newLobby);
 
         return null;
     }
@@ -63,8 +63,8 @@ public class Hub extends Lobby {
         GameLobby lobby = getLobby(gameId);
 
         if (lobby != null) {
-            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, lobby.getAnotherColoredDesc()));
-            transferPlayerTo(playerId, command.getSource(), lobby);
+            sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, lobby.getAnotherColoredDesc(), playerId));
+            transferPlayerTo(playerId, lobby);
         }
         else {
             sendToPlayer(playerId, new GameConnectionUnsuccessfulResponse());

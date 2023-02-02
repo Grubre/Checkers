@@ -31,7 +31,7 @@ public class ResponseCPSerializer implements ResponseSerializer, ResponseVisitor
     @Override
     public String visitGameConnectionSuccessful(GameConnectionSuccessfulResponse response) {
         VariantStartDescription desc = response.getDesc();
-        return "GCS " + response.getGameId() + " " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor();
+        return "GCS " + response.getGameId() + " " + response.getPlayerId() + " " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor();
         
     }
 

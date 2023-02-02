@@ -17,4 +17,8 @@ public class SendingConnection {
     public void sendMessage(String message) {
         output.println(message);
     }
+
+    public void close() {
+        this.output.close();
+    }
 }

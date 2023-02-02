@@ -2,45 +2,56 @@ package com.checkers.lobby;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 import com.checkers_core.comm.command.Command;
 import com.checkers_core.resp.ResponseListener;
 import com.checkers_core.resp.response.Response;
 import com.checkers_core.resp.response.WrongCommandResponse;
+import com.checkers.connection.PlayerConnection;
 import com.checkers_core.comm.CommandListener;
-import com.checkers_core.comm.CommandSender;
 import com.checkers_core.comm.CommandVisitor;
 
 public class Lobby implements CommandListener, CommandVisitor<Void> {
-    Map<Integer, ResponseListener> connectedPlayers = new TreeMap<>();
+    private Map<Integer, PlayerConnection> connectedPlayers = new TreeMap<>();
 
-    public void addPlayer(int playerId, ResponseListener listener) {
-        connectedPlayers.put(playerId, listener);
+    public void addPlayer(int playerId, PlayerConnection player) {
+        connectedPlayers.put(playerId, player);
+        player.setListener(this);
     }
 
-    public ResponseListener getPlayer(int playerId) {
+    public PlayerConnection getPlayer(int playerId) {
         return connectedPlayers.get(playerId);
+    }
+
+    public PlayerConnection removePlayer(int playerId) {
+        PlayerConnection player = connectedPlayers.remove(playerId);
+        player.setListener(null);
+        return player;
     }
 
     public int getNumberOfPlayers() {
         return connectedPlayers.size();
     }
-
-    public ResponseListener removePlayer(int playerId) {
-        return connectedPlayers.remove(playerId);
-    }
-
-    public void transferPlayerTo(int playerId, CommandSender commPlayer, Lobby otherLobby) {
-        ResponseListener respPlayer = removePlayer(playerId);
-        otherLobby.addPlayer(playerId, respPlayer);
-        commPlayer.setListener(otherLobby);
+    
+    public void transferPlayerTo(int playerId, Lobby otherLobby) {
+        PlayerConnection player = removePlayer(playerId);
+        otherLobby.addPlayer(playerId, player);
     }
 
     public void sendToPlayer(int playerId, Response response) {
         connectedPlayers.get(playerId).onResponse(response);
     }
 
-    public void broadcastToPlayers(Response response) {
+    public void broadcastToPlayers(Predicate<Integer> test, Response response) {
+        connectedPlayers.forEach((id, player) -> {
+            if (test.test(id)) {
+                player.onResponse(response);
+            }
+        });
+    }
+
+    public void broadcastToAllPlayers(Response response) {
         for (ResponseListener player : connectedPlayers.values()) {
             player.onResponse(response);
         }
