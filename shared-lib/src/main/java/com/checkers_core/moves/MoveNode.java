@@ -56,7 +56,9 @@ public class MoveNode implements Iterable<MoveNode>{
 
         Move move = new Move(new ArrayList<>(visitedFields), removedPawns);
 
-        list.add(move);
+        if(possibleMoves == null || possibleMoves.isEmpty()) {
+            list.add(move);
+        }
 
         for (MoveNode newMove : possibleMoves) {
             if(newMove.isMarkedForMove()) {
