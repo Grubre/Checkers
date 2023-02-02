@@ -37,9 +37,14 @@ public class MultiGameCreationController implements GameCreationController, Resp
         };
 
         VariantStartDescription desc = new VariantStartDescription(view.getWidth(), view.getHeight(), variant, view.getColor());
+        boolean bot = switch (view.getBot()) {
+            case "Against player" -> false;
+            case "Against AI" -> true;
+            default -> false;
+        };
 
         state = State.WAITING_FOR_CONFIRMATION;
-        connection.getListener().onCommand(new NewGameCommand(desc));
+        connection.getListener().onCommand(new NewGameCommand(desc, bot));
     }
 
     @Override

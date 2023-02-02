@@ -9,6 +9,7 @@ import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.NextMoveCommand;
 import com.checkers_core.comm.command.ResignCommand;
+import com.checkers_core.comm.command.WatchReplayCommand;
 
 public interface CommandVisitor<T> {
     
@@ -43,6 +44,10 @@ public interface CommandVisitor<T> {
     }
 
     default T visitNextMove(NextMoveCommand command) {
+        return onUnimplemented(command);
+    }
+
+    default T visitWatchReplayCommand(WatchReplayCommand command) {
         return onUnimplemented(command);
     }
 }

@@ -23,6 +23,7 @@ public class GameCreationView extends StageView{
     private TextArea textArea;
     private ComboBox<String> variantComboBox;
     private ComboBox<String> colorComboBox;
+    private ComboBox<String> botComboBox;
 
     public GameCreationView(GameCreationController controller)
     {
@@ -90,6 +91,12 @@ public class GameCreationView extends StageView{
         colorComboBox.getSelectionModel().selectFirst();
         colorComboBox.getSelectionModel().getSelectedItem();
 
+        ObservableList<String> bot = FXCollections.observableArrayList (
+            "Against player", "Against AI");
+        botComboBox = new ComboBox<String>(bot);
+        botComboBox.getSelectionModel().selectFirst();
+        botComboBox.getSelectionModel().getSelectedItem();
+
         startGameButton = new Button("Start");
         startGameButton.setOnAction(onAction -> {
             controller.game();
@@ -106,7 +113,7 @@ public class GameCreationView extends StageView{
                                 widthLabel, widthSlider,
                                 heightLabel, heightSlider,
                                 variantComboBox, colorComboBox,
-                                startGameButton);
+                                startGameButton, botComboBox);
     }
 
     private void setDescription()
@@ -142,5 +149,9 @@ public class GameCreationView extends StageView{
 
     public String getColor() {
         return colorComboBox.getSelectionModel().getSelectedItem();
+    }
+
+    public String getBot() {
+        return botComboBox.getSelectionModel().getSelectedItem();
     }
 }

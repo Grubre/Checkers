@@ -16,23 +16,31 @@ public class Lobby implements CommandListener, CommandVisitor<Void> {
     private Map<Integer, PlayerConnection> connectedPlayers = new TreeMap<>();
 
     public void addPlayer(int playerId, PlayerConnection player) {
-        connectedPlayers.put(playerId, player);
-        player.setListener(this);
-        onPlayerJoin(playerId);
+        synchronized (connectedPlayers) {
+            connectedPlayers.put(playerId, player);
+            player.setListener(this);
+            onPlayerJoin(playerId);
+        }
     }
 
     public PlayerConnection getPlayer(int playerId) {
-        return connectedPlayers.get(playerId);
+        synchronized (connectedPlayers) {
+            return connectedPlayers.get(playerId);
+        }
     }
 
     public PlayerConnection removePlayer(int playerId) {
-        PlayerConnection player = connectedPlayers.remove(playerId);
-        player.setListener(null);
-        return player;
+        synchronized (connectedPlayers) {
+            PlayerConnection player = connectedPlayers.remove(playerId);
+            player.setListener(null);
+            return player;
+        }
     }
 
     public int getNumberOfPlayers() {
-        return connectedPlayers.size();
+        synchronized (connectedPlayers) {
+            return connectedPlayers.size();
+        }
     }
     
     public void transferPlayerTo(int playerId, Lobby otherLobby) {

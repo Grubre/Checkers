@@ -10,6 +10,7 @@ import com.checkers_core.comm.command.MovePieceCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.NextMoveCommand;
 import com.checkers_core.comm.command.ResignCommand;
+import com.checkers_core.comm.command.WatchReplayCommand;
 
 public class CommandCPSerializer implements CommandSerializer, CommandVisitor<String> {
 
@@ -46,7 +47,12 @@ public class CommandCPSerializer implements CommandSerializer, CommandVisitor<St
     @Override
     public String visitNewGame(NewGameCommand command) {
         VariantStartDescription desc = command.getDesc();
-        return "NEWGAME " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor();
+        return "NEWGAME " + desc.getWidth() + " " + desc.getHeight() + " " + desc.getName() + " " + desc.getColor() + " " + command.isWithBot();
+    }
+
+    @Override
+    public String visitWatchReplayCommand(WatchReplayCommand command) {
+        return "REPLAY " + command.getMatchId();
     }
 
     @Override

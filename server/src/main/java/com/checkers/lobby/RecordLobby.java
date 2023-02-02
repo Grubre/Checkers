@@ -8,18 +8,21 @@ import com.checkers.database.DatabaseUtil;
 import com.checkers.database.MatchEntry;
 import com.checkers.database.MoveEntry;
 import com.checkers_core.VariantStartDescription;
+import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.NextMoveCommand;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.PieceMovedResponse;
 
 public class RecordLobby extends Lobby {
     
+    Hub hub;
     List<MoveEntry> moves;
     MatchEntry match;
     int turn_number;
     int gameId;
 
-    public RecordLobby(int matchId, int gameId) {
+    public RecordLobby(Hub hub, int matchId, int gameId) {
+        this.hub = hub;
         moves = DatabaseUtil.getMovesByMatchId(matchId);
         match = DatabaseUtil.getMatchById(matchId);
         this.gameId = gameId;
@@ -27,7 +30,7 @@ public class RecordLobby extends Lobby {
 
     @Override
     public void onPlayerJoin(int playerId) {
-        VariantStartDescription desc = new VariantStartDescription(match.getBoard_width(), match.getBoard_height(), match.getVariant().getType(), "NONE");
+        VariantStartDescription desc = new VariantStartDescription(match.getBoard_width(), match.getBoard_height(), match.getVariant().getType(), "none");
 
         sendToPlayer(playerId, new GameConnectionSuccessfulResponse(gameId, desc, playerId));
     }
@@ -56,5 +59,22 @@ public class RecordLobby extends Lobby {
         broadcastToAllPlayers(new PieceMovedResponse(-1, pieceX, pieceY, tileIds));
 
         return null;
+    }
+
+    @Override
+    public Void visitDisconnect(DisconnectCommand command) {
+        int playerId = command.getPlayerId();
+        
+        removePlayer(playerId);
+
+        closeIfEmpty();
+
+        return null;
+    }
+
+    private void closeIfEmpty() {
+        if (getNumberOfPlayers() == 0) {
+            hub.closeLobby(this);
+        }
     }
 }

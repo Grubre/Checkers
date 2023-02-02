@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.checkers.connection.BotConnection;
 import com.checkers_core.VariantStartDescription;
+import com.checkers_core.boards.Board;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
 import com.checkers_core.comm.command.NewGameCommand;
+import com.checkers_core.comm.command.WatchReplayCommand;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
 import com.checkers_core.resp.response.GameConnectionUnsuccessfulResponse;
 import com.checkers_core.resp.response.LobbyListResponse;
 import com.checkers_core.resp.response.Response;
 
 public class Hub extends Lobby {
-    Map<Integer, GameLobby> openLobbies = new TreeMap<>();
+    Map<Integer, Lobby> openLobbies = new TreeMap<>();
     int internalIdCounter = 1;
 
     public int createLobby(VariantStartDescription desc) {
@@ -24,21 +27,42 @@ public class Hub extends Lobby {
 
         GameLobby newLobby = new GameLobby(this, desc, gameId);
 
-        openLobbies.put(gameId, newLobby);
+        synchronized(openLobbies) {
+            openLobbies.put(gameId, newLobby);
+        }
+
+        return gameId;
+    }
+
+    public int createReplayLobby(int matchId) {
+        int gameId = internalIdCounter;
+        internalIdCounter++;
+
+        RecordLobby newLobby = new RecordLobby(this, matchId, gameId);
+
+        synchronized(openLobbies) {
+            openLobbies.put(gameId, newLobby);
+        }
 
         return gameId;
     }
 
     public Lobby getLobby(int gameId) {
-        return openLobbies.get(gameId);
+        synchronized(openLobbies) {
+            return openLobbies.get(gameId);
+        }
     }
 
     public void closeLobby(int gameId) {
-        openLobbies.remove(gameId);
+        synchronized(openLobbies) {
+            openLobbies.remove(gameId);
+        }
     }
 
     public void closeLobby(Lobby lobby) {
-        openLobbies.values().remove(lobby);
+        synchronized(openLobbies) {
+            openLobbies.values().remove(lobby);
+        }
     }
 
     @Override
@@ -49,6 +73,13 @@ public class Hub extends Lobby {
         Lobby newLobby = getLobby(newGameId);
         
         transferPlayerTo(playerId, newLobby);
+
+        if (command.isWithBot()) {
+            VariantStartDescription desc = command.getDesc();
+            VariantStartDescription botDesc = new VariantStartDescription(desc.getWidth(), desc.getHeight(), desc.getName(), Board.Color.getOpposite(Board.Color.fromString(desc.getColor())).toString());
+            BotConnection bot = new BotConnection(botDesc);
+            newLobby.addPlayer(-1, bot);
+        }
 
         return null;
     }
@@ -70,15 +101,26 @@ public class Hub extends Lobby {
         return null;
     }
 
-    public Void visitListLobby(ListLobbyCommand command) {
-
-        Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
-
+    public Void visitWatchReplayCommand(WatchReplayCommand command) {
+        int newGameId = createReplayLobby(command.getMatchId());
         int playerId = command.getPlayerId();
 
-        sendToPlayer(playerId, resp);
+        Lobby newLobby = getLobby(newGameId);
+        
+        transferPlayerTo(playerId, newLobby);
 
         return null;
+    }
+
+    public Void visitListLobby(ListLobbyCommand command) {
+        synchronized(openLobbies) {
+            Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
+            int playerId = command.getPlayerId();
+    
+            sendToPlayer(playerId, resp);
+    
+            return null;
+        }
     }
 
     @Override
