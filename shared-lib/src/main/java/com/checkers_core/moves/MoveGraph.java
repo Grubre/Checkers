@@ -48,7 +48,7 @@ public class MoveGraph {
         List<Move> moves = new ArrayList<Move>();
         for(int j = 0; j < yDim; j++) {
             for(int i = 0; i < xDim; i++) {
-                if(movePerPawn[i][j] != null && movePerPawn[i][j].possibleMoves.size() > 0) {
+                if(movePerPawn[i][j] != null && movePerPawn[i][j].isMarkedForMove()) {
                     movePerPawn[i][j].toMaxMoveList(moves, new ArrayList<BoardPos>());
                 }
             }

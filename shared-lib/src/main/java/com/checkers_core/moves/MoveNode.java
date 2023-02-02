@@ -62,7 +62,7 @@ public class MoveNode implements Iterable<MoveNode>{
 
         for (MoveNode newMove : possibleMoves) {
             if(newMove.isMarkedForMove()) {
-                newMove.toMoveList(list, visitedFields);
+                newMove.toMaxMoveList(list, visitedFields);
             }
         }
 
@@ -103,6 +103,9 @@ public class MoveNode implements Iterable<MoveNode>{
 
     private void countAndMark(int externalMaxSize)
     {
+        if(maxPathLen >= externalMaxSize) {
+            markedMax = true;
+        }
         for(MoveNode child : possibleMoves)
         {
             if(child.maxPathLen + 1 >= externalMaxSize)

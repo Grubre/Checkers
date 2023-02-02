@@ -30,7 +30,7 @@ public class CommandCPParserTest {
 
     @Test
     public void newGameCommandTest() throws ParsingException {
-        Command comm = parser.parse("NEWGAME 5 5 BASIC White");
+        Command comm = parser.parse("NEWGAME 5 5 BASIC White false");
         
         assert comm instanceof NewGameCommand;
     }
