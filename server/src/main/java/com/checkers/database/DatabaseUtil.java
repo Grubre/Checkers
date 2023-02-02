@@ -27,7 +27,7 @@ public final class DatabaseUtil {
         try {
             Session session = DatabaseConnection.getInstance().getSessionFactory().openSession();
             session.beginTransaction();
-            List<MoveEntry> entries = session.createQuery("SELECT m FROM MoveEntry m WHERE m.match_id = :id", MoveEntry.class)
+            List<MoveEntry> entries = session.createQuery("SELECT m FROM MoveEntry m WHERE match.id = :id", MoveEntry.class)
                 .setParameter("id", matchId)
                 .getResultList();
             session.getTransaction().commit();
@@ -43,7 +43,7 @@ public final class DatabaseUtil {
         try {
             Session session = DatabaseConnection.getInstance().getSessionFactory().openSession();
             session.beginTransaction();
-            MatchEntry entry = session.createQuery("SELECT m FROM MatchEntry m WHERE ID = :id", MatchEntry.class)
+            MatchEntry entry = session.createQuery("SELECT m FROM MatchEntry m WHERE id = :id", MatchEntry.class)
                 .setParameter("id", matchId)
                 .getSingleResult();
             session.getTransaction().commit();
@@ -52,6 +52,21 @@ public final class DatabaseUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static List<Integer> getSavedMatches() {
+        try {
+            Session session = DatabaseConnection.getInstance().getSessionFactory().openSession();
+            session.beginTransaction();
+            List<Integer> entries = session.createQuery("SELECT m.id FROM MatchEntry m", Integer.class)
+                .getResultList();
+            session.getTransaction().commit();
+            session.close();
+            return entries;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
         }
     }
 

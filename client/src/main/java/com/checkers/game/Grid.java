@@ -90,6 +90,8 @@ public class Grid extends GridPane {
 
     public void handleClick(Tile tile)
     {
+        controller.click();
+
         if(tile.getState() == State.LEGALMOVE)
         {
             board.movePiece(new BoardPos(selected.getX(), selected.getY()),

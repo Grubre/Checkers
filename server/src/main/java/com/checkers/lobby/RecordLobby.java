@@ -18,7 +18,7 @@ public class RecordLobby extends Lobby {
     Hub hub;
     List<MoveEntry> moves;
     MatchEntry match;
-    int turn_number;
+    int turn_number = 0;
     int gameId;
 
     public RecordLobby(Hub hub, int matchId, int gameId) {
@@ -39,6 +39,7 @@ public class RecordLobby extends Lobby {
 
         List<MoveEntry> filteredMoves = moves.stream().filter((entry) -> entry.getTurn_number() == turn_number).toList();
 
+        
         if(filteredMoves.isEmpty()) {
             return null;
         }
@@ -55,8 +56,11 @@ public class RecordLobby extends Lobby {
             //tile.getX() + tile.getY() * board.xDim
             tileIds.add(tileX + tileY * match.getBoard_width());
         }
-
+        
+        System.out.println(tileIds);
         broadcastToAllPlayers(new PieceMovedResponse(-1, pieceX, pieceY, tileIds));
+
+        turn_number += 1;
 
         return null;
     }

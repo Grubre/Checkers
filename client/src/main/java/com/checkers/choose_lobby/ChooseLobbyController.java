@@ -5,6 +5,8 @@ import com.checkers.controller.StageController;
 import com.checkers.stage_manager.StageManager;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
+import com.checkers_core.comm.command.ListReplaysCommand;
+import com.checkers_core.comm.command.WatchReplayCommand;
 import com.checkers_core.resp.ResponseListener;
 import com.checkers_core.resp.ResponseVisitor;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
@@ -46,7 +48,12 @@ public class ChooseLobbyController implements StageController, ResponseListener,
 
     public void refreshList() {
         state = State.WAITING_FOR_LIST;
-        connection.getListener().onCommand(new ListLobbyCommand());
+        if(view.getShowReplays()) {
+            connection.getListener().onCommand(new ListReplaysCommand());
+        }
+        else {
+            connection.getListener().onCommand(new ListLobbyCommand());
+        }
     }
 
     public void createGame() {
@@ -59,7 +66,12 @@ public class ChooseLobbyController implements StageController, ResponseListener,
             return;
         }
         state = State.WAITING_FOR_CONNECT;
-        connection.getListener().onCommand(new JoinGameCommand(lobbyId));
+        if (view.getShowReplays()) {
+            connection.getListener().onCommand(new WatchReplayCommand(lobbyId));
+        }
+        else {
+            connection.getListener().onCommand(new JoinGameCommand(lobbyId));
+        }
     }
 
     @Override
@@ -67,7 +79,12 @@ public class ChooseLobbyController implements StageController, ResponseListener,
         if (state == State.WAITING_FOR_CONNECT) {
             state = State.NOT_WAITING;
     
-            manager.switchToMultiGame(response.getDesc(), connection);
+            if(view.getShowReplays()) {
+                manager.switchToReplayGame(response.getDesc(), connection);
+            }
+            else {
+                manager.switchToMultiGame(response.getDesc(), connection);
+            }
         }
         return null;
     }

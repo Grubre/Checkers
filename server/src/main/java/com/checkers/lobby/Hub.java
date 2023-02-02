@@ -5,11 +5,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.checkers.connection.BotConnection;
+import com.checkers.database.DatabaseUtil;
 import com.checkers_core.VariantStartDescription;
 import com.checkers_core.boards.Board;
 import com.checkers_core.comm.command.DisconnectCommand;
 import com.checkers_core.comm.command.JoinGameCommand;
 import com.checkers_core.comm.command.ListLobbyCommand;
+import com.checkers_core.comm.command.ListReplaysCommand;
 import com.checkers_core.comm.command.NewGameCommand;
 import com.checkers_core.comm.command.WatchReplayCommand;
 import com.checkers_core.resp.response.GameConnectionSuccessfulResponse;
@@ -101,6 +103,7 @@ public class Hub extends Lobby {
         return null;
     }
 
+    @Override
     public Void visitWatchReplayCommand(WatchReplayCommand command) {
         int newGameId = createReplayLobby(command.getMatchId());
         int playerId = command.getPlayerId();
@@ -112,6 +115,7 @@ public class Hub extends Lobby {
         return null;
     }
 
+    @Override
     public Void visitListLobby(ListLobbyCommand command) {
         synchronized(openLobbies) {
             Response resp = new LobbyListResponse(new ArrayList<>(openLobbies.keySet()));
@@ -121,6 +125,15 @@ public class Hub extends Lobby {
     
             return null;
         }
+    }
+
+    @Override
+    public Void visitListReplaysCommand(ListReplaysCommand command) {
+        Response resp = new LobbyListResponse(DatabaseUtil.getSavedMatches());
+        System.out.println(DatabaseUtil.getSavedMatches());
+        sendToPlayer(command.getPlayerId(), resp);
+        return null;
+        
     }
 
     @Override
