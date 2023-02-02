@@ -1,6 +1,8 @@
 package com.checkers_core.moves;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.checkers_core.boards.Board;
 
@@ -43,6 +45,14 @@ public class MoveGraph {
 
     // TODO
     public List<Move> getMaximalMoves() {
-        return null;
+        List<Move> moves = new ArrayList<Move>();
+        for(int j = 0; j < yDim; j++) {
+            for(int i = 0; j < xDim; i++) {
+                if(movePerPawn[i][j] != null) {
+                    movePerPawn[i][j].toMaxMoveList(moves, null);
+                }
+            }
+        }
+        return moves;
     }
 }

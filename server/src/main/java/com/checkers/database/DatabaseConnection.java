@@ -8,7 +8,10 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import lombok.Getter;
+
 public class DatabaseConnection {
+    @Getter
     private SessionFactory sessionFactory;
 
     public void connect() {
@@ -33,7 +36,6 @@ public class DatabaseConnection {
             session.persist(entry);
             session.getTransaction().commit();
             session.close();
-            session = sessionFactory.openSession();
         } catch (Exception e) {
             
             e.printStackTrace();

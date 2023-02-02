@@ -51,6 +51,23 @@ public class MoveNode implements Iterable<MoveNode>{
 
     }
 
+    public void toMaxMoveList(List<Move> list, List<BoardPos> visitedFields) {
+        visitedFields.add(new BoardPos(x, y));
+
+        Move move = new Move(new ArrayList<>(visitedFields), removedPawns);
+
+        list.add(move);
+
+        for (MoveNode newMove : possibleMoves) {
+            if(newMove.isMarkedForMove()) {
+                newMove.toMoveList(list, visitedFields);
+            }
+        }
+
+        visitedFields.remove(visitedFields.size() - 1);
+
+    }
+
     public BoardPos getPos()
     {
         return new BoardPos(x, y);
@@ -97,11 +114,6 @@ public class MoveNode implements Iterable<MoveNode>{
     public boolean isMarkedForMove()
     {
         return markedMax;
-    }
-
-    // TODO
-    public List<Move> getPossibleMoves() {
-        return null;
     }
 
     @Override
